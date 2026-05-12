@@ -1,0 +1,64 @@
+{
+  "source": "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/SwiftGenUI/Features/DynamicUI/DynamicUIView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "SwiftGenUI",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 38
+        }
+      },
+      {
+        "comment": "",
+        "key": "Turn natural language into safe native SwiftUI screens.",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 42
+        }
+      },
+      {
+        "comment": "",
+        "key": "Prompt",
+        "location": {
+          "startingColumn": 23,
+          "startingLine": 54
+        }
+      },
+      {
+        "comment": "",
+        "key": "Validate",
+        "location": {
+          "startingColumn": 23,
+          "startingLine": 55
+        }
+      },
+      {
+        "comment": "",
+        "key": "Render",
+        "location": {
+          "startingColumn": 23,
+          "startingLine": 56
+        }
+      },
+      {
+        "comment": "",
+        "key": "Generated JSON will be shown here after validation.",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 127
+        }
+      },
+      {
+        "comment": "",
+        "key": "Empty",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 122
+        }
+      }
+    ]
+  },
+  "version": 1
+}

@@ -1,0 +1,23 @@
+{
+  "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/SwiftGenUI/App/AppFeature.swift" : {
+    "const-values" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/AppFeature.swiftconstvalues",
+    "dependencies" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/AppFeature.d",
+    "diagnostics" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/AppFeature.dia",
+    "object" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/AppFeature.o",
+    "swift-dependencies" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/AppFeature.swiftdeps"
+  },
+  "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/SwiftGenUI/Features/DynamicUI/DynamicUIFeature.swift" : {
+    "const-values" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/DynamicUIFeature.swiftconstvalues",
+    "dependencies" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/DynamicUIFeature.d",
+    "diagnostics" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/DynamicUIFeature.dia",
+    "object" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/DynamicUIFeature.o",
+    "swift-dependencies" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/DynamicUIFeature.swiftdeps"
+  },
+  "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/SwiftGenUI/Features/DynamicUI/DynamicUIView.swift" : {
+    "const-values" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/DynamicUIView.swiftconstvalues",
+    "dependencies" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/DynamicUIView.d",
+    "diagnostics" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/DynamicUIView.dia",
+    "object" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/DynamicUIView.o",
+    "swift-dependencies" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/DynamicUIView.swiftdeps"
+  }
+}

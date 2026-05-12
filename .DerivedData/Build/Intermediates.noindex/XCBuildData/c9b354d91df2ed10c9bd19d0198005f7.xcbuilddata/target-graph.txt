@@ -1,0 +1,2 @@
+Target dependency graph (1 target)
+Target 'SwiftGenUI' in project 'SwiftGenUI' (no dependencies)

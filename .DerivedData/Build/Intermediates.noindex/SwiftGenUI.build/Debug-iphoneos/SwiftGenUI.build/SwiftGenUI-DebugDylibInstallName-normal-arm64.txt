@@ -1,0 +1,1 @@
+@rpath/SwiftGenUI.debug.dylib

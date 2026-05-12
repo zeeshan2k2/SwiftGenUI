@@ -1,0 +1,24 @@
+{
+  "source": "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/SwiftGenUI/CoreUI/Components/EmptyPreviewCanvas.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Your generated SwiftUI screen will appear here.",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 24
+        }
+      },
+      {
+        "comment": "",
+        "key": "Start with a precise layout prompt. Beauty comes after the renderer can obey.",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 29
+        }
+      }
+    ]
+  },
+  "version": 1
+}

@@ -1,0 +1,219 @@
+{
+  "" : {
+    "diagnostics" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/SwiftGenUI-primary.dia",
+    "emit-module-dependencies" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/SwiftGenUI-primary-emit-module.d",
+    "emit-module-diagnostics" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/SwiftGenUI-primary-emit-module.dia",
+    "pch" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/SwiftGenUI-primary-Bridging-header.pch",
+    "swift-dependencies" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/SwiftGenUI-primary.swiftdeps"
+  },
+  "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/DerivedSources/GeneratedAssetSymbols.swift" : {
+    "const-values" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/GeneratedAssetSymbols.swiftconstvalues",
+    "dependencies" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/GeneratedAssetSymbols.d",
+    "diagnostics" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/GeneratedAssetSymbols.dia",
+    "index-unit-output-path" : "/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/GeneratedAssetSymbols.o",
+    "llvm-bc" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/GeneratedAssetSymbols.bc",
+    "object" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/GeneratedAssetSymbols.o",
+    "swift-dependencies" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/GeneratedAssetSymbols.swiftdeps",
+    "swiftmodule" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/GeneratedAssetSymbols~partial.swiftmodule"
+  },
+  "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/SwiftGenUI/App/AppFeature.swift" : {
+    "const-values" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/AppFeature.swiftconstvalues",
+    "dependencies" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/AppFeature.d",
+    "diagnostics" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/AppFeature.dia",
+    "index-unit-output-path" : "/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/AppFeature.o",
+    "llvm-bc" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/AppFeature.bc",
+    "object" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/AppFeature.o",
+    "swift-dependencies" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/AppFeature.swiftdeps",
+    "swiftmodule" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/AppFeature~partial.swiftmodule"
+  },
+  "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/SwiftGenUI/ContentView.swift" : {
+    "const-values" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/ContentView.swiftconstvalues",
+    "dependencies" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/ContentView.d",
+    "diagnostics" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/ContentView.dia",
+    "index-unit-output-path" : "/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/ContentView.o",
+    "llvm-bc" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/ContentView.bc",
+    "object" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/ContentView.o",
+    "swift-dependencies" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/ContentView.swiftdeps",
+    "swiftmodule" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/ContentView~partial.swiftmodule"
+  },
+  "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/SwiftGenUI/DesignSystem/AppTheme.swift" : {
+    "const-values" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/AppTheme.swiftconstvalues",
+    "dependencies" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/AppTheme.d",
+    "diagnostics" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/AppTheme.dia",
+    "index-unit-output-path" : "/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/AppTheme.o",
+    "llvm-bc" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/AppTheme.bc",
+    "object" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/AppTheme.o",
+    "swift-dependencies" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/AppTheme.swiftdeps",
+    "swiftmodule" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/AppTheme~partial.swiftmodule"
+  },
+  "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/SwiftGenUI/Engine/Capabilities/AppCapability.swift" : {
+    "const-values" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/AppCapability.swiftconstvalues",
+    "dependencies" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/AppCapability.d",
+    "diagnostics" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/AppCapability.dia",
+    "index-unit-output-path" : "/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/AppCapability.o",
+    "llvm-bc" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/AppCapability.bc",
+    "object" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/AppCapability.o",
+    "swift-dependencies" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/AppCapability.swiftdeps",
+    "swiftmodule" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/AppCapability~partial.swiftmodule"
+  },
+  "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/SwiftGenUI/Engine/Capabilities/CapabilityExecutor.swift" : {
+    "const-values" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/CapabilityExecutor.swiftconstvalues",
+    "dependencies" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/CapabilityExecutor.d",
+    "diagnostics" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/CapabilityExecutor.dia",
+    "index-unit-output-path" : "/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/CapabilityExecutor.o",
+    "llvm-bc" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/CapabilityExecutor.bc",
+    "object" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/CapabilityExecutor.o",
+    "swift-dependencies" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/CapabilityExecutor.swiftdeps",
+    "swiftmodule" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/CapabilityExecutor~partial.swiftmodule"
+  },
+  "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/SwiftGenUI/Engine/Capabilities/CapabilityRegistry.swift" : {
+    "const-values" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/CapabilityRegistry.swiftconstvalues",
+    "dependencies" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/CapabilityRegistry.d",
+    "diagnostics" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/CapabilityRegistry.dia",
+    "index-unit-output-path" : "/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/CapabilityRegistry.o",
+    "llvm-bc" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/CapabilityRegistry.bc",
+    "object" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/CapabilityRegistry.o",
+    "swift-dependencies" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/CapabilityRegistry.swiftdeps",
+    "swiftmodule" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/CapabilityRegistry~partial.swiftmodule"
+  },
+  "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/SwiftGenUI/Engine/Rendering/DynamicRenderer.swift" : {
+    "const-values" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/DynamicRenderer.swiftconstvalues",
+    "dependencies" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/DynamicRenderer.d",
+    "diagnostics" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/DynamicRenderer.dia",
+    "index-unit-output-path" : "/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/DynamicRenderer.o",
+    "llvm-bc" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/DynamicRenderer.bc",
+    "object" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/DynamicRenderer.o",
+    "swift-dependencies" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/DynamicRenderer.swiftdeps",
+    "swiftmodule" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/DynamicRenderer~partial.swiftmodule"
+  },
+  "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/SwiftGenUI/Engine/Schema/CapabilityCall.swift" : {
+    "const-values" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/CapabilityCall.swiftconstvalues",
+    "dependencies" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/CapabilityCall.d",
+    "diagnostics" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/CapabilityCall.dia",
+    "index-unit-output-path" : "/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/CapabilityCall.o",
+    "llvm-bc" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/CapabilityCall.bc",
+    "object" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/CapabilityCall.o",
+    "swift-dependencies" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/CapabilityCall.swiftdeps",
+    "swiftmodule" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/CapabilityCall~partial.swiftmodule"
+  },
+  "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/SwiftGenUI/Engine/Schema/ComponentProps.swift" : {
+    "const-values" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/ComponentProps.swiftconstvalues",
+    "dependencies" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/ComponentProps.d",
+    "diagnostics" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/ComponentProps.dia",
+    "index-unit-output-path" : "/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/ComponentProps.o",
+    "llvm-bc" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/ComponentProps.bc",
+    "object" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/ComponentProps.o",
+    "swift-dependencies" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/ComponentProps.swiftdeps",
+    "swiftmodule" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/ComponentProps~partial.swiftmodule"
+  },
+  "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/SwiftGenUI/Engine/Schema/ComponentType.swift" : {
+    "const-values" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/ComponentType.swiftconstvalues",
+    "dependencies" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/ComponentType.d",
+    "diagnostics" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/ComponentType.dia",
+    "index-unit-output-path" : "/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/ComponentType.o",
+    "llvm-bc" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/ComponentType.bc",
+    "object" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/ComponentType.o",
+    "swift-dependencies" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/ComponentType.swiftdeps",
+    "swiftmodule" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/ComponentType~partial.swiftmodule"
+  },
+  "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/SwiftGenUI/Engine/Schema/UIComponent.swift" : {
+    "const-values" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/UIComponent.swiftconstvalues",
+    "dependencies" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/UIComponent.d",
+    "diagnostics" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/UIComponent.dia",
+    "index-unit-output-path" : "/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/UIComponent.o",
+    "llvm-bc" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/UIComponent.bc",
+    "object" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/UIComponent.o",
+    "swift-dependencies" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/UIComponent.swiftdeps",
+    "swiftmodule" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/UIComponent~partial.swiftmodule"
+  },
+  "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/SwiftGenUI/Engine/Validation/SchemaValidator.swift" : {
+    "const-values" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/SchemaValidator.swiftconstvalues",
+    "dependencies" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/SchemaValidator.d",
+    "diagnostics" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/SchemaValidator.dia",
+    "index-unit-output-path" : "/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/SchemaValidator.o",
+    "llvm-bc" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/SchemaValidator.bc",
+    "object" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/SchemaValidator.o",
+    "swift-dependencies" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/SchemaValidator.swiftdeps",
+    "swiftmodule" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/SchemaValidator~partial.swiftmodule"
+  },
+  "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/SwiftGenUI/Engine/Validation/ValidationError.swift" : {
+    "const-values" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/ValidationError.swiftconstvalues",
+    "dependencies" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/ValidationError.d",
+    "diagnostics" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/ValidationError.dia",
+    "index-unit-output-path" : "/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/ValidationError.o",
+    "llvm-bc" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/ValidationError.bc",
+    "object" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/ValidationError.o",
+    "swift-dependencies" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/ValidationError.swiftdeps",
+    "swiftmodule" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/ValidationError~partial.swiftmodule"
+  },
+  "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/SwiftGenUI/Features/DynamicUI/DynamicUIFeature.swift" : {
+    "const-values" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/DynamicUIFeature.swiftconstvalues",
+    "dependencies" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/DynamicUIFeature.d",
+    "diagnostics" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/DynamicUIFeature.dia",
+    "index-unit-output-path" : "/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/DynamicUIFeature.o",
+    "llvm-bc" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/DynamicUIFeature.bc",
+    "object" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/DynamicUIFeature.o",
+    "swift-dependencies" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/DynamicUIFeature.swiftdeps",
+    "swiftmodule" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/DynamicUIFeature~partial.swiftmodule"
+  },
+  "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/SwiftGenUI/Features/DynamicUI/DynamicUIView.swift" : {
+    "const-values" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/DynamicUIView.swiftconstvalues",
+    "dependencies" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/DynamicUIView.d",
+    "diagnostics" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/DynamicUIView.dia",
+    "index-unit-output-path" : "/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/DynamicUIView.o",
+    "llvm-bc" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/DynamicUIView.bc",
+    "object" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/DynamicUIView.o",
+    "swift-dependencies" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/DynamicUIView.swiftdeps",
+    "swiftmodule" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/DynamicUIView~partial.swiftmodule"
+  },
+  "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/SwiftGenUI/Infrastructure/LLM/LLMClient.swift" : {
+    "const-values" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/LLMClient.swiftconstvalues",
+    "dependencies" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/LLMClient.d",
+    "diagnostics" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/LLMClient.dia",
+    "index-unit-output-path" : "/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/LLMClient.o",
+    "llvm-bc" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/LLMClient.bc",
+    "object" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/LLMClient.o",
+    "swift-dependencies" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/LLMClient.swiftdeps",
+    "swiftmodule" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/LLMClient~partial.swiftmodule"
+  },
+  "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/SwiftGenUI/Infrastructure/LLM/OllamaClient.swift" : {
+    "const-values" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/OllamaClient.swiftconstvalues",
+    "dependencies" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/OllamaClient.d",
+    "diagnostics" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/OllamaClient.dia",
+    "index-unit-output-path" : "/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/OllamaClient.o",
+    "llvm-bc" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/OllamaClient.bc",
+    "object" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/OllamaClient.o",
+    "swift-dependencies" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/OllamaClient.swiftdeps",
+    "swiftmodule" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/OllamaClient~partial.swiftmodule"
+  },
+  "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/SwiftGenUI/Infrastructure/LLM/PromptBuilder.swift" : {
+    "const-values" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/PromptBuilder.swiftconstvalues",
+    "dependencies" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/PromptBuilder.d",
+    "diagnostics" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/PromptBuilder.dia",
+    "index-unit-output-path" : "/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/PromptBuilder.o",
+    "llvm-bc" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/PromptBuilder.bc",
+    "object" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/PromptBuilder.o",
+    "swift-dependencies" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/PromptBuilder.swiftdeps",
+    "swiftmodule" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/PromptBuilder~partial.swiftmodule"
+  },
+  "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/SwiftGenUI/Shared/Extensions/Color+Hex.swift" : {
+    "const-values" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/Color+Hex.swiftconstvalues",
+    "dependencies" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/Color+Hex.d",
+    "diagnostics" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/Color+Hex.dia",
+    "index-unit-output-path" : "/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/Color+Hex.o",
+    "llvm-bc" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/Color+Hex.bc",
+    "object" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/Color+Hex.o",
+    "swift-dependencies" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/Color+Hex.swiftdeps",
+    "swiftmodule" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/Color+Hex~partial.swiftmodule"
+  },
+  "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/SwiftGenUI/SwiftGenUIApp.swift" : {
+    "const-values" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/SwiftGenUIApp.swiftconstvalues",
+    "dependencies" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/SwiftGenUIApp.d",
+    "diagnostics" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/SwiftGenUIApp.dia",
+    "index-unit-output-path" : "/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/SwiftGenUIApp.o",
+    "llvm-bc" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/SwiftGenUIApp.bc",
+    "object" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/SwiftGenUIApp.o",
+    "swift-dependencies" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/SwiftGenUIApp.swiftdeps",
+    "swiftmodule" : "/Users/zeeshanwaheed/Desktop/Swift/SwiftGenUI/.DerivedData/Build/Intermediates.noindex/SwiftGenUI.build/Debug-iphoneos/SwiftGenUI.build/Objects-normal/arm64/SwiftGenUIApp~partial.swiftmodule"
+  }
+}
