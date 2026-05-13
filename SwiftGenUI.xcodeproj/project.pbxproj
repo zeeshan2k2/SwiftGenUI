@@ -10,6 +10,7 @@
 		C1D9C7A72FB3CC5700EA80B7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D9C7A42FB3CC5700EA80B7 /* ContentView.swift */; };
 		C1D9C7A82FB3CC5700EA80B7 /* SwiftGenUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D9C7A52FB3CC5700EA80B7 /* SwiftGenUIApp.swift */; };
 		C1D9C7A92FB3CC5700EA80B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1D9C7A32FB3CC5700EA80B7 /* Assets.xcassets */; };
+		C1D9C7AC2FB3DA7E00EA80B7 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = C1D9C7AB2FB3DA7E00EA80B7 /* ComposableArchitecture */; };
 		C2A000012FB3D10000EA80B7 /* AppFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A001012FB3D10000EA80B7 /* AppFeature.swift */; };
 		C2A000022FB3D10000EA80B7 /* DynamicUIFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A001022FB3D10000EA80B7 /* DynamicUIFeature.swift */; };
 		C2A000032FB3D10000EA80B7 /* DynamicUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A001032FB3D10000EA80B7 /* DynamicUIView.swift */; };
@@ -26,6 +27,10 @@
 		C2A0000E2FB3D10000EA80B7 /* LLMClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A0010E2FB3D10000EA80B7 /* LLMClient.swift */; };
 		C2A0000F2FB3D10000EA80B7 /* OllamaClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A0010F2FB3D10000EA80B7 /* OllamaClient.swift */; };
 		C2A000102FB3D10000EA80B7 /* PromptBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A001102FB3D10000EA80B7 /* PromptBuilder.swift */; };
+		C2A0001A2FB3E60000EA80B7 /* OllamaGenerateRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A0011A2FB3E60000EA80B7 /* OllamaGenerateRequestDTO.swift */; };
+		C2A0001B2FB3E60000EA80B7 /* OllamaGenerateResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A0011B2FB3E60000EA80B7 /* OllamaGenerateResponseDTO.swift */; };
+		C2A0001C2FB3E60000EA80B7 /* LLMRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A0011C2FB3E60000EA80B7 /* LLMRepository.swift */; };
+		C2A0001D2FB3E60000EA80B7 /* OllamaLLMRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A0011D2FB3E60000EA80B7 /* OllamaLLMRepository.swift */; };
 		C2A000112FB3D10000EA80B7 /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A001112FB3D10000EA80B7 /* AppTheme.swift */; };
 		C2A000122FB3D10000EA80B7 /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A001122FB3D10000EA80B7 /* Color+Hex.swift */; };
 		C2A000132FB3D10000EA80B7 /* AppCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A001132FB3D10000EA80B7 /* AppCard.swift */; };
@@ -58,6 +63,10 @@
 		C2A0010E2FB3D10000EA80B7 /* LLMClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLMClient.swift; sourceTree = "<group>"; };
 		C2A0010F2FB3D10000EA80B7 /* OllamaClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OllamaClient.swift; sourceTree = "<group>"; };
 		C2A001102FB3D10000EA80B7 /* PromptBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromptBuilder.swift; sourceTree = "<group>"; };
+		C2A0011A2FB3E60000EA80B7 /* OllamaGenerateRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OllamaGenerateRequestDTO.swift; sourceTree = "<group>"; };
+		C2A0011B2FB3E60000EA80B7 /* OllamaGenerateResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OllamaGenerateResponseDTO.swift; sourceTree = "<group>"; };
+		C2A0011C2FB3E60000EA80B7 /* LLMRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLMRepository.swift; sourceTree = "<group>"; };
+		C2A0011D2FB3E60000EA80B7 /* OllamaLLMRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OllamaLLMRepository.swift; sourceTree = "<group>"; };
 		C2A001112FB3D10000EA80B7 /* AppTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
 		C2A001122FB3D10000EA80B7 /* Color+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
 		C2A001132FB3D10000EA80B7 /* AppCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCard.swift; sourceTree = "<group>"; };
@@ -74,6 +83,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1D9C7AC2FB3DA7E00EA80B7 /* ComposableArchitecture in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -196,11 +206,31 @@
 		C2A0020A2FB3D10000EA80B7 /* LLM */ = {
 			isa = PBXGroup;
 			children = (
+				C2A002112FB3E60000EA80B7 /* DTOs */,
+				C2A002122FB3E60000EA80B7 /* Repositories */,
 				C2A0010E2FB3D10000EA80B7 /* LLMClient.swift */,
 				C2A0010F2FB3D10000EA80B7 /* OllamaClient.swift */,
 				C2A001102FB3D10000EA80B7 /* PromptBuilder.swift */,
 			);
 			path = LLM;
+			sourceTree = "<group>";
+		};
+		C2A002112FB3E60000EA80B7 /* DTOs */ = {
+			isa = PBXGroup;
+			children = (
+				C2A0011A2FB3E60000EA80B7 /* OllamaGenerateRequestDTO.swift */,
+				C2A0011B2FB3E60000EA80B7 /* OllamaGenerateResponseDTO.swift */,
+			);
+			path = DTOs;
+			sourceTree = "<group>";
+		};
+		C2A002122FB3E60000EA80B7 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				C2A0011C2FB3E60000EA80B7 /* LLMRepository.swift */,
+				C2A0011D2FB3E60000EA80B7 /* OllamaLLMRepository.swift */,
+			);
+			path = Repositories;
 			sourceTree = "<group>";
 		};
 		C2A0020B2FB3D10000EA80B7 /* Theme */ = {
@@ -276,6 +306,7 @@
 			);
 			name = SwiftGenUI;
 			packageProductDependencies = (
+				C1D9C7AB2FB3DA7E00EA80B7 /* ComposableArchitecture */,
 			);
 			productName = SwiftGenUI;
 			productReference = C1D9C7952FB3CC4E00EA80B7 /* SwiftGenUI.app */;
@@ -305,6 +336,9 @@
 			);
 			mainGroup = C1D9C78C2FB3CC4E00EA80B7;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				C1D9C7AA2FB3DA7E00EA80B7 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = C1D9C7962FB3CC4E00EA80B7 /* Products */;
 			projectDirPath = "";
@@ -347,6 +381,10 @@
 				C2A0000E2FB3D10000EA80B7 /* LLMClient.swift in Sources */,
 				C2A0000F2FB3D10000EA80B7 /* OllamaClient.swift in Sources */,
 				C2A000102FB3D10000EA80B7 /* PromptBuilder.swift in Sources */,
+				C2A0001A2FB3E60000EA80B7 /* OllamaGenerateRequestDTO.swift in Sources */,
+				C2A0001B2FB3E60000EA80B7 /* OllamaGenerateResponseDTO.swift in Sources */,
+				C2A0001C2FB3E60000EA80B7 /* LLMRepository.swift in Sources */,
+				C2A0001D2FB3E60000EA80B7 /* OllamaLLMRepository.swift in Sources */,
 				C2A000112FB3D10000EA80B7 /* AppTheme.swift in Sources */,
 				C2A000122FB3D10000EA80B7 /* Color+Hex.swift in Sources */,
 				C2A000132FB3D10000EA80B7 /* AppCard.swift in Sources */,
@@ -571,6 +609,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C1D9C7AA2FB3DA7E00EA80B7 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.25.5;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C1D9C7AB2FB3DA7E00EA80B7 /* ComposableArchitecture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C1D9C7AA2FB3DA7E00EA80B7 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
+			productName = ComposableArchitecture;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C1D9C78D2FB3CC4E00EA80B7 /* Project object */;
 }

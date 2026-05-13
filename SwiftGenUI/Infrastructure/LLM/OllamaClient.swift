@@ -2,21 +2,19 @@
 //  OllamaClient.swift
 //  SwiftGenUI
 //
-//  Local Ollama-backed LLM client placeholder.
+//  Local Ollama-backed LLM client adapter.
 //
 
 import Foundation
 
-struct OllamaClient: LLMClient {
-    func generateSchema(from prompt: String) async throws -> UIComponent {
-        _ = prompt
+struct OllamaClient {
+    private let repository: LLMRepository
 
-        return UIComponent(
-            id: UUID().uuidString,
-            type: .text,
-            props: ComponentProps(text: "Generated UI placeholder"),
-            children: nil,
-            capability: nil
-        )
+    init(repository: LLMRepository = OllamaLLMRepository()) {
+        self.repository = repository
+    }
+
+    func generateSchema(from prompt: String) async throws -> UIComponent {
+        try await repository.generateSchema(from: prompt)
     }
 }

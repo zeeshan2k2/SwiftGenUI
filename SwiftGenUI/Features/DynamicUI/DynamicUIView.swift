@@ -5,10 +5,11 @@
 //  SwiftUI screen placeholder for the dynamic UI generator.
 //
 
+import ComposableArchitecture
 import SwiftUI
 
 struct DynamicUIView: View {
-    @State private var state = DynamicUIFeature.State()
+    @Bindable var store: StoreOf<DynamicUIFeature>
 
     var body: some View {
         ZStack {
@@ -66,19 +67,21 @@ struct DynamicUIView: View {
                 AppSectionTitle(title: "What do you want to build?", systemImage: "wand.and.stars")
 
                 AppPromptTextEditor(
-                    text: $state.prompt,
+                    text: $store.prompt,
                     placeholder: "Example: Create a signup form with two fields and an orange continue button."
                 )
 
                 exampleChips
 
                 AppPrimaryButton(
-                    title: "Generate Native UI",
-                    leadingSystemImage: "sparkles",
+                    title: store.isGenerating ? "Generating..." : "Generate Native UI",
+                    leadingSystemImage: store.isGenerating ? "hourglass" : "sparkles",
                     trailingSystemImage: "arrow.right"
                 ) {
-                    state.generationStatus = state.prompt.isEmpty ? "Add a prompt first" : "Preview queued"
+                    store.send(.generateTapped)
                 }
+                .disabled(store.isGenerating)
+                .opacity(store.isGenerating ? 0.72 : 1)
             }
         }
     }
@@ -86,11 +89,9 @@ struct DynamicUIView: View {
     private var exampleChips: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 10) {
-                ForEach(state.examples, id: \.self) { example in
-                    AppChip(title: example, isSelected: state.selectedExample == example) {
-                        state.selectedExample = example
-                        state.prompt = state.examplePrompts[example] ?? example
-                        state.generationStatus = "Example loaded"
+                ForEach(store.examples, id: \.self) { example in
+                    AppChip(title: example, isSelected: store.selectedExample == example) {
+                        store.send(.exampleSelected(example))
                     }
                 }
             }
@@ -103,12 +104,17 @@ struct DynamicUIView: View {
                 HStack {
                     AppSectionTitle(title: "Live native preview", systemImage: "rectangle.on.rectangle")
                     Spacer()
-                    Text(state.generationStatus)
+                    Text(store.generationStatus)
                         .font(.system(size: 12, weight: .bold, design: .monospaced))
                         .foregroundStyle(AppTheme.sage)
                 }
 
-                EmptyPreviewCanvas(minHeight: minHeight)
+                if let component = store.generatedComponent {
+                    DynamicRenderer(component: component)
+                        .frame(maxWidth: .infinity, minHeight: minHeight)
+                } else {
+                    EmptyPreviewCanvas(minHeight: minHeight)
+                }
             }
         }
     }
@@ -119,12 +125,12 @@ struct DynamicUIView: View {
                 HStack {
                     AppSectionTitle(title: "Schema inspector", systemImage: "curlybraces")
                     Spacer()
-                    Text("Empty")
+                    Text(store.generatedSchema == nil ? "Empty" : "Ready")
                         .font(.system(size: 12, weight: .bold, design: .monospaced))
                         .foregroundStyle(.white.opacity(0.45))
                 }
 
-                Text("Generated JSON will be shown here after validation.")
+                Text(store.generatedSchema ?? "Generated JSON will be shown here after validation.")
                     .font(.system(size: 14, weight: .medium, design: .monospaced))
                     .foregroundStyle(AppTheme.mutedText)
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -137,6 +143,10 @@ struct DynamicUIView: View {
 
 struct DynamicUIView_Previews: PreviewProvider {
     static var previews: some View {
-        DynamicUIView()
+        DynamicUIView(
+            store: Store(initialState: DynamicUIFeature.State()) {
+                DynamicUIFeature()
+            }
+        )
     }
 }
