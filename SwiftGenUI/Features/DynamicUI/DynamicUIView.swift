@@ -16,40 +16,45 @@ struct DynamicUIView: View {
             AppTheme.workspaceGradient
                 .ignoresSafeArea()
 
-            GeometryReader { proxy in
-                ScrollView(showsIndicators: false) {
-                    VStack(alignment: .leading, spacing: AppTheme.cardSpacing) {
-                        header
-                        promptComposer
-                        previewCanvas(minHeight: max(260, proxy.size.height * 0.32))
-                        schemaCard
-                    }
+            VStack(alignment: .leading, spacing: AppTheme.cardSpacing) {
+                titleBar
                     .padding(.horizontal, AppTheme.contentPadding)
                     .padding(.top, 18)
-                    .padding(.bottom, 28)
+
+                GeometryReader { proxy in
+                    ScrollView(showsIndicators: false) {
+                        VStack(alignment: .leading, spacing: AppTheme.cardSpacing) {
+                            header
+                            promptComposer
+                            previewCanvas(minHeight: max(260, proxy.size.height * 0.36))
+                            schemaCard
+                        }
+                        .padding(.horizontal, AppTheme.contentPadding)
+                        .padding(.bottom, 28)
+                    }
                 }
             }
         }
     }
 
+    private var titleBar: some View {
+        HStack(alignment: .center) {
+            Text("SwiftGenUI")
+                .font(.system(size: 38, weight: .black, design: .rounded))
+                .foregroundStyle(.white)
+
+            Spacer(minLength: 16)
+
+            AppStatusBadge(title: "Local Qwen")
+        }
+    }
+
     private var header: some View {
         VStack(alignment: .leading, spacing: 14) {
-            HStack(alignment: .top) {
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("SwiftGenUI")
-                        .font(.system(size: 38, weight: .black, design: .rounded))
-                        .foregroundStyle(.white)
-
-                    Text("Turn natural language into safe native SwiftUI screens.")
-                        .font(.system(size: 15, weight: .medium, design: .rounded))
-                        .foregroundStyle(AppTheme.mutedText)
-                        .fixedSize(horizontal: false, vertical: true)
-                }
-
-                Spacer(minLength: 16)
-
-                AppStatusBadge(title: "Local Qwen")
-            }
+            Text("Turn natural language into safe native SwiftUI screens.")
+                .font(.system(size: 15, weight: .medium, design: .rounded))
+                .foregroundStyle(AppTheme.mutedText)
+                .fixedSize(horizontal: false, vertical: true)
 
             HStack(spacing: 10) {
                 Label("Prompt", systemImage: "text.badge.sparkles")
