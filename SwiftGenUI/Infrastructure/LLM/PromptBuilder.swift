@@ -34,6 +34,11 @@ struct PromptBuilder {
         - Use only supported types.
         - Use hex colors only.
         - Prefer vStack as the root.
+        - For screens, cards, forms, and grouped content, use vStack with spacing instead of zStack.
+        - Use zStack only when the user explicitly asks for overlapping layers.
+        - Do not put form fields, buttons, titles, subtitles, dividers, and footer text in the same zStack.
+        - Forms and cards should feel airy: use spacing between 16 and 24, and padding between 24 and 32.
+        - Do not make fields, buttons, divider, and footer text feel packed together.
         - Include children only for stack components.
         - Keep depth under 5 levels.
         - Do not invent actions or capabilities yet.
@@ -45,8 +50,8 @@ struct PromptBuilder {
           "id": "root",
           "type": "vStack",
           "props": {
-            "spacing": 14,
-            "padding": 18,
+            "spacing": 18,
+            "padding": 28,
             "backgroundColor": "#FFF7E8",
             "cornerRadius": 22
           },

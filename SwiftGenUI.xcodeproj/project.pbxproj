@@ -14,6 +14,7 @@
 		C2A000012FB3D10000EA80B7 /* AppFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A001012FB3D10000EA80B7 /* AppFeature.swift */; };
 		C2A000022FB3D10000EA80B7 /* DynamicUIFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A001022FB3D10000EA80B7 /* DynamicUIFeature.swift */; };
 		C2A000032FB3D10000EA80B7 /* DynamicUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A001032FB3D10000EA80B7 /* DynamicUIView.swift */; };
+		C2A0001E2FB5600000EA80B7 /* GeneratedPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A0011E2FB5600000EA80B7 /* GeneratedPreviewView.swift */; };
 		C2A000042FB3D10000EA80B7 /* UIComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A001042FB3D10000EA80B7 /* UIComponent.swift */; };
 		C2A000052FB3D10000EA80B7 /* ComponentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A001052FB3D10000EA80B7 /* ComponentType.swift */; };
 		C2A000062FB3D10000EA80B7 /* ComponentProps.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A001062FB3D10000EA80B7 /* ComponentProps.swift */; };
@@ -50,6 +51,7 @@
 		C2A001012FB3D10000EA80B7 /* AppFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFeature.swift; sourceTree = "<group>"; };
 		C2A001022FB3D10000EA80B7 /* DynamicUIFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicUIFeature.swift; sourceTree = "<group>"; };
 		C2A001032FB3D10000EA80B7 /* DynamicUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicUIView.swift; sourceTree = "<group>"; };
+		C2A0011E2FB5600000EA80B7 /* GeneratedPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneratedPreviewView.swift; sourceTree = "<group>"; };
 		C2A001042FB3D10000EA80B7 /* UIComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIComponent.swift; sourceTree = "<group>"; };
 		C2A001052FB3D10000EA80B7 /* ComponentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentType.swift; sourceTree = "<group>"; };
 		C2A001062FB3D10000EA80B7 /* ComponentProps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentProps.swift; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 			children = (
 				C2A001022FB3D10000EA80B7 /* DynamicUIFeature.swift */,
 				C2A001032FB3D10000EA80B7 /* DynamicUIView.swift */,
+				C2A0011E2FB5600000EA80B7 /* GeneratedPreviewView.swift */,
 			);
 			path = DynamicUI;
 			sourceTree = "<group>";
@@ -368,6 +371,7 @@
 				C2A000012FB3D10000EA80B7 /* AppFeature.swift in Sources */,
 				C2A000022FB3D10000EA80B7 /* DynamicUIFeature.swift in Sources */,
 				C2A000032FB3D10000EA80B7 /* DynamicUIView.swift in Sources */,
+				C2A0001E2FB5600000EA80B7 /* GeneratedPreviewView.swift in Sources */,
 				C2A000042FB3D10000EA80B7 /* UIComponent.swift in Sources */,
 				C2A000052FB3D10000EA80B7 /* ComponentType.swift in Sources */,
 				C2A000062FB3D10000EA80B7 /* ComponentProps.swift in Sources */,

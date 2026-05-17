@@ -18,7 +18,7 @@ struct DynamicRenderer: View {
         switch component.type {
         case .vStack:
             return AnyView(
-                VStack(alignment: .leading, spacing: component.props?.spacing ?? 12) {
+                VStack(alignment: .leading, spacing: component.props?.spacing ?? 16) {
                     renderChildren(component.children)
                 }
                 .modifier(ComponentStyle(props: component.props))
@@ -34,7 +34,7 @@ struct DynamicRenderer: View {
 
         case .zStack:
             return AnyView(
-                ZStack {
+                VStack(alignment: .leading, spacing: component.props?.spacing ?? 16) {
                     renderChildren(component.children)
                 }
                 .modifier(ComponentStyle(props: component.props))
@@ -45,6 +45,9 @@ struct DynamicRenderer: View {
                 Text(component.props?.text ?? "")
                     .font(.system(size: 17, weight: .semibold, design: .rounded))
                     .foregroundStyle(color(from: component.props?.foregroundColor, fallback: AppTheme.ink))
+                    .multilineTextAlignment(.leading)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     .modifier(ComponentStyle(props: component.props))
             )
 
@@ -53,12 +56,15 @@ struct DynamicRenderer: View {
                 Button(component.props?.text ?? "Button") {}
                     .font(.system(size: 16, weight: .bold, design: .rounded))
                     .foregroundStyle(color(from: component.props?.foregroundColor, fallback: .white))
-                    .padding(.horizontal, component.props?.padding ?? 16)
-                    .padding(.vertical, 12)
+                    .padding(.horizontal, component.props?.padding ?? 22)
+                    .padding(.vertical, 14)
                     .background(
                         color(from: component.props?.backgroundColor, fallback: AppTheme.amber),
                         in: RoundedRectangle(cornerRadius: component.props?.cornerRadius ?? 14)
                     )
+                    .padding(.top, 6)
+                    .padding(.bottom, 4)
+                    .frame(maxWidth: .infinity)
                     .buttonStyle(.plain)
             )
 
@@ -68,12 +74,14 @@ struct DynamicRenderer: View {
                     .font(.system(size: 15, weight: .medium, design: .rounded))
                     .foregroundStyle(AppTheme.ink.opacity(0.58))
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.horizontal, component.props?.padding ?? 14)
-                    .padding(.vertical, 12)
+                    .padding(.horizontal, component.props?.padding ?? 16)
+                    .padding(.vertical, 14)
+                    .frame(minHeight: 48)
                     .background(
                         color(from: component.props?.backgroundColor, fallback: .white),
                         in: RoundedRectangle(cornerRadius: component.props?.cornerRadius ?? 12)
                     )
+                    .padding(.vertical, 2)
             )
 
         case .spacer:

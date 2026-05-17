@@ -12,27 +12,29 @@ struct DynamicUIView: View {
     @Bindable var store: StoreOf<DynamicUIFeature>
 
     var body: some View {
-        ZStack {
-            AppTheme.workspaceGradient
-                .ignoresSafeArea()
+        NavigationStack {
+            ZStack {
+                AppTheme.workspaceGradient
+                    .ignoresSafeArea()
 
-            VStack(alignment: .leading, spacing: AppTheme.cardSpacing) {
-                titleBar
-                    .padding(.horizontal, AppTheme.contentPadding)
-                    .padding(.top, 18)
+                VStack(alignment: .leading, spacing: AppTheme.cardSpacing) {
+                    titleBar
+                        .padding(.horizontal, AppTheme.contentPadding)
+                        .padding(.top, 18)
 
-                GeometryReader { proxy in
                     ScrollView(showsIndicators: false) {
                         VStack(alignment: .leading, spacing: AppTheme.cardSpacing) {
                             header
                             promptComposer
-                            previewCanvas(minHeight: max(260, proxy.size.height * 0.36))
-                            schemaCard
                         }
                         .padding(.horizontal, AppTheme.contentPadding)
                         .padding(.bottom, 28)
                     }
                 }
+            }
+            .navigationBarHidden(true)
+            .navigationDestination(isPresented: $store.isPreviewPresented) {
+                GeneratedPreviewView(store: store)
             }
         }
     }
@@ -78,15 +80,13 @@ struct DynamicUIView: View {
 
                 exampleChips
 
-                AppPrimaryButton(
-                    title: store.isGenerating ? "Generating..." : "Generate Native UI",
-                    leadingSystemImage: store.isGenerating ? "hourglass" : "sparkles",
-                    trailingSystemImage: "arrow.right"
+                GeneratingButton(
+                    title: store.isGenerating ? "Generating native UI..." : "Generate Native UI",
+                    isGenerating: store.isGenerating
                 ) {
                     store.send(.generateTapped)
                 }
                 .disabled(store.isGenerating)
-                .opacity(store.isGenerating ? 0.72 : 1)
             }
         }
     }
@@ -102,46 +102,68 @@ struct DynamicUIView: View {
             }
         }
     }
+}
 
-    private func previewCanvas(minHeight: CGFloat) -> some View {
-        AppCard(opacity: 0.07, strokeOpacity: 0.12) {
-            VStack(alignment: .leading, spacing: 14) {
+private struct GeneratingButton: View {
+    let title: String
+    let isGenerating: Bool
+    let action: () -> Void
+
+    @State private var progress: CGFloat = 0
+
+    var body: some View {
+        Button(action: action) {
+            ZStack(alignment: .leading) {
+                RoundedRectangle(cornerRadius: 18)
+                    .fill(AppTheme.amberSoft.opacity(0.9))
+
+                GeometryReader { proxy in
+                    RoundedRectangle(cornerRadius: 18)
+                        .fill(
+                            LinearGradient(
+                                colors: [AppTheme.amberSoft, AppTheme.amber, AppTheme.cream],
+                                startPoint: .leading,
+                                endPoint: .trailing
+                            )
+                        )
+                        .frame(width: proxy.size.width * (isGenerating ? progress : 1))
+                }
+                .clipShape(RoundedRectangle(cornerRadius: 18))
+
                 HStack {
-                    AppSectionTitle(title: "Live native preview", systemImage: "rectangle.on.rectangle")
+                    Image(systemName: isGenerating ? "hourglass" : "sparkles")
+                    Text(title)
                     Spacer()
-                    Text(store.generationStatus)
-                        .font(.system(size: 12, weight: .bold, design: .monospaced))
-                        .foregroundStyle(AppTheme.sage)
+                    Image(systemName: isGenerating ? "sparkles" : "arrow.right")
                 }
-
-                if let component = store.generatedComponent {
-                    DynamicRenderer(component: component)
-                        .frame(maxWidth: .infinity, minHeight: minHeight)
-                } else {
-                    EmptyPreviewCanvas(minHeight: minHeight)
-                }
+                .font(.system(size: 16, weight: .bold, design: .rounded))
+                .foregroundStyle(AppTheme.ink)
+                .padding(.horizontal, 18)
+                .padding(.vertical, 16)
             }
+            .frame(minHeight: 56)
+        }
+        .buttonStyle(.plain)
+        .onAppear {
+            updateProgress()
+        }
+        .onChange(of: isGenerating) { _, _ in
+            updateProgress()
         }
     }
 
-    private var schemaCard: some View {
-        AppCard(opacity: 0.06, strokeOpacity: 0.10) {
-            VStack(alignment: .leading, spacing: 12) {
-                HStack {
-                    AppSectionTitle(title: "Schema inspector", systemImage: "curlybraces")
-                    Spacer()
-                    Text(store.generatedSchema == nil ? "Empty" : "Ready")
-                        .font(.system(size: 12, weight: .bold, design: .monospaced))
-                        .foregroundStyle(.white.opacity(0.45))
-                }
-
-                Text(store.generatedSchema ?? "Generated JSON will be shown here after validation.")
-                    .font(.system(size: 14, weight: .medium, design: .monospaced))
-                    .foregroundStyle(AppTheme.mutedText)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(14)
-                    .background(Color.black.opacity(0.22), in: RoundedRectangle(cornerRadius: 16))
+    private func updateProgress() {
+        guard isGenerating else {
+            withAnimation(.easeOut(duration: 0.18)) {
+                progress = 1
             }
+            return
+        }
+
+        progress = 0
+
+        withAnimation(.easeInOut(duration: 1.15)) {
+            progress = 1
         }
     }
 }

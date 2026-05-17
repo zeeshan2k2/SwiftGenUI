@@ -20,6 +20,8 @@ struct DynamicUIFeature {
         var generatedSchema: String?
         var generatedComponent: UIComponent?
         var isGenerating = false
+        var isPreviewPresented = false
+        var isSchemaInspectorPresented = false
 
         let examples = [
             "Signup form",
@@ -74,6 +76,8 @@ struct DynamicUIFeature {
                 state.generationStatus = "Example loaded"
                 state.generatedComponent = nil
                 state.generatedSchema = nil
+                state.isPreviewPresented = false
+                state.isSchemaInspectorPresented = false
                 return .none
 
             case .generateTapped:
@@ -85,6 +89,8 @@ struct DynamicUIFeature {
                 }
 
                 state.isGenerating = true
+                state.isPreviewPresented = false
+                state.isSchemaInspectorPresented = false
                 state.generationStatus = "Generating with Qwen"
                 state.generatedComponent = nil
                 state.generatedSchema = nil
@@ -108,12 +114,15 @@ struct DynamicUIFeature {
                 state.generatedComponent = component
                 state.generatedSchema = Self.prettyPrintedJSON(for: component)
                 state.generationStatus = "Schema received"
+                state.isPreviewPresented = true
                 return .none
 
             case let .schemaResponseReceived(.failure(error)):
                 state.isGenerating = false
                 state.generatedComponent = nil
                 state.generatedSchema = nil
+                state.isPreviewPresented = false
+                state.isSchemaInspectorPresented = false
                 state.generationStatus = error.message
                 return .none
             }
