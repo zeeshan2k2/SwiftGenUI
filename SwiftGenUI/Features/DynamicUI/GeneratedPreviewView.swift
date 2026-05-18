@@ -10,7 +10,6 @@ import SwiftUI
 
 struct GeneratedPreviewView: View {
     @Bindable var store: StoreOf<DynamicUIFeature>
-    @Environment(\.dismiss) private var dismiss
 
     var body: some View {
         ZStack(alignment: .bottomLeading) {
@@ -52,8 +51,6 @@ struct GeneratedPreviewView: View {
                 .padding(.leading, AppTheme.contentPadding + 8)
                 .padding(.bottom, 12)
         }
-        .navigationBarBackButtonHidden(true)
-        .toolbar(.hidden, for: .navigationBar)
         .sheet(isPresented: $store.isSchemaInspectorPresented) {
             SchemaInspectorSheet(schema: store.generatedSchema)
                 .presentationDetents([.medium, .large])
@@ -64,21 +61,6 @@ struct GeneratedPreviewView: View {
 
     private var topBar: some View {
         HStack(spacing: 14) {
-            Button {
-                dismiss()
-            } label: {
-                Image(systemName: "chevron.left")
-                    .font(.system(size: 15, weight: .black, design: .rounded))
-                    .foregroundStyle(.white)
-                    .frame(width: 38, height: 38)
-                    .background(.white.opacity(0.10), in: Circle())
-                    .overlay {
-                        Circle()
-                            .stroke(.white.opacity(0.14), lineWidth: 1)
-                    }
-            }
-            .buttonStyle(.plain)
-
             VStack(alignment: .leading, spacing: 3) {
                 Text("Generated Canvas")
                     .font(.system(size: 24, weight: .black, design: .rounded))

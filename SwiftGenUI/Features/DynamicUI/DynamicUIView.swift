@@ -110,6 +110,7 @@ private struct GeneratingButton: View {
     let action: () -> Void
 
     @State private var progress: CGFloat = 0
+    @State private var loadingCycle = 0
 
     var body: some View {
         Button(action: action) {
@@ -150,6 +151,9 @@ private struct GeneratingButton: View {
         .onChange(of: isGenerating) { _, _ in
             updateProgress()
         }
+        .onChange(of: loadingCycle) { _, _ in
+            continueLoadingIfNeeded()
+        }
     }
 
     private func updateProgress() {
@@ -164,6 +168,25 @@ private struct GeneratingButton: View {
 
         withAnimation(.easeInOut(duration: 1.15)) {
             progress = 1
+        }
+
+        continueLoadingIfNeeded()
+    }
+
+    private func continueLoadingIfNeeded() {
+        guard isGenerating else { return }
+
+        Task { @MainActor in
+            try? await Task.sleep(for: .seconds(1.15))
+            guard isGenerating else { return }
+
+            progress = 0
+
+            withAnimation(.easeInOut(duration: 1.15)) {
+                progress = 1
+            }
+
+            loadingCycle += 1
         }
     }
 }
