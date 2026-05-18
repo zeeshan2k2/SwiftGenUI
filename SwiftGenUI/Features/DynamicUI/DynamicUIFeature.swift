@@ -19,9 +19,17 @@ struct DynamicUIFeature {
         var generationStatus = "Ready"
         var generatedSchema: String?
         var generatedComponent: UIComponent?
+        var generationHistory: [HistoryItem] = []
         var isGenerating = false
         var isPreviewPresented = false
         var isSchemaInspectorPresented = false
+
+        struct HistoryItem: Identifiable, Equatable {
+            let id: String
+            let prompt: String
+            let component: UIComponent
+            let schema: String
+        }
 
         let examples = [
             "Signup form",
@@ -42,8 +50,13 @@ struct DynamicUIFeature {
         case binding(BindingAction<State>)
         case exampleSelected(String)
         case generateTapped
+        case cancelGenerationTapped
+        case historySelected(String)
+        case historyDeleteTapped(String)
         case schemaResponseReceived(Result<UIComponent, GenerationError>)
     }
+
+    private static let generationCancelID = "dynamic-ui-generation"
 
     enum GenerationError: Error, Equatable {
         case emptyResponse
@@ -108,12 +121,49 @@ struct DynamicUIFeature {
                         await send(.schemaResponseReceived(.failure(.requestFailed(error.localizedDescription))))
                     }
                 }
+                .cancellable(id: Self.generationCancelID, cancelInFlight: true)
+
+            case .cancelGenerationTapped:
+                state.isGenerating = false
+                state.generatedComponent = nil
+                state.generatedSchema = nil
+                state.isPreviewPresented = false
+                state.isSchemaInspectorPresented = false
+                state.generationStatus = "Generation cancelled"
+                return .cancel(id: Self.generationCancelID)
+
+            case let .historySelected(id):
+                guard let item = state.generationHistory.first(where: { $0.id == id }) else {
+                    return .none
+                }
+
+                state.generatedComponent = item.component
+                state.generatedSchema = item.schema
+                state.generationStatus = "Loaded from history"
+                state.isSchemaInspectorPresented = false
+                state.isPreviewPresented = true
+                return .none
+
+            case let .historyDeleteTapped(id):
+                state.generationHistory.removeAll { $0.id == id }
+                return .none
 
             case let .schemaResponseReceived(.success(component)):
+                let schema = Self.prettyPrintedJSON(for: component)
+
                 state.isGenerating = false
                 state.generatedComponent = component
-                state.generatedSchema = Self.prettyPrintedJSON(for: component)
+                state.generatedSchema = schema
                 state.generationStatus = "Schema received"
+                state.generationHistory.insert(
+                    State.HistoryItem(
+                        id: UUID().uuidString,
+                        prompt: state.prompt.trimmingCharacters(in: .whitespacesAndNewlines),
+                        component: component,
+                        schema: schema
+                    ),
+                    at: 0
+                )
                 state.isPreviewPresented = true
                 return .none
 
