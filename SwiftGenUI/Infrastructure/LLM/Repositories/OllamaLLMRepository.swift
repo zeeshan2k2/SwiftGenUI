@@ -40,7 +40,7 @@ struct OllamaLLMRepository: LLMRepository {
             keepAlive: "30s",
             options: .init(
                 temperature: 0.2,
-                numPredict: 700,
+                numPredict: 1800,
                 numContext: 4096,
                 numThread: 4
             )
@@ -48,7 +48,7 @@ struct OllamaLLMRepository: LLMRepository {
 
         var request = URLRequest(url: endpoint)
         request.httpMethod = "POST"
-        request.timeoutInterval = 120
+        request.timeoutInterval = 300
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = try jsonEncoder.encode(requestDTO)
 
