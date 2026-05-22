@@ -63,10 +63,18 @@ struct OllamaLLMRepository: LLMRepository {
         }
 
         let ollamaResponse = try jsonDecoder.decode(OllamaGenerateResponseDTO.self, from: data)
+        #if DEBUG
+        print("Ollama raw schema response:\n\(ollamaResponse.response)")
+        #endif
+
         let cleanedJSON = cleanJSONString(ollamaResponse.response)
 
         guard let componentData = cleanedJSON.data(using: .utf8) else {
             throw LLMError.invalidJSON
+        }
+
+        if let compactDTO = try? jsonDecoder.decode(CompactComponentDTO.self, from: componentData) {
+            return try compactDTO.toUIComponent()
         }
 
         return try jsonDecoder.decode(UIComponent.self, from: componentData)

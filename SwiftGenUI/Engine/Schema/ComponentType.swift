@@ -16,4 +16,7 @@ enum ComponentType: String, Codable, Equatable {
     case textField
     case spacer
     case divider
+    case card
+    case scrollView
+    case section
 }

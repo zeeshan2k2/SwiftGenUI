@@ -28,6 +28,7 @@
 		C2A0000E2FB3D10000EA80B7 /* LLMClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A0010E2FB3D10000EA80B7 /* LLMClient.swift */; };
 		C2A0000F2FB3D10000EA80B7 /* OllamaClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A0010F2FB3D10000EA80B7 /* OllamaClient.swift */; };
 		C2A000102FB3D10000EA80B7 /* PromptBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A001102FB3D10000EA80B7 /* PromptBuilder.swift */; };
+		C2A000202FBE110000EA80B7 /* CompactComponentDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A001202FBE110000EA80B7 /* CompactComponentDTO.swift */; };
 		C2A0001A2FB3E60000EA80B7 /* OllamaGenerateRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A0011A2FB3E60000EA80B7 /* OllamaGenerateRequestDTO.swift */; };
 		C2A0001B2FB3E60000EA80B7 /* OllamaGenerateResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A0011B2FB3E60000EA80B7 /* OllamaGenerateResponseDTO.swift */; };
 		C2A0001C2FB3E60000EA80B7 /* LLMRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A0011C2FB3E60000EA80B7 /* LLMRepository.swift */; };
@@ -65,6 +66,7 @@
 		C2A0010E2FB3D10000EA80B7 /* LLMClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLMClient.swift; sourceTree = "<group>"; };
 		C2A0010F2FB3D10000EA80B7 /* OllamaClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OllamaClient.swift; sourceTree = "<group>"; };
 		C2A001102FB3D10000EA80B7 /* PromptBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromptBuilder.swift; sourceTree = "<group>"; };
+		C2A001202FBE110000EA80B7 /* CompactComponentDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactComponentDTO.swift; sourceTree = "<group>"; };
 		C2A0011A2FB3E60000EA80B7 /* OllamaGenerateRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OllamaGenerateRequestDTO.swift; sourceTree = "<group>"; };
 		C2A0011B2FB3E60000EA80B7 /* OllamaGenerateResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OllamaGenerateResponseDTO.swift; sourceTree = "<group>"; };
 		C2A0011C2FB3E60000EA80B7 /* LLMRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLMRepository.swift; sourceTree = "<group>"; };
@@ -221,6 +223,7 @@
 		C2A002112FB3E60000EA80B7 /* DTOs */ = {
 			isa = PBXGroup;
 			children = (
+				C2A001202FBE110000EA80B7 /* CompactComponentDTO.swift */,
 				C2A0011A2FB3E60000EA80B7 /* OllamaGenerateRequestDTO.swift */,
 				C2A0011B2FB3E60000EA80B7 /* OllamaGenerateResponseDTO.swift */,
 			);
@@ -385,6 +388,7 @@
 				C2A0000E2FB3D10000EA80B7 /* LLMClient.swift in Sources */,
 				C2A0000F2FB3D10000EA80B7 /* OllamaClient.swift in Sources */,
 				C2A000102FB3D10000EA80B7 /* PromptBuilder.swift in Sources */,
+				C2A000202FBE110000EA80B7 /* CompactComponentDTO.swift in Sources */,
 				C2A0001A2FB3E60000EA80B7 /* OllamaGenerateRequestDTO.swift in Sources */,
 				C2A0001B2FB3E60000EA80B7 /* OllamaGenerateResponseDTO.swift in Sources */,
 				C2A0001C2FB3E60000EA80B7 /* LLMRepository.swift in Sources */,

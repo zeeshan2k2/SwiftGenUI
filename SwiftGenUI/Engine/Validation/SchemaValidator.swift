@@ -42,7 +42,7 @@ struct SchemaValidator {
 private extension ComponentType {
     var canContainChildren: Bool {
         switch self {
-        case .vStack, .hStack, .zStack:
+        case .vStack, .hStack, .zStack, .card, .scrollView, .section:
             return true
         case .text, .button, .textField, .spacer, .divider:
             return false

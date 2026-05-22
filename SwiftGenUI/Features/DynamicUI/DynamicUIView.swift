@@ -83,7 +83,8 @@ struct DynamicUIView: View {
 
                 AppPromptTextEditor(
                     text: $store.prompt,
-                    placeholder: "Example: Create a signup form with two fields and an orange continue button."
+                    placeholder: "Example: Create a signup form with two fields and an orange continue button.",
+                    isDisabled: store.isGenerating
                 )
 
                 exampleChips
@@ -105,7 +106,11 @@ struct DynamicUIView: View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 10) {
                 ForEach(store.examples, id: \.self) { example in
-                    AppChip(title: example, isSelected: store.selectedExample == example) {
+                    AppChip(
+                        title: example,
+                        isSelected: store.selectedExample == example,
+                        isDisabled: store.isGenerating
+                    ) {
                         store.send(.exampleSelected(example))
                     }
                 }
@@ -253,7 +258,7 @@ private struct HistoryRow: View {
 
     private var iconName: String {
         switch item.component.type {
-        case .vStack, .hStack, .zStack:
+        case .vStack, .hStack, .zStack, .card, .scrollView, .section:
             return "rectangle.3.group"
         case .text:
             return "textformat"
@@ -435,7 +440,8 @@ private struct GeneratingButton: View {
             .padding(.horizontal, 18)
             .padding(.vertical, 16)
         }
-        .frame(maxWidth: .infinity, minHeight: 56)
+        .frame(maxWidth: .infinity)
+        .frame(height: 56)
         .overlay {
             RoundedRectangle(cornerRadius: 18)
                 .stroke(Color.white.opacity(isGenerating ? 0.56 : 0.34), lineWidth: 1)
