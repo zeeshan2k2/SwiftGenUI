@@ -334,15 +334,16 @@ private struct ComponentStyle: ViewModifier {
 private struct ComponentLayout: ViewModifier {
     let props: ComponentProps?
     var defaultMaxWidth: CGFloat?
+    private let maximumGeneratedWidth: CGFloat = 360
 
     func body(content: Content) -> some View {
         content
             .frame(
-                width: cgFloat(props?.width),
+                width: clampedWidth(props?.width),
                 height: cgFloat(props?.height)
             )
             .frame(
-                maxWidth: cgFloat(props?.maxWidth) ?? defaultMaxWidth,
+                maxWidth: clampedMaxWidth(props?.maxWidth, fallback: defaultMaxWidth),
                 minHeight: cgFloat(props?.minHeight),
                 alignment: frameAlignment(from: props?.alignment)
             )
@@ -351,6 +352,25 @@ private struct ComponentLayout: ViewModifier {
     private func cgFloat(_ value: Double?) -> CGFloat? {
         guard let value else { return nil }
         return CGFloat(value)
+    }
+
+    private func clampedWidth(_ value: Double?) -> CGFloat? {
+        guard let value else { return nil }
+        return min(CGFloat(value), maximumGeneratedWidth)
+    }
+
+    private func clampedMaxWidth(_ value: Double?, fallback: CGFloat?) -> CGFloat? {
+        if let value {
+            return min(CGFloat(value), maximumGeneratedWidth)
+        }
+
+        guard let fallback else { return nil }
+
+        if fallback == .infinity {
+            return fallback
+        }
+
+        return min(fallback, maximumGeneratedWidth)
     }
 
     private func frameAlignment(from value: String?) -> Alignment {

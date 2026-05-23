@@ -67,7 +67,7 @@ struct DynamicUIView: View {
                 .fixedSize(horizontal: false, vertical: true)
 
             HStack(spacing: 10) {
-                Label("Prompt", systemImage: "text.badge.sparkles")
+                Label("Prompt", systemImage: "sparkles")
                 Label("Validate", systemImage: "checkmark.shield")
                 Label("Render", systemImage: "iphone")
             }
@@ -90,7 +90,7 @@ struct DynamicUIView: View {
                 exampleChips
 
                 GeneratingButton(
-                    title: store.isGenerating ? "Generating native UI..." : "Generate Native UI",
+                    title: store.generationPhase.buttonTitle,
                     isGenerating: store.isGenerating,
                     cancelAction: {
                         store.send(.cancelGenerationTapped)

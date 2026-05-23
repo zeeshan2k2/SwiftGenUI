@@ -29,13 +29,23 @@ struct GeneratedPreviewView: View {
                                 .foregroundStyle(AppTheme.sage)
                         }
 
+                        if let warning = store.generationWarning {
+                            Label(warning, systemImage: "exclamationmark.triangle.fill")
+                                .font(.system(size: 12, weight: .bold, design: .rounded))
+                                .foregroundStyle(Color(hex: "#FFE1A6"))
+                                .fixedSize(horizontal: false, vertical: true)
+                                .padding(.horizontal, 12)
+                                .padding(.vertical, 10)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .background(Color(hex: "#8B5A14").opacity(0.22), in: RoundedRectangle(cornerRadius: 14))
+                                .overlay {
+                                    RoundedRectangle(cornerRadius: 14)
+                                        .stroke(Color(hex: "#FFE1A6").opacity(0.18), lineWidth: 1)
+                                }
+                        }
+
                         if let component = store.generatedComponent {
-                            ScrollView(showsIndicators: false) {
-                                DynamicRenderer(component: component)
-                                    .frame(maxWidth: .infinity, alignment: .center)
-                                    .padding(.vertical, 18)
-                            }
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            generatedCanvas(component)
                         } else {
                             EmptyPreviewCanvas(minHeight: 360)
                         }
@@ -94,6 +104,31 @@ struct GeneratedPreviewView: View {
         }
         .buttonStyle(.plain)
     }
+
+    private func generatedCanvas(_ component: UIComponent) -> some View {
+        GeometryReader { proxy in
+            let canvasWidth = max(proxy.size.width - 8, 0)
+            let contentWidth = min(canvasWidth, 360)
+
+            ScrollView(showsIndicators: false) {
+                HStack {
+                    Spacer(minLength: 0)
+
+                    DynamicRenderer(component: component)
+                        .frame(width: contentWidth, alignment: .center)
+                        .clipped()
+
+                    Spacer(minLength: 0)
+                }
+                .frame(width: canvasWidth)
+                .padding(.vertical, 18)
+            }
+            .frame(width: proxy.size.width, height: proxy.size.height)
+            .clipped()
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .clipped()
+    }
 }
 
 private struct SchemaInspectorSheet: View {
@@ -144,7 +179,7 @@ struct GeneratedPreviewView_Previews: PreviewProvider {
         var state = DynamicUIFeature.State()
         let component = previewComponent
 
-        state.generationStatus = "Schema received"
+        state.generationPhase = .completed
         state.generatedComponent = component
         state.generatedSchema = prettyPrintedJSON(for: component)
         state.isPreviewPresented = true

@@ -10,7 +10,7 @@ import Foundation
 struct SchemaValidator {
     private let maxDepth: Int
 
-    init(maxDepth: Int = 5) {
+    init(maxDepth: Int = 7) {
         self.maxDepth = maxDepth
     }
 
