@@ -23,9 +23,12 @@ struct DynamicUIFeature {
         var generatedSchema: String?
         var generatedComponent: UIComponent?
         var generationWarning: String?
+        var generationStartedAt: Date?
+        var completedGenerationDuration: TimeInterval?
         var generationHistory: [HistoryItem] = []
         var isPreviewPresented = false
         var isSchemaInspectorPresented = false
+        var isModelPickerPresented = false
 
         var generationStatus: String {
             generationPhase.statusText
@@ -35,12 +38,21 @@ struct DynamicUIFeature {
             generationPhase.isGenerating
         }
 
+        var completedGenerationDurationText: String? {
+            guard let completedGenerationDuration else {
+                return nil
+            }
+
+            return "Rendered in \(Self.formattedDuration(completedGenerationDuration))"
+        }
+
         struct HistoryItem: Identifiable, Equatable {
             let id: String
             let prompt: String
             let component: UIComponent
             let schema: String
             let warning: String?
+            let generationDuration: TimeInterval?
         }
 
         let examples = [
@@ -56,6 +68,20 @@ struct DynamicUIFeature {
             "Task form": "Create a task form with title, due date, priority selector, and a bottom save button.",
             "Settings screen": "Create a settings screen with account, notifications, privacy rows, and a sign out button."
         ]
+
+        private static func formattedDuration(_ duration: TimeInterval) -> String {
+            if duration < 10 {
+                return String(format: "%.1fs", duration)
+            }
+
+            if duration < 60 {
+                return "\(Int(duration.rounded()))s"
+            }
+
+            let minutes = Int(duration / 60)
+            let seconds = Int(duration.truncatingRemainder(dividingBy: 60).rounded())
+            return "\(minutes)m \(seconds)s"
+        }
     }
 
     enum Action: BindableAction {
@@ -63,6 +89,7 @@ struct DynamicUIFeature {
         case exampleSelected(String)
         case generateTapped
         case cancelGenerationTapped
+        case modelButtonTapped
         case historySelected(String)
         case historyDeleteTapped(String)
         case screenPlanResponseReceived(Result<ScreenPlan, GenerationError>)
@@ -70,6 +97,7 @@ struct DynamicUIFeature {
         case sectionProgressUpdated(String)
         case sectionRetryStarted(String)
         case screenSectionsResponseReceived(Result<GeneratedSections, GenerationError>)
+        case singleSchemaGenerated(UIComponent)
         case mergedSchemaResponseReceived(Result<UIComponent, GenerationError>)
         case finalSchemaValidated(UIComponent)
         case schemaResponseReceived(Result<UIComponent, GenerationError>)
@@ -130,7 +158,7 @@ struct DynamicUIFeature {
             case .exampleLoaded:
                 return "Example loaded"
             case .generatingSingleSchema:
-                return "Generating schema..."
+                return "Generating UI..."
             case .planningScreen:
                 return "Planning screen..."
             case .screenPlanReady:
@@ -144,11 +172,11 @@ struct DynamicUIFeature {
             case .mergingSections:
                 return "Merging sections..."
             case .validatingSchema:
-                return "Validating schema..."
+                return "Validating UI..."
             case .finishing:
-                return "Finishing native UI..."
+                return "Finishing preview..."
             case .completed:
-                return "Schema received"
+                return "UI rendered"
             case .cancelled:
                 return "Generation cancelled"
             case .loadedFromHistory:
@@ -198,6 +226,10 @@ struct DynamicUIFeature {
             case .binding:
                 return .none
 
+            case .modelButtonTapped:
+                state.isModelPickerPresented = true
+                return .none
+
             case let .exampleSelected(example):
                 state.selectedExample = example
                 state.prompt = state.examplePrompts[example] ?? example
@@ -208,6 +240,8 @@ struct DynamicUIFeature {
                 state.generatedComponent = nil
                 state.generatedSchema = nil
                 state.generationWarning = nil
+                state.generationStartedAt = nil
+                state.completedGenerationDuration = nil
                 state.isPreviewPresented = false
                 state.isSchemaInspectorPresented = false
                 return .none
@@ -228,6 +262,8 @@ struct DynamicUIFeature {
                 state.generatedComponent = nil
                 state.generatedSchema = nil
                 state.generationWarning = nil
+                state.generationStartedAt = Date()
+                state.completedGenerationDuration = nil
 
                 switch state.generationMode {
                 case .multiStage:
@@ -253,11 +289,7 @@ struct DynamicUIFeature {
                     return .run { send in
                         do {
                             let component = try await llmClient.generateSchema(prompt)
-                            try await SchemaValidator().validate(component)
-                            await send(.schemaResponseReceived(.success(component)))
-                        } catch let error as ValidationError {
-                            printGenerationFailure(error, context: "single schema validation")
-                            await send(.schemaResponseReceived(.failure(.invalidSchema)))
+                            await send(.singleSchemaGenerated(component))
                         } catch let error as GenerationError {
                             printGenerationFailure(error, context: "single schema generation")
                             await send(.schemaResponseReceived(.failure(error)))
@@ -276,6 +308,8 @@ struct DynamicUIFeature {
                 state.generatedComponent = nil
                 state.generatedSchema = nil
                 state.generationWarning = nil
+                state.generationStartedAt = nil
+                state.completedGenerationDuration = nil
                 state.isPreviewPresented = false
                 state.isSchemaInspectorPresented = false
                 return .cancel(id: Self.generationCancelID)
@@ -288,6 +322,8 @@ struct DynamicUIFeature {
                 state.generatedComponent = item.component
                 state.generatedSchema = item.schema
                 state.generationWarning = item.warning
+                state.generationStartedAt = nil
+                state.completedGenerationDuration = item.generationDuration
                 state.plannedScreen = nil
                 state.generatedSections = []
                 state.generationPhase = .loadedFromHistory
@@ -361,6 +397,8 @@ struct DynamicUIFeature {
                 state.generatedComponent = nil
                 state.generatedSchema = nil
                 state.generationWarning = nil
+                state.generationStartedAt = nil
+                state.completedGenerationDuration = nil
                 state.isPreviewPresented = false
                 state.isSchemaInspectorPresented = false
                 return .none
@@ -402,9 +440,31 @@ struct DynamicUIFeature {
                 state.generatedComponent = nil
                 state.generatedSchema = nil
                 state.generationWarning = nil
+                state.generationStartedAt = nil
+                state.completedGenerationDuration = nil
                 state.isPreviewPresented = false
                 state.isSchemaInspectorPresented = false
                 return .none
+
+            case let .singleSchemaGenerated(component):
+                state.generationPhase = .validatingSchema
+
+                return .run { send in
+                    do {
+                        try await SchemaValidator().validate(component)
+                        await send(.finalSchemaValidated(component))
+                    } catch let error as ValidationError {
+                        printGenerationFailure(error, context: "single schema validation")
+                        await send(.schemaResponseReceived(.failure(.invalidSchema)))
+                    } catch let error as GenerationError {
+                        printGenerationFailure(error, context: "single schema validation")
+                        await send(.schemaResponseReceived(.failure(error)))
+                    } catch {
+                        printGenerationFailure(error, context: "single schema validation")
+                        await send(.schemaResponseReceived(.failure(.requestFailed(error.localizedDescription))))
+                    }
+                }
+                .cancellable(id: Self.generationCancelID, cancelInFlight: true)
 
             case let .mergedSchemaResponseReceived(.success(component)):
                 state.generationPhase = .validatingSchema
@@ -432,6 +492,8 @@ struct DynamicUIFeature {
                 state.generatedComponent = nil
                 state.generatedSchema = nil
                 state.generationWarning = nil
+                state.generationStartedAt = nil
+                state.completedGenerationDuration = nil
                 state.isPreviewPresented = false
                 state.isSchemaInspectorPresented = false
                 return .none
@@ -453,13 +515,17 @@ struct DynamicUIFeature {
                 state.generatedSections = []
                 state.generatedComponent = component
                 state.generatedSchema = schema
+                let duration = state.generationStartedAt.map { Date().timeIntervalSince($0) }
+                state.completedGenerationDuration = duration
+                state.generationStartedAt = nil
                 state.generationHistory.insert(
                     State.HistoryItem(
                         id: UUID().uuidString,
                         prompt: state.prompt.trimmingCharacters(in: .whitespacesAndNewlines),
                         component: component,
                         schema: schema,
-                        warning: state.generationWarning
+                        warning: state.generationWarning,
+                        generationDuration: duration
                     ),
                     at: 0
                 )
@@ -473,6 +539,8 @@ struct DynamicUIFeature {
                 state.generatedComponent = nil
                 state.generatedSchema = nil
                 state.generationWarning = nil
+                state.generationStartedAt = nil
+                state.completedGenerationDuration = nil
                 state.isPreviewPresented = false
                 state.isSchemaInspectorPresented = false
                 return .none

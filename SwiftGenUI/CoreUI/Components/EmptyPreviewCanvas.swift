@@ -22,12 +22,12 @@ struct EmptyPreviewCanvas: View {
                     .foregroundStyle(AppTheme.amber)
 
                 Text("Your generated SwiftUI screen will appear here.")
-                    .font(.system(size: 18, weight: .bold, design: .rounded))
+                    .font(.system(size: 18, weight: .semibold, design: .default))
                     .foregroundStyle(AppTheme.ink)
                     .multilineTextAlignment(.center)
 
                 Text("Start with a precise layout prompt. Beauty comes after the renderer can obey.")
-                    .font(.system(size: 14, weight: .medium, design: .rounded))
+                    .font(.system(size: 14, weight: .regular, design: .default))
                     .foregroundStyle(AppTheme.ink.opacity(0.58))
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 18)

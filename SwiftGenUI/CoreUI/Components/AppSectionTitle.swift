@@ -13,7 +13,7 @@ struct AppSectionTitle: View {
 
     var body: some View {
         Label(title, systemImage: systemImage)
-            .font(.system(size: 15, weight: .black, design: .rounded))
+            .font(.system(size: 15, weight: .semibold, design: .default))
             .foregroundStyle(.white)
     }
 }

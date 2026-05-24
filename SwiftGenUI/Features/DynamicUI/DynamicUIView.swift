@@ -29,6 +29,11 @@ struct DynamicUIView: View {
             .navigationDestination(isPresented: $store.isPreviewPresented) {
                 GeneratedPreviewView(store: store)
             }
+            .sheet(isPresented: $store.isModelPickerPresented) {
+                ModelProviderSheet()
+                    .presentationDetents([.height(390)])
+                    .presentationDragIndicator(.visible)
+            }
         }
     }
 
@@ -50,28 +55,29 @@ struct DynamicUIView: View {
     private var titleBar: some View {
         HStack(alignment: .center) {
             Text("SwiftGenUI")
-                .font(.system(size: 38, weight: .black, design: .rounded))
+                .font(.system(size: 36, weight: .semibold, design: .default))
                 .foregroundStyle(.white)
 
             Spacer(minLength: 16)
 
-            AppStatusBadge(title: "Local Qwen")
+            ModelProviderButton(title: "Local Qwen") {
+                store.send(.modelButtonTapped)
+            }
         }
     }
 
     private var header: some View {
         VStack(alignment: .leading, spacing: 14) {
             Text("Turn natural language into safe native SwiftUI screens.")
-                .font(.system(size: 15, weight: .medium, design: .rounded))
+                .font(.system(size: 15, weight: .regular, design: .default))
                 .foregroundStyle(AppTheme.mutedText)
                 .fixedSize(horizontal: false, vertical: true)
 
-            HStack(spacing: 10) {
-                Label("Prompt", systemImage: "sparkles")
-                Label("Validate", systemImage: "checkmark.shield")
-                Label("Render", systemImage: "iphone")
+            HStack(spacing: 12) {
+                FeatureStepLabel(title: "Prompt", systemImage: "sparkles")
+                FeatureStepLabel(title: "Validate", systemImage: "checkmark.shield")
+                FeatureStepLabel(title: "Render", systemImage: "iphone")
             }
-            .font(.system(size: 12, weight: .semibold, design: .rounded))
             .foregroundStyle(AppTheme.cream.opacity(0.82))
         }
     }
@@ -144,6 +150,165 @@ struct DynamicUIView: View {
     }
 }
 
+private struct FeatureStepLabel: View {
+    let title: String
+    let systemImage: String
+
+    var body: some View {
+        HStack(spacing: 4) {
+            Image(systemName: systemImage)
+            Text(title)
+        }
+        .font(.system(size: 12, weight: .medium, design: .default))
+    }
+}
+
+private struct ModelProviderButton: View {
+    let title: String
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            HStack(spacing: 8) {
+                Circle()
+                    .fill(AppTheme.sage)
+                    .frame(width: 8, height: 8)
+
+                Text(title)
+                    .font(.system(size: 12, weight: .semibold, design: .default))
+                    .foregroundStyle(AppTheme.cream)
+
+                Image(systemName: "chevron.down")
+                    .font(.system(size: 9, weight: .semibold))
+                    .foregroundStyle(AppTheme.cream.opacity(0.72))
+            }
+            .padding(.horizontal, 12)
+            .padding(.vertical, 9)
+            .background(.white.opacity(0.08), in: Capsule())
+            .overlay {
+                Capsule()
+                    .stroke(.white.opacity(0.14), lineWidth: 1)
+            }
+        }
+        .buttonStyle(.plain)
+        .accessibilityLabel("Select AI model provider")
+    }
+}
+
+private struct ModelProviderSheet: View {
+    var body: some View {
+        ZStack {
+            LinearGradient(
+                colors: [
+                    Color(hex: "#111724"),
+                    Color(hex: "#1D2635"),
+                    Color(hex: "#1A1410")
+                ],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+            .ignoresSafeArea()
+
+            VStack(alignment: .leading, spacing: 18) {
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("AI Provider")
+                        .font(.system(size: 28, weight: .semibold, design: .default))
+                        .foregroundStyle(.white)
+
+                    Text("Local Ollama is active. Custom endpoints will plug into this switcher next.")
+                        .font(.system(size: 14, weight: .medium, design: .default))
+                        .foregroundStyle(AppTheme.mutedText)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+
+                VStack(spacing: 12) {
+                    ProviderOptionRow(
+                        title: "Local Ollama",
+                        subtitle: "Qwen 2.5 Coder 14B via localhost",
+                        systemImage: "desktopcomputer",
+                        isSelected: true,
+                        isDisabled: false
+                    )
+
+                    ProviderOptionRow(
+                        title: "Custom Endpoint",
+                        subtitle: "OpenAI-compatible API setup coming next",
+                        systemImage: "link.badge.plus",
+                        isSelected: false,
+                        isDisabled: true
+                    )
+                }
+
+                Spacer(minLength: 0)
+            }
+            .padding(.horizontal, 22)
+            .padding(.top, 24)
+            .padding(.bottom, 18)
+        }
+    }
+}
+
+private struct ProviderOptionRow: View {
+    let title: String
+    let subtitle: String
+    let systemImage: String
+    let isSelected: Bool
+    let isDisabled: Bool
+
+    var body: some View {
+        HStack(spacing: 14) {
+            Image(systemName: systemImage)
+                .font(.system(size: 18, weight: .semibold, design: .default))
+                .foregroundStyle(isSelected ? AppTheme.cream : AppTheme.mutedText)
+                .frame(width: 42, height: 42)
+                .background(iconBackground, in: RoundedRectangle(cornerRadius: 15))
+
+            VStack(alignment: .leading, spacing: 4) {
+                Text(title)
+                    .font(.system(size: 16, weight: .semibold, design: .default))
+                    .foregroundStyle(.white.opacity(isDisabled ? 0.52 : 1))
+
+                Text(subtitle)
+                    .font(.system(size: 12, weight: .medium, design: .default))
+                    .foregroundStyle(AppTheme.mutedText.opacity(isDisabled ? 0.62 : 1))
+                    .lineLimit(2)
+            }
+
+            Spacer(minLength: 12)
+
+            if isSelected {
+                Image(systemName: "checkmark.circle.fill")
+                    .font(.system(size: 21, weight: .semibold))
+                    .foregroundStyle(AppTheme.sage)
+            } else {
+                Text("Soon")
+                    .font(.system(size: 11, weight: .semibold, design: .default))
+                    .foregroundStyle(AppTheme.cream.opacity(0.58))
+                    .padding(.horizontal, 9)
+                    .padding(.vertical, 6)
+                    .background(.white.opacity(0.07), in: Capsule())
+            }
+        }
+        .padding(14)
+        .background(.white.opacity(isSelected ? 0.11 : 0.06), in: RoundedRectangle(cornerRadius: 22))
+        .overlay {
+            RoundedRectangle(cornerRadius: 22)
+                .stroke(.white.opacity(isSelected ? 0.18 : 0.09), lineWidth: 1)
+        }
+        .opacity(isDisabled ? 0.74 : 1)
+    }
+
+    private var iconBackground: some ShapeStyle {
+        LinearGradient(
+            colors: isSelected
+                ? [AppTheme.amber.opacity(0.35), AppTheme.sage.opacity(0.24)]
+                : [Color.white.opacity(0.08), Color.white.opacity(0.04)],
+            startPoint: .topLeading,
+            endPoint: .bottomTrailing
+        )
+    }
+}
+
 private struct EmptyHistoryView: View {
     var body: some View {
         VStack(spacing: 16) {
@@ -157,7 +322,7 @@ private struct EmptyHistoryView: View {
                     .frame(width: 78, height: 78)
 
                 Image(systemName: "rectangle.stack.badge.plus")
-                    .font(.system(size: 28, weight: .black, design: .rounded))
+                    .font(.system(size: 28, weight: .semibold, design: .default))
                     .foregroundStyle(
                         LinearGradient(
                             colors: [Color(hex: "#D7F7FF"), Color(hex: "#78D9F6")],
@@ -169,11 +334,11 @@ private struct EmptyHistoryView: View {
 
             VStack(spacing: 7) {
                 Text("No views rendered yet")
-                    .font(.system(size: 18, weight: .black, design: .rounded))
+                    .font(.system(size: 18, weight: .semibold, design: .default))
                     .foregroundStyle(.white)
 
                 Text("Generate your first native screen and it will appear here for quick replay.")
-                    .font(.system(size: 13, weight: .semibold, design: .rounded))
+                    .font(.system(size: 13, weight: .regular, design: .default))
                     .foregroundStyle(AppTheme.mutedText)
                     .multilineTextAlignment(.center)
                     .lineSpacing(2)
@@ -217,7 +382,7 @@ private struct HistoryRow: View {
     private var rowContent: some View {
         HStack(spacing: 12) {
             Image(systemName: iconName)
-                .font(.system(size: 15, weight: .black, design: .rounded))
+                .font(.system(size: 15, weight: .semibold, design: .default))
                 .foregroundStyle(Color(hex: "#9DE8FF"))
                 .frame(width: 38, height: 38)
                 .background(Color(hex: "#1B6B8F").opacity(0.24), in: RoundedRectangle(cornerRadius: 14))
@@ -228,12 +393,12 @@ private struct HistoryRow: View {
 
             VStack(alignment: .leading, spacing: 4) {
                 Text(title)
-                    .font(.system(size: 15, weight: .bold, design: .rounded))
+                    .font(.system(size: 15, weight: .semibold, design: .default))
                     .foregroundStyle(.white)
                     .lineLimit(1)
 
                 Text(item.prompt)
-                    .font(.system(size: 12, weight: .semibold, design: .rounded))
+                    .font(.system(size: 12, weight: .regular, design: .default))
                     .foregroundStyle(AppTheme.mutedText)
                     .lineLimit(2)
             }
@@ -241,7 +406,7 @@ private struct HistoryRow: View {
             Spacer(minLength: 12)
 
             Image(systemName: "chevron.right")
-                .font(.system(size: 12, weight: .black, design: .rounded))
+                .font(.system(size: 12, weight: .semibold, design: .default))
                 .foregroundStyle(.white.opacity(0.32))
         }
         .padding(14)
@@ -308,7 +473,7 @@ private struct GeneratingButton: View {
             if isGenerating {
                 Button(action: cancelAction) {
                     Image(systemName: "xmark")
-                        .font(.system(size: 15, weight: .black, design: .rounded))
+                        .font(.system(size: 15, weight: .semibold, design: .default))
                         .foregroundStyle(.white)
                         .frame(width: 56, height: 56)
                         .background(
@@ -435,7 +600,7 @@ private struct GeneratingButton: View {
                 Spacer()
                 Image(systemName: isGenerating ? "sparkles" : "arrow.right")
             }
-            .font(.system(size: 16, weight: .bold, design: .rounded))
+            .font(.system(size: 16, weight: .semibold, design: .default))
             .foregroundStyle(Color(hex: "#10131A"))
             .padding(.horizontal, 18)
             .padding(.vertical, 16)

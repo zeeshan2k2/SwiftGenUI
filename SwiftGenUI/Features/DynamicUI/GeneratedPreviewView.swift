@@ -25,13 +25,13 @@ struct GeneratedPreviewView: View {
                             AppSectionTitle(title: "Live native preview", systemImage: "rectangle.on.rectangle")
                             Spacer()
                             Text(store.generationStatus)
-                                .font(.system(size: 12, weight: .bold, design: .monospaced))
+                                .font(.system(size: 12, weight: .semibold, design: .default))
                                 .foregroundStyle(AppTheme.sage)
                         }
 
                         if let warning = store.generationWarning {
                             Label(warning, systemImage: "exclamationmark.triangle.fill")
-                                .font(.system(size: 12, weight: .bold, design: .rounded))
+                                .font(.system(size: 12, weight: .semibold, design: .default))
                                 .foregroundStyle(Color(hex: "#FFE1A6"))
                                 .fixedSize(horizontal: false, vertical: true)
                                 .padding(.horizontal, 12)
@@ -73,17 +73,25 @@ struct GeneratedPreviewView: View {
         HStack(spacing: 14) {
             VStack(alignment: .leading, spacing: 3) {
                 Text("Generated Canvas")
-                    .font(.system(size: 24, weight: .black, design: .rounded))
+                    .font(.system(size: 24, weight: .semibold, design: .default))
                     .foregroundStyle(.white)
 
                 Text("Native SwiftUI rendered from validated schema")
-                    .font(.system(size: 12, weight: .semibold, design: .rounded))
+                    .font(.system(size: 12, weight: .medium, design: .default))
                     .foregroundStyle(AppTheme.mutedText)
             }
 
             Spacer()
 
-            AppStatusBadge(title: "Validated")
+            VStack {
+                AppStatusBadge(title: "Validated")
+                if let durationText = store.completedGenerationDurationText {
+                    Label(durationText, systemImage: "clock")
+                        .font(.system(size: 11, weight: .medium, design: .default))
+                        .foregroundStyle(AppTheme.sage.opacity(0.92))
+                        .padding(.top, 3)
+                }
+            }
         }
     }
 
@@ -92,7 +100,7 @@ struct GeneratedPreviewView: View {
             store.send(.binding(.set(\.isSchemaInspectorPresented, true)))
         } label: {
             Text("{}")
-                .font(.system(size: 18, weight: .black, design: .monospaced))
+                .font(.system(size: 18, weight: .semibold, design: .monospaced))
                 .foregroundStyle(.white)
                 .frame(width: 58, height: 58)
                 .background(.ultraThinMaterial, in: Circle())
@@ -144,7 +152,7 @@ private struct SchemaInspectorSheet: View {
                     AppSectionTitle(title: "Schema inspector", systemImage: "curlybraces")
                     Spacer()
                     Text(schema == nil ? "Empty" : "Ready")
-                        .font(.system(size: 12, weight: .bold, design: .monospaced))
+                        .font(.system(size: 12, weight: .medium, design: .monospaced))
                         .foregroundStyle(.white.opacity(0.46))
                 }
 
@@ -182,6 +190,7 @@ struct GeneratedPreviewView_Previews: PreviewProvider {
         state.generationPhase = .completed
         state.generatedComponent = component
         state.generatedSchema = prettyPrintedJSON(for: component)
+        state.completedGenerationDuration = 2.8
         state.isPreviewPresented = true
 
         return state

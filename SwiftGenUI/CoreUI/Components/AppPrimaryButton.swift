@@ -21,7 +21,7 @@ struct AppPrimaryButton: View {
                 Spacer()
                 Image(systemName: trailingSystemImage)
             }
-            .font(.system(size: 16, weight: .bold, design: .rounded))
+            .font(.system(size: 16, weight: .semibold, design: .default))
             .foregroundStyle(AppTheme.ink)
             .padding(.horizontal, 18)
             .padding(.vertical, 16)

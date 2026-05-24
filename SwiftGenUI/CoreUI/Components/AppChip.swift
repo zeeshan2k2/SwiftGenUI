@@ -16,7 +16,7 @@ struct AppChip: View {
     var body: some View {
         Button(action: action) {
             Text(title)
-                .font(.system(size: 13, weight: .bold, design: .rounded))
+                .font(.system(size: 13, weight: .semibold, design: .default))
                 .foregroundStyle(foregroundColor)
                 .padding(.horizontal, 14)
                 .padding(.vertical, 10)
