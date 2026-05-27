@@ -33,6 +33,27 @@ struct DynamicUIView: View {
                 ModelProviderSheet(store: store)
                     .presentationDetents([.height(620)])
                     .presentationDragIndicator(.visible)
+                    .sheet(
+                        item: Binding(
+                            get: {
+                                store.configuredProvider.map {
+                                    ProviderConfigurationRoute(provider: $0)
+                                }
+                            },
+                            set: { route in
+                                if route == nil {
+                                    store.send(.providerConfigDismissed)
+                                }
+                            }
+                        )
+                    ) { route in
+                        ProviderConfigurationView(
+                            provider: route.provider,
+                            configuration: $store.customEndpointConfiguration
+                        )
+                        .presentationDetents([.height(440)])
+                        .presentationDragIndicator(.visible)
+                    }
             }
         }
     }
@@ -223,30 +244,23 @@ private struct ModelProviderSheet: View {
                         .fixedSize(horizontal: false, vertical: true)
                 }
 
-                VStack(spacing: 12) {
-                    ProviderOptionRow(
-                        title: "Local Ollama",
-                        subtitle: "Qwen 2.5 Coder 14B via localhost",
-                        systemImage: "desktopcomputer",
-                        isSelected: store.selectedProvider == .localOllama,
-                        accessory: .check
-                    ) {
-                        store.send(.providerSelected(.localOllama))
+                ScrollView(showsIndicators: false) {
+                    VStack(spacing: 12) {
+                        ForEach(LLMProvider.allCases, id: \.self) { provider in
+                            ProviderOptionRow(
+                                provider: provider,
+                                title: provider.sheetTitle,
+                                subtitle: provider.subtitle,
+                                systemImage: provider.systemImage,
+                                isSelected: store.selectedProvider == provider,
+                                configureAction: provider == .localOllama ? nil : {
+                                    store.send(.providerConfigureTapped(provider))
+                                }
+                            ) {
+                                store.send(.providerSelected(provider))
+                            }
+                        }
                     }
-
-                    ProviderOptionRow(
-                        title: "Custom Endpoint",
-                        subtitle: "Save connection details now, wire the adapter later",
-                        systemImage: "link.badge.plus",
-                        isSelected: store.selectedProvider == .customEndpoint,
-                        accessory: .configure
-                    ) {
-                        store.send(.providerSelected(.customEndpoint))
-                    }
-                }
-
-                if store.selectedProvider == .customEndpoint {
-                    customEndpointForm
                 }
 
                 Spacer(minLength: 0)
@@ -257,69 +271,27 @@ private struct ModelProviderSheet: View {
         }
     }
 
-    private var customEndpointForm: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            Text("Custom Endpoint Config")
-                .font(.system(size: 13, weight: .semibold, design: .default))
-                .foregroundStyle(AppTheme.cream.opacity(0.86))
-
-            ProviderTextField(
-                title: "Base URL",
-                placeholder: "https://api.openrouter.ai/v1",
-                text: $store.customEndpointConfiguration.baseURL
-            )
-
-            ProviderTextField(
-                title: "Model ID",
-                placeholder: "qwen/qwen3-coder:free",
-                text: $store.customEndpointConfiguration.modelID
-            )
-
-            ProviderTextField(
-                title: "API Key",
-                placeholder: "Paste your own key",
-                text: $store.customEndpointConfiguration.apiKey,
-                isSecure: true
-            )
-
-            Picker("Format", selection: $store.customEndpointConfiguration.providerFormat) {
-                ForEach(DynamicUIFeature.ProviderFormat.allCases, id: \.self) { format in
-                    Text(format.title)
-                        .tag(format)
-                }
-            }
-            .pickerStyle(.segmented)
-        }
-        .padding(14)
-        .background(.white.opacity(0.07), in: RoundedRectangle(cornerRadius: 22))
-        .overlay {
-            RoundedRectangle(cornerRadius: 22)
-                .stroke(.white.opacity(0.10), lineWidth: 1)
-        }
-    }
 }
 
 private struct ProviderOptionRow: View {
-    enum Accessory {
-        case check
-        case configure
-    }
-
+    let provider: LLMProvider
     let title: String
     let subtitle: String
     let systemImage: String
     let isSelected: Bool
-    let accessory: Accessory
+    let configureAction: (() -> Void)?
     let action: () -> Void
 
     var body: some View {
         Button(action: action) {
             HStack(spacing: 14) {
-                Image(systemName: systemImage)
-                    .font(.system(size: 18, weight: .semibold, design: .default))
-                    .foregroundStyle(isSelected ? AppTheme.cream : AppTheme.mutedText)
+                ProviderBrandIcon(provider: provider, fallbackSystemImage: systemImage)
                     .frame(width: 42, height: 42)
                     .background(iconBackground, in: RoundedRectangle(cornerRadius: 15))
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 15)
+                            .stroke(.white.opacity(isSelected ? 0.28 : 0.12), lineWidth: 1)
+                    }
 
                 VStack(alignment: .leading, spacing: 4) {
                     Text(title)
@@ -334,12 +306,12 @@ private struct ProviderOptionRow: View {
 
                 Spacer(minLength: 12)
 
+                configureButton
+
                 if isSelected {
                     Image(systemName: "checkmark.circle.fill")
                         .font(.system(size: 21, weight: .semibold))
                         .foregroundStyle(AppTheme.sage)
-                } else {
-                    accessoryLabel
                 }
             }
         }
@@ -354,21 +326,189 @@ private struct ProviderOptionRow: View {
 
     private var iconBackground: some ShapeStyle {
         LinearGradient(
-            colors: isSelected
-                ? [AppTheme.amber.opacity(0.35), AppTheme.sage.opacity(0.24)]
-                : [Color.white.opacity(0.08), Color.white.opacity(0.04)],
+            colors: provider.iconBackgroundColors(isSelected: isSelected),
             startPoint: .topLeading,
             endPoint: .bottomTrailing
         )
     }
 
-    private var accessoryLabel: some View {
-        Text(accessory == .check ? "Select" : "Configure")
-            .font(.system(size: 11, weight: .semibold, design: .default))
-            .foregroundStyle(AppTheme.cream.opacity(0.64))
-            .padding(.horizontal, 9)
-            .padding(.vertical, 6)
-            .background(.white.opacity(0.07), in: Capsule())
+    @ViewBuilder
+    private var configureButton: some View {
+        if let configureAction {
+            Button(action: configureAction) {
+                Image(systemName: "slider.horizontal.3")
+                    .font(.system(size: 14, weight: .semibold))
+                    .foregroundStyle(AppTheme.cream.opacity(0.72))
+                    .frame(width: 34, height: 34)
+                    .background(.white.opacity(0.08), in: Circle())
+                    .overlay {
+                        Circle()
+                            .stroke(.white.opacity(0.10), lineWidth: 1)
+                    }
+            }
+            .buttonStyle(.plain)
+            .accessibilityLabel("Configure \(title)")
+        }
+    }
+}
+
+private struct ProviderConfigurationRoute: Identifiable, Equatable {
+    let provider: LLMProvider
+
+    var id: LLMProvider {
+        provider
+    }
+}
+
+private struct ProviderConfigurationView: View {
+    let provider: LLMProvider
+    @Binding var configuration: CustomEndpointConfiguration
+
+    var body: some View {
+        ZStack {
+            LinearGradient(
+                colors: [
+                    Color(hex: "#111724"),
+                    Color(hex: "#1D2635"),
+                    Color(hex: "#1A1410")
+                ],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+            .ignoresSafeArea()
+
+            VStack(alignment: .leading, spacing: 18) {
+                VStack(alignment: .leading, spacing: 7) {
+                    Text("\(provider.sheetTitle) Config")
+                        .font(.system(size: 26, weight: .semibold, design: .default))
+                        .foregroundStyle(.white)
+
+                    Text("Override the endpoint, model, or key used for this provider.")
+                        .font(.system(size: 13, weight: .medium, design: .default))
+                        .foregroundStyle(AppTheme.mutedText)
+                }
+
+                VStack(alignment: .leading, spacing: 12) {
+                    ProviderTextField(
+                        title: "Base URL",
+                        placeholder: provider.defaultConfiguration.baseURL,
+                        text: $configuration.baseURL
+                    )
+
+                    ProviderTextField(
+                        title: "Model ID",
+                        placeholder: provider.defaultConfiguration.modelID,
+                        text: $configuration.modelID
+                    )
+
+                    ProviderTextField(
+                        title: "API Key",
+                        placeholder: "Paste your own key",
+                        text: $configuration.apiKey,
+                        isSecure: true
+                    )
+
+                    if provider == .customEndpoint {
+                        Picker("Format", selection: $configuration.providerFormat) {
+                            ForEach(ProviderFormat.allCases, id: \.self) { format in
+                                Text(format.title)
+                                    .tag(format)
+                            }
+                        }
+                        .pickerStyle(.segmented)
+                    }
+                }
+                .padding(14)
+                .background(.white.opacity(0.07), in: RoundedRectangle(cornerRadius: 22))
+                .overlay {
+                    RoundedRectangle(cornerRadius: 22)
+                        .stroke(.white.opacity(0.10), lineWidth: 1)
+                }
+
+                Spacer(minLength: 0)
+            }
+            .padding(.horizontal, 22)
+            .padding(.top, 26)
+            .padding(.bottom, 18)
+        }
+    }
+}
+
+private extension LLMProvider {
+    var usesBrandLogoTile: Bool {
+        switch self {
+        case .localOllama, .openAI, .gemini:
+            return true
+        case .openRouter, .customEndpoint:
+            return false
+        }
+    }
+
+    func iconBackgroundColors(isSelected: Bool) -> [Color] {
+        if usesBrandLogoTile {
+            return [
+                Color.white.opacity(isSelected ? 0.98 : 0.92),
+                Color(hex: "#F2F4F7").opacity(isSelected ? 0.98 : 0.90)
+            ]
+        }
+
+        switch self {
+        case .localOllama:
+            return [
+                Color(hex: "#2F3440"),
+                Color(hex: "#111827")
+            ]
+        case .openRouter:
+            return [
+                Color(hex: "#7C3AED"),
+                Color(hex: "#06B6D4")
+            ]
+        case .openAI:
+            return [
+                Color(hex: "#10A37F"),
+                Color(hex: "#087F68")
+            ]
+        case .gemini:
+            return [
+                Color(hex: "#4285F4"),
+                Color(hex: "#A142F4"),
+                Color(hex: "#EA4335")
+            ]
+        case .customEndpoint:
+            return [
+                AppTheme.amber,
+                Color(hex: "#FF5A7A")
+            ]
+        }
+    }
+}
+
+private struct ProviderBrandIcon: View {
+    let provider: LLMProvider
+    let fallbackSystemImage: String
+
+    var body: some View {
+        ZStack {
+            switch provider {
+            case .localOllama:
+                providerImage("Ollama")
+            case .openAI:
+                providerImage("OpenAI")
+            case .gemini:
+                providerImage("Gemini")
+            case .openRouter, .customEndpoint:
+                Image(systemName: fallbackSystemImage)
+                    .font(.system(size: 18, weight: .semibold, design: .default))
+                    .foregroundStyle(.white.opacity(0.9))
+            }
+        }
+    }
+
+    private func providerImage(_ name: String) -> some View {
+        Image(name)
+            .resizable()
+            .scaledToFit()
+            .frame(width: 31, height: 31)
     }
 }
 

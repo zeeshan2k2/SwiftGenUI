@@ -1,0 +1,10 @@
+// Example configuration for optional online LLM providers.
+// Copy this file to AppConfig.xcconfig and replace placeholders locally.
+
+OPENROUTER_API_KEY = YOUR_KEY_HERE
+OPENAI_API_KEY = YOUR_KEY_HERE
+GEMINI_API_KEY = YOUR_KEY_HERE
+CUSTOM_LLM_BASE_URL = https:/$()/openrouter.ai/api/v1
+CUSTOM_LLM_MODEL_ID = qwen/qwen3-coder:free
+
+#include? "AppConfig.xcconfig"

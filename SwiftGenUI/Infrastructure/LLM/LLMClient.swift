@@ -9,30 +9,30 @@ import ComposableArchitecture
 import Foundation
 
 struct LLMClient {
-    var generateSchema: (String) async throws -> UIComponent
-    var generateScreenPlan: (String) async throws -> ScreenPlan
-    var generateScreenSection: (ScreenSectionGenerationInput) async throws -> UIComponent
-    var retryScreenSection: (ScreenSectionGenerationInput) async throws -> UIComponent
+    var generateSchema: (String, LLMProvider, CustomEndpointConfiguration) async throws -> UIComponent
+    var generateScreenPlan: (String, LLMProvider, CustomEndpointConfiguration) async throws -> ScreenPlan
+    var generateScreenSection: (ScreenSectionGenerationInput, LLMProvider, CustomEndpointConfiguration) async throws -> UIComponent
+    var retryScreenSection: (ScreenSectionGenerationInput, LLMProvider, CustomEndpointConfiguration) async throws -> UIComponent
 }
 
 extension LLMClient: DependencyKey {
     static let liveValue = LLMClient(
-        generateSchema: { prompt in
-            try await OllamaClient().generateSchema(from: prompt)
+        generateSchema: { prompt, provider, configuration in
+            try await repository(for: provider, configuration: configuration).generateSchema(from: prompt)
         },
-        generateScreenPlan: { prompt in
-            try await OllamaClient().generateScreenPlan(from: prompt)
+        generateScreenPlan: { prompt, provider, configuration in
+            try await repository(for: provider, configuration: configuration).generateScreenPlan(from: prompt)
         },
-        generateScreenSection: { input in
-            try await OllamaClient().generateScreenSection(from: input)
+        generateScreenSection: { input, provider, configuration in
+            try await repository(for: provider, configuration: configuration).generateScreenSection(from: input)
         },
-        retryScreenSection: { input in
-            try await OllamaClient().retryScreenSection(from: input)
+        retryScreenSection: { input, provider, configuration in
+            try await repository(for: provider, configuration: configuration).retryScreenSection(from: input)
         }
     )
 
     static let previewValue = LLMClient(
-        generateSchema: { _ in
+        generateSchema: { _, _, _ in
             UIComponent(
                 id: UUID().uuidString,
                 type: .vStack,
@@ -56,19 +56,19 @@ extension LLMClient: DependencyKey {
                 capability: nil
             )
         },
-        generateScreenPlan: { _ in
+        generateScreenPlan: { _, _, _ in
             previewScreenPlan
         },
-        generateScreenSection: { input in
+        generateScreenSection: { input, _, _ in
             previewSection(for: input)
         },
-        retryScreenSection: { input in
+        retryScreenSection: { input, _, _ in
             previewSection(for: input)
         }
     )
 
     static let testValue = LLMClient(
-        generateSchema: { _ in
+        generateSchema: { _, _, _ in
             UIComponent(
                 id: UUID().uuidString,
                 type: .text,
@@ -77,16 +77,50 @@ extension LLMClient: DependencyKey {
                 capability: nil
             )
         },
-        generateScreenPlan: { _ in
+        generateScreenPlan: { _, _, _ in
             previewScreenPlan
         },
-        generateScreenSection: { input in
+        generateScreenSection: { input, _, _ in
             previewSection(for: input)
         },
-        retryScreenSection: { input in
+        retryScreenSection: { input, _, _ in
             previewSection(for: input)
         }
     )
+
+    private static func repository(
+        for provider: LLMProvider,
+        configuration: CustomEndpointConfiguration
+    ) throws -> LLMRepository {
+        switch provider {
+        case .openRouter:
+            return try OpenAICompatibleLLMRepository(
+                configuration: configuration,
+                providerName: "OpenRouter"
+            )
+        case .openAI:
+            return try OpenAICompatibleLLMRepository(
+                configuration: configuration,
+                providerName: "OpenAI"
+            )
+        case .gemini:
+            return try GeminiLLMRepository(configuration: configuration)
+        case .customEndpoint:
+            switch configuration.providerFormat {
+            case .openAICompatible:
+                return try OpenAICompatibleLLMRepository(
+                    configuration: configuration,
+                    providerName: "Custom API"
+                )
+            case .gemini:
+                return try GeminiLLMRepository(configuration: configuration)
+            case .ollamaCompatible:
+                return OllamaLLMRepository()
+            }
+        case .localOllama:
+            return OllamaLLMRepository()
+        }
+    }
 
     private static let previewScreenPlan = ScreenPlan(
         purpose: "Preview a generated screen plan",

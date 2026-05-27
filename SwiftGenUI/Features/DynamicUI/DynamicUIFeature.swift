@@ -29,6 +29,7 @@ struct DynamicUIFeature {
         var isPreviewPresented = false
         var isSchemaInspectorPresented = false
         var isModelPickerPresented = false
+        var configuredProvider: LLMProvider?
         var selectedProvider: LLMProvider = .localOllama
         var customEndpointConfiguration = CustomEndpointConfiguration()
 
@@ -97,6 +98,8 @@ struct DynamicUIFeature {
         case cancelGenerationTapped
         case modelButtonTapped
         case providerSelected(LLMProvider)
+        case providerConfigureTapped(LLMProvider)
+        case providerConfigDismissed
         case historySelected(String)
         case historyDeleteTapped(String)
         case screenPlanResponseReceived(Result<ScreenPlan, GenerationError>)
@@ -113,41 +116,6 @@ struct DynamicUIFeature {
     enum GenerationMode: Equatable {
         case singleSchema
         case multiStage
-    }
-
-    nonisolated enum LLMProvider: String, Equatable, CaseIterable, Sendable {
-        case localOllama
-        case customEndpoint
-
-        var title: String {
-            switch self {
-            case .localOllama:
-                return "Local Qwen"
-            case .customEndpoint:
-                return "Custom API"
-            }
-        }
-    }
-
-    nonisolated enum ProviderFormat: String, Equatable, CaseIterable, Sendable {
-        case openAICompatible
-        case ollamaCompatible
-
-        var title: String {
-            switch self {
-            case .openAICompatible:
-                return "OpenAI-compatible"
-            case .ollamaCompatible:
-                return "Ollama-compatible"
-            }
-        }
-    }
-
-    nonisolated struct CustomEndpointConfiguration: Equatable, Sendable {
-        var baseURL = ""
-        var modelID = ""
-        var apiKey = ""
-        var providerFormat: ProviderFormat = .openAICompatible
     }
 
     enum GenerationPhase: Equatable {
@@ -272,8 +240,22 @@ struct DynamicUIFeature {
                 state.isModelPickerPresented = true
                 return .none
 
+            case let .providerConfigureTapped(provider):
+                state.configuredProvider = provider
+                return .none
+
+            case .providerConfigDismissed:
+                state.configuredProvider = nil
+                return .none
+
             case let .providerSelected(provider):
                 state.selectedProvider = provider
+                if provider != .customEndpoint {
+                    state.customEndpointConfiguration = LLMProviderConfigurationResolver.configuration(
+                        for: provider,
+                        currentConfiguration: provider.defaultConfiguration
+                    )
+                }
                 return .none
 
             case let .exampleSelected(example):
@@ -311,13 +293,19 @@ struct DynamicUIFeature {
                 state.generationStartedAt = Date()
                 state.completedGenerationDuration = nil
 
+                let provider = state.selectedProvider
+                let providerConfiguration = LLMProviderConfigurationResolver.configuration(
+                    for: provider,
+                    currentConfiguration: state.customEndpointConfiguration
+                )
+
                 switch state.generationMode {
                 case .multiStage:
                     state.generationPhase = .planningScreen
 
                     return .run { send in
                         do {
-                            let plan = try await llmClient.generateScreenPlan(prompt)
+                            let plan = try await llmClient.generateScreenPlan(prompt, provider, providerConfiguration)
                             await send(.screenPlanResponseReceived(.success(plan)))
                         } catch let error as GenerationError {
                             printGenerationFailure(error, context: "screen planning")
@@ -334,7 +322,7 @@ struct DynamicUIFeature {
 
                     return .run { send in
                         do {
-                            let component = try await llmClient.generateSchema(prompt)
+                            let component = try await llmClient.generateSchema(prompt, provider, providerConfiguration)
                             await send(.singleSchemaGenerated(component))
                         } catch let error as GenerationError {
                             printGenerationFailure(error, context: "single schema generation")
@@ -387,6 +375,11 @@ struct DynamicUIFeature {
                 state.generationPhase = .screenPlanReady
 
                 let prompt = state.prompt.trimmingCharacters(in: .whitespacesAndNewlines)
+                let provider = state.selectedProvider
+                let providerConfiguration = LLMProviderConfigurationResolver.configuration(
+                    for: provider,
+                    currentConfiguration: state.customEndpointConfiguration
+                )
 
                 return .run { send in
                     do {
@@ -405,8 +398,12 @@ struct DynamicUIFeature {
                         let outcomes = try await Self.generateSectionsConcurrently(
                             sectionInputs,
                             send: send,
-                            generate: llmClient.generateScreenSection,
-                            retry: llmClient.retryScreenSection
+                            generate: { input in
+                                try await llmClient.generateScreenSection(input, provider, providerConfiguration)
+                            },
+                            retry: { input in
+                                try await llmClient.retryScreenSection(input, provider, providerConfiguration)
+                            }
                         )
                         let orderedOutcomes = outcomes.sorted { $0.index < $1.index }
                         let sections = orderedOutcomes.compactMap(\.component)

@@ -14,10 +14,7 @@
 		C2A000012FB3D10000EA80B7 /* AppFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A001012FB3D10000EA80B7 /* AppFeature.swift */; };
 		C2A000022FB3D10000EA80B7 /* DynamicUIFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A001022FB3D10000EA80B7 /* DynamicUIFeature.swift */; };
 		C2A000032FB3D10000EA80B7 /* DynamicUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A001032FB3D10000EA80B7 /* DynamicUIView.swift */; };
-		C2A0001E2FB5600000EA80B7 /* GeneratedPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A0011E2FB5600000EA80B7 /* GeneratedPreviewView.swift */; };
 		C2A000042FB3D10000EA80B7 /* UIComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A001042FB3D10000EA80B7 /* UIComponent.swift */; };
-		C2A000212FC0000000EA80B7 /* ScreenPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A001212FC0000000EA80B7 /* ScreenPlan.swift */; };
-		C2A000242FC0200000EA80B7 /* ScreenSectionGenerationInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A001242FC0200000EA80B7 /* ScreenSectionGenerationInput.swift */; };
 		C2A000052FB3D10000EA80B7 /* ComponentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A001052FB3D10000EA80B7 /* ComponentType.swift */; };
 		C2A000062FB3D10000EA80B7 /* ComponentProps.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A001062FB3D10000EA80B7 /* ComponentProps.swift */; };
 		C2A000072FB3D10000EA80B7 /* CapabilityCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A001072FB3D10000EA80B7 /* CapabilityCall.swift */; };
@@ -30,14 +27,6 @@
 		C2A0000E2FB3D10000EA80B7 /* LLMClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A0010E2FB3D10000EA80B7 /* LLMClient.swift */; };
 		C2A0000F2FB3D10000EA80B7 /* OllamaClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A0010F2FB3D10000EA80B7 /* OllamaClient.swift */; };
 		C2A000102FB3D10000EA80B7 /* PromptBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A001102FB3D10000EA80B7 /* PromptBuilder.swift */; };
-		C2A000232FC0100000EA80B7 /* ScreenPlanPromptBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A001232FC0100000EA80B7 /* ScreenPlanPromptBuilder.swift */; };
-		C2A000252FC0200000EA80B7 /* ScreenSectionPromptBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A001252FC0200000EA80B7 /* ScreenSectionPromptBuilder.swift */; };
-		C2A000202FBE110000EA80B7 /* CompactComponentDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A001202FBE110000EA80B7 /* CompactComponentDTO.swift */; };
-		C2A000222FC0000000EA80B7 /* ScreenPlanDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A001222FC0000000EA80B7 /* ScreenPlanDTO.swift */; };
-		C2A0001A2FB3E60000EA80B7 /* OllamaGenerateRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A0011A2FB3E60000EA80B7 /* OllamaGenerateRequestDTO.swift */; };
-		C2A0001B2FB3E60000EA80B7 /* OllamaGenerateResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A0011B2FB3E60000EA80B7 /* OllamaGenerateResponseDTO.swift */; };
-		C2A0001C2FB3E60000EA80B7 /* LLMRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A0011C2FB3E60000EA80B7 /* LLMRepository.swift */; };
-		C2A0001D2FB3E60000EA80B7 /* OllamaLLMRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A0011D2FB3E60000EA80B7 /* OllamaLLMRepository.swift */; };
 		C2A000112FB3D10000EA80B7 /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A001112FB3D10000EA80B7 /* AppTheme.swift */; };
 		C2A000122FB3D10000EA80B7 /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A001122FB3D10000EA80B7 /* Color+Hex.swift */; };
 		C2A000132FB3D10000EA80B7 /* AppCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A001132FB3D10000EA80B7 /* AppCard.swift */; };
@@ -47,20 +36,38 @@
 		C2A000172FB3D10000EA80B7 /* AppChip.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A001172FB3D10000EA80B7 /* AppChip.swift */; };
 		C2A000182FB3D10000EA80B7 /* AppPrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A001182FB3D10000EA80B7 /* AppPrimaryButton.swift */; };
 		C2A000192FB3D10000EA80B7 /* EmptyPreviewCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A001192FB3D10000EA80B7 /* EmptyPreviewCanvas.swift */; };
+		C2A0001A2FB3E60000EA80B7 /* OllamaGenerateRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A0011A2FB3E60000EA80B7 /* OllamaGenerateRequestDTO.swift */; };
+		C2A0001B2FB3E60000EA80B7 /* OllamaGenerateResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A0011B2FB3E60000EA80B7 /* OllamaGenerateResponseDTO.swift */; };
+		C2A0001C2FB3E60000EA80B7 /* LLMRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A0011C2FB3E60000EA80B7 /* LLMRepository.swift */; };
+		C2A0001D2FB3E60000EA80B7 /* OllamaLLMRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A0011D2FB3E60000EA80B7 /* OllamaLLMRepository.swift */; };
+		C2A0001E2FB5600000EA80B7 /* GeneratedPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A0011E2FB5600000EA80B7 /* GeneratedPreviewView.swift */; };
+		C2A000202FBE110000EA80B7 /* CompactComponentDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A001202FBE110000EA80B7 /* CompactComponentDTO.swift */; };
+		C2A000212FC0000000EA80B7 /* ScreenPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A001212FC0000000EA80B7 /* ScreenPlan.swift */; };
+		C2A000222FC0000000EA80B7 /* ScreenPlanDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A001222FC0000000EA80B7 /* ScreenPlanDTO.swift */; };
+		C2A000232FC0100000EA80B7 /* ScreenPlanPromptBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A001232FC0100000EA80B7 /* ScreenPlanPromptBuilder.swift */; };
+		C2A000242FC0200000EA80B7 /* ScreenSectionGenerationInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A001242FC0200000EA80B7 /* ScreenSectionGenerationInput.swift */; };
+		C2A000252FC0200000EA80B7 /* ScreenSectionPromptBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A001252FC0200000EA80B7 /* ScreenSectionPromptBuilder.swift */; };
+		C3B000012FD0000000AA91C1 /* LLMProviderConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B001012FD0000000AA91C1 /* LLMProviderConfiguration.swift */; };
+		C3B000022FD0000000AA91C1 /* OpenAICompatibleChatDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B001022FD0000000AA91C1 /* OpenAICompatibleChatDTO.swift */; };
+		C3B000032FD0000000AA91C1 /* OpenAICompatibleLLMRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B001032FD0000000AA91C1 /* OpenAICompatibleLLMRepository.swift */; };
+		C3B000042FD0000000AA91C1 /* LLMProviderConfigurationResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B001042FD0000000AA91C1 /* LLMProviderConfigurationResolver.swift */; };
+		C3B000052FD0000000AA91C1 /* GeminiGenerateContentDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B001052FD0000000AA91C1 /* GeminiGenerateContentDTO.swift */; };
+		C3B000062FD0000000AA91C1 /* GeminiLLMRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B001062FD0000000AA91C1 /* GeminiLLMRepository.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C12E53AA2FC78AE40085C482 /* AppConfig.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = AppConfig.xcconfig; sourceTree = "<group>"; };
+		C12E53AB2FC78AE40085C482 /* AppConfig.example.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = AppConfig.example.xcconfig; sourceTree = "<group>"; };
+		C12E53AD2FC78AE40085C482 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		C1D9C7952FB3CC4E00EA80B7 /* SwiftGenUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftGenUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1D9C7A32FB3CC5700EA80B7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C1D9C7A42FB3CC5700EA80B7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		C1D9C7A52FB3CC5700EA80B7 /* SwiftGenUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftGenUIApp.swift; sourceTree = "<group>"; };
+		C1D9C7A62FC7A0000085C482 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C2A001012FB3D10000EA80B7 /* AppFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFeature.swift; sourceTree = "<group>"; };
 		C2A001022FB3D10000EA80B7 /* DynamicUIFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicUIFeature.swift; sourceTree = "<group>"; };
 		C2A001032FB3D10000EA80B7 /* DynamicUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicUIView.swift; sourceTree = "<group>"; };
-		C2A0011E2FB5600000EA80B7 /* GeneratedPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneratedPreviewView.swift; sourceTree = "<group>"; };
 		C2A001042FB3D10000EA80B7 /* UIComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIComponent.swift; sourceTree = "<group>"; };
-		C2A001212FC0000000EA80B7 /* ScreenPlan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenPlan.swift; sourceTree = "<group>"; };
-		C2A001242FC0200000EA80B7 /* ScreenSectionGenerationInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenSectionGenerationInput.swift; sourceTree = "<group>"; };
 		C2A001052FB3D10000EA80B7 /* ComponentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentType.swift; sourceTree = "<group>"; };
 		C2A001062FB3D10000EA80B7 /* ComponentProps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentProps.swift; sourceTree = "<group>"; };
 		C2A001072FB3D10000EA80B7 /* CapabilityCall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapabilityCall.swift; sourceTree = "<group>"; };
@@ -73,14 +80,6 @@
 		C2A0010E2FB3D10000EA80B7 /* LLMClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLMClient.swift; sourceTree = "<group>"; };
 		C2A0010F2FB3D10000EA80B7 /* OllamaClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OllamaClient.swift; sourceTree = "<group>"; };
 		C2A001102FB3D10000EA80B7 /* PromptBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromptBuilder.swift; sourceTree = "<group>"; };
-		C2A001232FC0100000EA80B7 /* ScreenPlanPromptBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenPlanPromptBuilder.swift; sourceTree = "<group>"; };
-		C2A001252FC0200000EA80B7 /* ScreenSectionPromptBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenSectionPromptBuilder.swift; sourceTree = "<group>"; };
-		C2A001202FBE110000EA80B7 /* CompactComponentDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactComponentDTO.swift; sourceTree = "<group>"; };
-		C2A001222FC0000000EA80B7 /* ScreenPlanDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenPlanDTO.swift; sourceTree = "<group>"; };
-		C2A0011A2FB3E60000EA80B7 /* OllamaGenerateRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OllamaGenerateRequestDTO.swift; sourceTree = "<group>"; };
-		C2A0011B2FB3E60000EA80B7 /* OllamaGenerateResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OllamaGenerateResponseDTO.swift; sourceTree = "<group>"; };
-		C2A0011C2FB3E60000EA80B7 /* LLMRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLMRepository.swift; sourceTree = "<group>"; };
-		C2A0011D2FB3E60000EA80B7 /* OllamaLLMRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OllamaLLMRepository.swift; sourceTree = "<group>"; };
 		C2A001112FB3D10000EA80B7 /* AppTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
 		C2A001122FB3D10000EA80B7 /* Color+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
 		C2A001132FB3D10000EA80B7 /* AppCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCard.swift; sourceTree = "<group>"; };
@@ -90,6 +89,23 @@
 		C2A001172FB3D10000EA80B7 /* AppChip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppChip.swift; sourceTree = "<group>"; };
 		C2A001182FB3D10000EA80B7 /* AppPrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppPrimaryButton.swift; sourceTree = "<group>"; };
 		C2A001192FB3D10000EA80B7 /* EmptyPreviewCanvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyPreviewCanvas.swift; sourceTree = "<group>"; };
+		C2A0011A2FB3E60000EA80B7 /* OllamaGenerateRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OllamaGenerateRequestDTO.swift; sourceTree = "<group>"; };
+		C2A0011B2FB3E60000EA80B7 /* OllamaGenerateResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OllamaGenerateResponseDTO.swift; sourceTree = "<group>"; };
+		C2A0011C2FB3E60000EA80B7 /* LLMRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLMRepository.swift; sourceTree = "<group>"; };
+		C2A0011D2FB3E60000EA80B7 /* OllamaLLMRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OllamaLLMRepository.swift; sourceTree = "<group>"; };
+		C2A0011E2FB5600000EA80B7 /* GeneratedPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneratedPreviewView.swift; sourceTree = "<group>"; };
+		C2A001202FBE110000EA80B7 /* CompactComponentDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactComponentDTO.swift; sourceTree = "<group>"; };
+		C2A001212FC0000000EA80B7 /* ScreenPlan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenPlan.swift; sourceTree = "<group>"; };
+		C2A001222FC0000000EA80B7 /* ScreenPlanDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenPlanDTO.swift; sourceTree = "<group>"; };
+		C2A001232FC0100000EA80B7 /* ScreenPlanPromptBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenPlanPromptBuilder.swift; sourceTree = "<group>"; };
+		C2A001242FC0200000EA80B7 /* ScreenSectionGenerationInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenSectionGenerationInput.swift; sourceTree = "<group>"; };
+		C2A001252FC0200000EA80B7 /* ScreenSectionPromptBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenSectionPromptBuilder.swift; sourceTree = "<group>"; };
+		C3B001012FD0000000AA91C1 /* LLMProviderConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLMProviderConfiguration.swift; sourceTree = "<group>"; };
+		C3B001022FD0000000AA91C1 /* OpenAICompatibleChatDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAICompatibleChatDTO.swift; sourceTree = "<group>"; };
+		C3B001032FD0000000AA91C1 /* OpenAICompatibleLLMRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAICompatibleLLMRepository.swift; sourceTree = "<group>"; };
+		C3B001042FD0000000AA91C1 /* LLMProviderConfigurationResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLMProviderConfigurationResolver.swift; sourceTree = "<group>"; };
+		C3B001052FD0000000AA91C1 /* GeminiGenerateContentDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeminiGenerateContentDTO.swift; sourceTree = "<group>"; };
+		C3B001062FD0000000AA91C1 /* GeminiLLMRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeminiLLMRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,10 +120,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C12E53AC2FC78AE40085C482 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				C12E53AA2FC78AE40085C482 /* AppConfig.xcconfig */,
+				C12E53AB2FC78AE40085C482 /* AppConfig.example.xcconfig */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
 		C1D9C78C2FB3CC4E00EA80B7 = {
 			isa = PBXGroup;
 			children = (
+				C12E53AD2FC78AE40085C482 /* README.md */,
 				C1D9C7A62FB3CC5700EA80B7 /* SwiftGenUI */,
+				C12E53AC2FC78AE40085C482 /* Config */,
 				C1D9C7962FB3CC4E00EA80B7 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -130,6 +157,7 @@
 				C2A002042FB3D10000EA80B7 /* Engine */,
 				C2A002092FB3D10000EA80B7 /* Infrastructure */,
 				C2A0020E2FB3D10000EA80B7 /* CoreUI */,
+				C1D9C7A62FC7A0000085C482 /* Info.plist */,
 				C1D9C7A32FB3CC5700EA80B7 /* Assets.xcassets */,
 			);
 			path = SwiftGenUI;
@@ -226,32 +254,14 @@
 				C2A002112FB3E60000EA80B7 /* DTOs */,
 				C2A002122FB3E60000EA80B7 /* Repositories */,
 				C2A0010E2FB3D10000EA80B7 /* LLMClient.swift */,
+				C3B001012FD0000000AA91C1 /* LLMProviderConfiguration.swift */,
+				C3B001042FD0000000AA91C1 /* LLMProviderConfigurationResolver.swift */,
 				C2A0010F2FB3D10000EA80B7 /* OllamaClient.swift */,
 				C2A001102FB3D10000EA80B7 /* PromptBuilder.swift */,
 				C2A001232FC0100000EA80B7 /* ScreenPlanPromptBuilder.swift */,
 				C2A001252FC0200000EA80B7 /* ScreenSectionPromptBuilder.swift */,
 			);
 			path = LLM;
-			sourceTree = "<group>";
-		};
-		C2A002112FB3E60000EA80B7 /* DTOs */ = {
-			isa = PBXGroup;
-			children = (
-				C2A001202FBE110000EA80B7 /* CompactComponentDTO.swift */,
-				C2A001222FC0000000EA80B7 /* ScreenPlanDTO.swift */,
-				C2A0011A2FB3E60000EA80B7 /* OllamaGenerateRequestDTO.swift */,
-				C2A0011B2FB3E60000EA80B7 /* OllamaGenerateResponseDTO.swift */,
-			);
-			path = DTOs;
-			sourceTree = "<group>";
-		};
-		C2A002122FB3E60000EA80B7 /* Repositories */ = {
-			isa = PBXGroup;
-			children = (
-				C2A0011C2FB3E60000EA80B7 /* LLMRepository.swift */,
-				C2A0011D2FB3E60000EA80B7 /* OllamaLLMRepository.swift */,
-			);
-			path = Repositories;
 			sourceTree = "<group>";
 		};
 		C2A0020B2FB3D10000EA80B7 /* Theme */ = {
@@ -308,6 +318,30 @@
 			children = (
 			);
 			path = Tokens;
+			sourceTree = "<group>";
+		};
+		C2A002112FB3E60000EA80B7 /* DTOs */ = {
+			isa = PBXGroup;
+			children = (
+				C2A001202FBE110000EA80B7 /* CompactComponentDTO.swift */,
+				C3B001052FD0000000AA91C1 /* GeminiGenerateContentDTO.swift */,
+				C3B001022FD0000000AA91C1 /* OpenAICompatibleChatDTO.swift */,
+				C2A001222FC0000000EA80B7 /* ScreenPlanDTO.swift */,
+				C2A0011A2FB3E60000EA80B7 /* OllamaGenerateRequestDTO.swift */,
+				C2A0011B2FB3E60000EA80B7 /* OllamaGenerateResponseDTO.swift */,
+			);
+			path = DTOs;
+			sourceTree = "<group>";
+		};
+		C2A002122FB3E60000EA80B7 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				C2A0011C2FB3E60000EA80B7 /* LLMRepository.swift */,
+				C3B001062FD0000000AA91C1 /* GeminiLLMRepository.swift */,
+				C2A0011D2FB3E60000EA80B7 /* OllamaLLMRepository.swift */,
+				C3B001032FD0000000AA91C1 /* OpenAICompatibleLLMRepository.swift */,
+			);
+			path = Repositories;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -403,16 +437,22 @@
 				C2A0000C2FB3D10000EA80B7 /* CapabilityExecutor.swift in Sources */,
 				C2A0000D2FB3D10000EA80B7 /* DynamicRenderer.swift in Sources */,
 				C2A0000E2FB3D10000EA80B7 /* LLMClient.swift in Sources */,
+				C3B000012FD0000000AA91C1 /* LLMProviderConfiguration.swift in Sources */,
+				C3B000042FD0000000AA91C1 /* LLMProviderConfigurationResolver.swift in Sources */,
 				C2A0000F2FB3D10000EA80B7 /* OllamaClient.swift in Sources */,
 				C2A000102FB3D10000EA80B7 /* PromptBuilder.swift in Sources */,
 				C2A000232FC0100000EA80B7 /* ScreenPlanPromptBuilder.swift in Sources */,
 				C2A000252FC0200000EA80B7 /* ScreenSectionPromptBuilder.swift in Sources */,
 				C2A000202FBE110000EA80B7 /* CompactComponentDTO.swift in Sources */,
+				C3B000052FD0000000AA91C1 /* GeminiGenerateContentDTO.swift in Sources */,
+				C3B000022FD0000000AA91C1 /* OpenAICompatibleChatDTO.swift in Sources */,
 				C2A000222FC0000000EA80B7 /* ScreenPlanDTO.swift in Sources */,
 				C2A0001A2FB3E60000EA80B7 /* OllamaGenerateRequestDTO.swift in Sources */,
 				C2A0001B2FB3E60000EA80B7 /* OllamaGenerateResponseDTO.swift in Sources */,
 				C2A0001C2FB3E60000EA80B7 /* LLMRepository.swift in Sources */,
+				C3B000062FD0000000AA91C1 /* GeminiLLMRepository.swift in Sources */,
 				C2A0001D2FB3E60000EA80B7 /* OllamaLLMRepository.swift in Sources */,
+				C3B000032FD0000000AA91C1 /* OpenAICompatibleLLMRepository.swift in Sources */,
 				C2A000112FB3D10000EA80B7 /* AppTheme.swift in Sources */,
 				C2A000122FB3D10000EA80B7 /* Color+Hex.swift in Sources */,
 				C2A000132FB3D10000EA80B7 /* AppCard.swift in Sources */,
@@ -553,6 +593,7 @@
 		};
 		C1D9C7A12FB3CC4F00EA80B7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C12E53AB2FC78AE40085C482 /* AppConfig.example.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -560,12 +601,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 232C7N3DDY;
 				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = SwiftGenUI/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -585,6 +622,7 @@
 		};
 		C1D9C7A22FB3CC4F00EA80B7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C12E53AB2FC78AE40085C482 /* AppConfig.example.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -592,12 +630,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 232C7N3DDY;
 				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = SwiftGenUI/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
