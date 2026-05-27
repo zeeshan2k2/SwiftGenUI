@@ -29,6 +29,12 @@ struct DynamicUIFeature {
         var isPreviewPresented = false
         var isSchemaInspectorPresented = false
         var isModelPickerPresented = false
+        var selectedProvider: LLMProvider = .localOllama
+        var customEndpointConfiguration = CustomEndpointConfiguration()
+
+        var providerButtonTitle: String {
+            selectedProvider.title
+        }
 
         var generationStatus: String {
             generationPhase.statusText
@@ -90,6 +96,7 @@ struct DynamicUIFeature {
         case generateTapped
         case cancelGenerationTapped
         case modelButtonTapped
+        case providerSelected(LLMProvider)
         case historySelected(String)
         case historyDeleteTapped(String)
         case screenPlanResponseReceived(Result<ScreenPlan, GenerationError>)
@@ -106,6 +113,41 @@ struct DynamicUIFeature {
     enum GenerationMode: Equatable {
         case singleSchema
         case multiStage
+    }
+
+    nonisolated enum LLMProvider: String, Equatable, CaseIterable, Sendable {
+        case localOllama
+        case customEndpoint
+
+        var title: String {
+            switch self {
+            case .localOllama:
+                return "Local Qwen"
+            case .customEndpoint:
+                return "Custom API"
+            }
+        }
+    }
+
+    nonisolated enum ProviderFormat: String, Equatable, CaseIterable, Sendable {
+        case openAICompatible
+        case ollamaCompatible
+
+        var title: String {
+            switch self {
+            case .openAICompatible:
+                return "OpenAI-compatible"
+            case .ollamaCompatible:
+                return "Ollama-compatible"
+            }
+        }
+    }
+
+    nonisolated struct CustomEndpointConfiguration: Equatable, Sendable {
+        var baseURL = ""
+        var modelID = ""
+        var apiKey = ""
+        var providerFormat: ProviderFormat = .openAICompatible
     }
 
     enum GenerationPhase: Equatable {
@@ -228,6 +270,10 @@ struct DynamicUIFeature {
 
             case .modelButtonTapped:
                 state.isModelPickerPresented = true
+                return .none
+
+            case let .providerSelected(provider):
+                state.selectedProvider = provider
                 return .none
 
             case let .exampleSelected(example):

@@ -30,8 +30,8 @@ struct DynamicUIView: View {
                 GeneratedPreviewView(store: store)
             }
             .sheet(isPresented: $store.isModelPickerPresented) {
-                ModelProviderSheet()
-                    .presentationDetents([.height(390)])
+                ModelProviderSheet(store: store)
+                    .presentationDetents([.height(620)])
                     .presentationDragIndicator(.visible)
             }
         }
@@ -60,7 +60,7 @@ struct DynamicUIView: View {
 
             Spacer(minLength: 16)
 
-            ModelProviderButton(title: "Local Qwen") {
+            ModelProviderButton(title: store.providerButtonTitle) {
                 store.send(.modelButtonTapped)
             }
         }
@@ -196,6 +196,8 @@ private struct ModelProviderButton: View {
 }
 
 private struct ModelProviderSheet: View {
+    @Bindable var store: StoreOf<DynamicUIFeature>
+
     var body: some View {
         ZStack {
             LinearGradient(
@@ -215,7 +217,7 @@ private struct ModelProviderSheet: View {
                         .font(.system(size: 28, weight: .semibold, design: .default))
                         .foregroundStyle(.white)
 
-                    Text("Local Ollama is active. Custom endpoints will plug into this switcher next.")
+                    Text("Configure where generated UI requests will run. Generation still uses Local Ollama until the endpoint adapter is added.")
                         .font(.system(size: 14, weight: .medium, design: .default))
                         .foregroundStyle(AppTheme.mutedText)
                         .fixedSize(horizontal: false, vertical: true)
@@ -226,17 +228,25 @@ private struct ModelProviderSheet: View {
                         title: "Local Ollama",
                         subtitle: "Qwen 2.5 Coder 14B via localhost",
                         systemImage: "desktopcomputer",
-                        isSelected: true,
-                        isDisabled: false
-                    )
+                        isSelected: store.selectedProvider == .localOllama,
+                        accessory: .check
+                    ) {
+                        store.send(.providerSelected(.localOllama))
+                    }
 
                     ProviderOptionRow(
                         title: "Custom Endpoint",
-                        subtitle: "OpenAI-compatible API setup coming next",
+                        subtitle: "Save connection details now, wire the adapter later",
                         systemImage: "link.badge.plus",
-                        isSelected: false,
-                        isDisabled: true
-                    )
+                        isSelected: store.selectedProvider == .customEndpoint,
+                        accessory: .configure
+                    ) {
+                        store.send(.providerSelected(.customEndpoint))
+                    }
+                }
+
+                if store.selectedProvider == .customEndpoint {
+                    customEndpointForm
                 }
 
                 Spacer(minLength: 0)
@@ -246,56 +256,100 @@ private struct ModelProviderSheet: View {
             .padding(.bottom, 18)
         }
     }
+
+    private var customEndpointForm: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("Custom Endpoint Config")
+                .font(.system(size: 13, weight: .semibold, design: .default))
+                .foregroundStyle(AppTheme.cream.opacity(0.86))
+
+            ProviderTextField(
+                title: "Base URL",
+                placeholder: "https://api.openrouter.ai/v1",
+                text: $store.customEndpointConfiguration.baseURL
+            )
+
+            ProviderTextField(
+                title: "Model ID",
+                placeholder: "qwen/qwen3-coder:free",
+                text: $store.customEndpointConfiguration.modelID
+            )
+
+            ProviderTextField(
+                title: "API Key",
+                placeholder: "Paste your own key",
+                text: $store.customEndpointConfiguration.apiKey,
+                isSecure: true
+            )
+
+            Picker("Format", selection: $store.customEndpointConfiguration.providerFormat) {
+                ForEach(DynamicUIFeature.ProviderFormat.allCases, id: \.self) { format in
+                    Text(format.title)
+                        .tag(format)
+                }
+            }
+            .pickerStyle(.segmented)
+        }
+        .padding(14)
+        .background(.white.opacity(0.07), in: RoundedRectangle(cornerRadius: 22))
+        .overlay {
+            RoundedRectangle(cornerRadius: 22)
+                .stroke(.white.opacity(0.10), lineWidth: 1)
+        }
+    }
 }
 
 private struct ProviderOptionRow: View {
+    enum Accessory {
+        case check
+        case configure
+    }
+
     let title: String
     let subtitle: String
     let systemImage: String
     let isSelected: Bool
-    let isDisabled: Bool
+    let accessory: Accessory
+    let action: () -> Void
 
     var body: some View {
-        HStack(spacing: 14) {
-            Image(systemName: systemImage)
-                .font(.system(size: 18, weight: .semibold, design: .default))
-                .foregroundStyle(isSelected ? AppTheme.cream : AppTheme.mutedText)
-                .frame(width: 42, height: 42)
-                .background(iconBackground, in: RoundedRectangle(cornerRadius: 15))
+        Button(action: action) {
+            HStack(spacing: 14) {
+                Image(systemName: systemImage)
+                    .font(.system(size: 18, weight: .semibold, design: .default))
+                    .foregroundStyle(isSelected ? AppTheme.cream : AppTheme.mutedText)
+                    .frame(width: 42, height: 42)
+                    .background(iconBackground, in: RoundedRectangle(cornerRadius: 15))
 
-            VStack(alignment: .leading, spacing: 4) {
-                Text(title)
-                    .font(.system(size: 16, weight: .semibold, design: .default))
-                    .foregroundStyle(.white.opacity(isDisabled ? 0.52 : 1))
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(title)
+                        .font(.system(size: 16, weight: .semibold, design: .default))
+                        .foregroundStyle(.white)
 
-                Text(subtitle)
-                    .font(.system(size: 12, weight: .medium, design: .default))
-                    .foregroundStyle(AppTheme.mutedText.opacity(isDisabled ? 0.62 : 1))
-                    .lineLimit(2)
-            }
+                    Text(subtitle)
+                        .font(.system(size: 12, weight: .medium, design: .default))
+                        .foregroundStyle(AppTheme.mutedText)
+                        .lineLimit(2)
+                }
 
-            Spacer(minLength: 12)
+                Spacer(minLength: 12)
 
-            if isSelected {
-                Image(systemName: "checkmark.circle.fill")
-                    .font(.system(size: 21, weight: .semibold))
-                    .foregroundStyle(AppTheme.sage)
-            } else {
-                Text("Soon")
-                    .font(.system(size: 11, weight: .semibold, design: .default))
-                    .foregroundStyle(AppTheme.cream.opacity(0.58))
-                    .padding(.horizontal, 9)
-                    .padding(.vertical, 6)
-                    .background(.white.opacity(0.07), in: Capsule())
+                if isSelected {
+                    Image(systemName: "checkmark.circle.fill")
+                        .font(.system(size: 21, weight: .semibold))
+                        .foregroundStyle(AppTheme.sage)
+                } else {
+                    accessoryLabel
+                }
             }
         }
+        .buttonStyle(.plain)
         .padding(14)
         .background(.white.opacity(isSelected ? 0.11 : 0.06), in: RoundedRectangle(cornerRadius: 22))
         .overlay {
             RoundedRectangle(cornerRadius: 22)
                 .stroke(.white.opacity(isSelected ? 0.18 : 0.09), lineWidth: 1)
         }
-        .opacity(isDisabled ? 0.74 : 1)
     }
 
     private var iconBackground: some ShapeStyle {
@@ -306,6 +360,49 @@ private struct ProviderOptionRow: View {
             startPoint: .topLeading,
             endPoint: .bottomTrailing
         )
+    }
+
+    private var accessoryLabel: some View {
+        Text(accessory == .check ? "Select" : "Configure")
+            .font(.system(size: 11, weight: .semibold, design: .default))
+            .foregroundStyle(AppTheme.cream.opacity(0.64))
+            .padding(.horizontal, 9)
+            .padding(.vertical, 6)
+            .background(.white.opacity(0.07), in: Capsule())
+    }
+}
+
+private struct ProviderTextField: View {
+    let title: String
+    let placeholder: String
+    @Binding var text: String
+    var isSecure = false
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 6) {
+            Text(title)
+                .font(.system(size: 11, weight: .medium, design: .default))
+                .foregroundStyle(AppTheme.mutedText)
+
+            Group {
+                if isSecure {
+                    SecureField(placeholder, text: $text)
+                } else {
+                    TextField(placeholder, text: $text)
+                }
+            }
+            .textInputAutocapitalization(.never)
+            .autocorrectionDisabled()
+            .font(.system(size: 14, weight: .regular, design: .default))
+            .foregroundStyle(.white)
+            .padding(.horizontal, 12)
+            .padding(.vertical, 11)
+            .background(AppTheme.inkSoft.opacity(0.72), in: RoundedRectangle(cornerRadius: 14))
+            .overlay {
+                RoundedRectangle(cornerRadius: 14)
+                    .stroke(.white.opacity(0.10), lineWidth: 1)
+            }
+        }
     }
 }
 
