@@ -56,6 +56,10 @@
 		C4D000012FC8000000AA91C1 /* HistoryRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D001012FC8000000AA91C1 /* HistoryRecord.swift */; };
 		C4D000022FC8000000AA91C1 /* SwiftDataHistoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D001022FC8000000AA91C1 /* SwiftDataHistoryRepository.swift */; };
 		C4D000032FC8000000AA91C1 /* HistoryClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D001032FC8000000AA91C1 /* HistoryClient.swift */; };
+		C5E000012FC9000000AA91C1 /* DynamicUIHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E001012FC9000000AA91C1 /* DynamicUIHelpers.swift */; };
+		C5E000022FC9000000AA91C1 /* GeneratingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E001022FC9000000AA91C1 /* GeneratingButton.swift */; };
+		C5E000032FC9000000AA91C1 /* ModelProviderViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E001032FC9000000AA91C1 /* ModelProviderViews.swift */; };
+		C5E000042FC9000000AA91C1 /* HistoryViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E001042FC9000000AA91C1 /* HistoryViews.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -112,6 +116,10 @@
 		C4D001012FC8000000AA91C1 /* HistoryRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryRecord.swift; sourceTree = "<group>"; };
 		C4D001022FC8000000AA91C1 /* SwiftDataHistoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDataHistoryRepository.swift; sourceTree = "<group>"; };
 		C4D001032FC8000000AA91C1 /* HistoryClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryClient.swift; sourceTree = "<group>"; };
+		C5E001012FC9000000AA91C1 /* DynamicUIHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicUIHelpers.swift; sourceTree = "<group>"; };
+		C5E001022FC9000000AA91C1 /* GeneratingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneratingButton.swift; sourceTree = "<group>"; };
+		C5E001032FC9000000AA91C1 /* ModelProviderViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelProviderViews.swift; sourceTree = "<group>"; };
+		C5E001042FC9000000AA91C1 /* HistoryViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViews.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -190,7 +198,11 @@
 			children = (
 				C2A001022FB3D10000EA80B7 /* DynamicUIFeature.swift */,
 				C2A001032FB3D10000EA80B7 /* DynamicUIView.swift */,
+				C5E001012FC9000000AA91C1 /* DynamicUIHelpers.swift */,
+				C5E001022FC9000000AA91C1 /* GeneratingButton.swift */,
 				C2A0011E2FB5600000EA80B7 /* GeneratedPreviewView.swift */,
+				C5E001042FC9000000AA91C1 /* HistoryViews.swift */,
+				C5E001032FC9000000AA91C1 /* ModelProviderViews.swift */,
 			);
 			path = DynamicUI;
 			sourceTree = "<group>";
@@ -464,7 +476,11 @@
 				C2A000012FB3D10000EA80B7 /* AppFeature.swift in Sources */,
 				C2A000022FB3D10000EA80B7 /* DynamicUIFeature.swift in Sources */,
 				C2A000032FB3D10000EA80B7 /* DynamicUIView.swift in Sources */,
+				C5E000012FC9000000AA91C1 /* DynamicUIHelpers.swift in Sources */,
+				C5E000022FC9000000AA91C1 /* GeneratingButton.swift in Sources */,
 				C2A0001E2FB5600000EA80B7 /* GeneratedPreviewView.swift in Sources */,
+				C5E000042FC9000000AA91C1 /* HistoryViews.swift in Sources */,
+				C5E000032FC9000000AA91C1 /* ModelProviderViews.swift in Sources */,
 				C2A000042FB3D10000EA80B7 /* UIComponent.swift in Sources */,
 				C2A000212FC0000000EA80B7 /* ScreenPlan.swift in Sources */,
 				C2A000242FC0200000EA80B7 /* ScreenSectionGenerationInput.swift in Sources */,
