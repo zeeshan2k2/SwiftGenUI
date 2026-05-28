@@ -11,6 +11,7 @@ import Foundation
 @Reducer
 struct DynamicUIFeature {
     @Dependency(\.llmClient) private var llmClient
+    @Dependency(\.historyClient) private var historyClient
 
     @ObservableState
     struct State: Equatable {
@@ -26,6 +27,7 @@ struct DynamicUIFeature {
         var generationStartedAt: Date?
         var completedGenerationDuration: TimeInterval?
         var generationHistory: [HistoryItem] = []
+        var hasLoadedPersistedHistory = false
         var isPreviewPresented = false
         var isSchemaInspectorPresented = false
         var isModelPickerPresented = false
@@ -51,6 +53,14 @@ struct DynamicUIFeature {
             }
 
             return "Rendered in \(Self.formattedDuration(completedGenerationDuration))"
+        }
+
+        var generationErrorMessage: String? {
+            guard case let .failed(message) = generationPhase else {
+                return nil
+            }
+
+            return message
         }
 
         struct HistoryItem: Identifiable, Equatable {
@@ -93,10 +103,13 @@ struct DynamicUIFeature {
 
     enum Action: BindableAction {
         case binding(BindingAction<State>)
+        case viewAppeared
+        case historyLoaded([State.HistoryItem])
         case exampleSelected(String)
         case generateTapped
         case cancelGenerationTapped
         case modelButtonTapped
+        case modelPickerDismissed
         case providerSelected(LLMProvider)
         case providerConfigureTapped(LLMProvider)
         case providerConfigDismissed
@@ -207,20 +220,104 @@ struct DynamicUIFeature {
         case emptyResponse
         case invalidSchema
         case noValidSections
+        case localOllamaUnavailable
         case requestFailed(String)
 
         var message: String {
             switch self {
             case .emptyResponse:
-                return "Ollama returned an empty response"
+                return "The provider returned an empty response. Try again."
             case .invalidSchema:
-                return "Ollama returned invalid schema"
+                return "The AI response could not be turned into a valid UI. Try simplifying the prompt."
             case .noValidSections:
-                return "No valid sections were generated after retry"
+                return "The AI could not generate enough valid sections. Try a shorter prompt."
+            case .localOllamaUnavailable:
+                return "Local Ollama is not running. Start Ollama and try again."
             case let .requestFailed(message):
-                return message
+                return Self.userFriendlyMessage(for: message)
             }
         }
+
+        private static func userFriendlyMessage(for rawMessage: String) -> String {
+            let message = rawMessage.trimmingCharacters(in: .whitespacesAndNewlines)
+            let lowercasedMessage = message.lowercased()
+
+            if lowercasedMessage.contains("missing") && lowercasedMessage.contains("api key") {
+                return "This provider needs an API key before it can generate UI."
+            }
+
+            if lowercasedMessage.contains("localhost") ||
+                lowercasedMessage.contains("ollama") {
+                return "Local Ollama is not running. Start Ollama and try again."
+            }
+
+            if lowercasedMessage.contains("timed out") ||
+                lowercasedMessage.contains("timeout") {
+                return "Generation took too long. Try a shorter prompt or another provider."
+            }
+
+            if lowercasedMessage.contains("401") ||
+                lowercasedMessage.contains("403") ||
+                lowercasedMessage.contains("unauthorized") ||
+                lowercasedMessage.contains("forbidden") ||
+                lowercasedMessage.contains("api key was rejected") {
+                return "The API key was rejected. Check your provider settings."
+            }
+
+            if lowercasedMessage.contains("429") ||
+                lowercasedMessage.contains("rate") ||
+                lowercasedMessage.contains("quota") ||
+                lowercasedMessage.contains("insufficient_quota") {
+                return "This provider is temporarily rate limited or out of quota. Try again shortly or switch providers."
+            }
+
+            if lowercasedMessage.contains("404") ||
+                lowercasedMessage.contains("no endpoints") ||
+                lowercasedMessage.contains("model") && lowercasedMessage.contains("unavailable") {
+                return "This model is unavailable right now. Try another model or provider."
+            }
+
+            if lowercasedMessage.contains("hostname could not be found") ||
+                lowercasedMessage.contains("could not connect to the server") ||
+                lowercasedMessage.contains("not connected to the internet") ||
+                lowercasedMessage.contains("network connection was lost") ||
+                lowercasedMessage.contains("dns") {
+                return "Could not reach the selected AI provider. Check your connection and try again."
+            }
+
+            if lowercasedMessage.contains("not valid json") ||
+                lowercasedMessage.contains("invalid json") ||
+                lowercasedMessage.contains("correct format") ||
+                lowercasedMessage.contains("unexpected end of file") {
+                return "The AI response could not be turned into a valid UI. Try simplifying the prompt."
+            }
+
+            if lowercasedMessage.contains("empty response") {
+                return "The provider returned an empty response. Try again."
+            }
+
+            return message.isEmpty
+                ? "Something went wrong while generating the UI. Please try again."
+                : "Something went wrong while generating the UI. Please try again."
+        }
+    }
+
+    private static func generationError(from error: Error, provider: LLMProvider) -> GenerationError {
+        if let generationError = error as? GenerationError {
+            return generationError
+        }
+
+        let nsError = error as NSError
+        let message = error.localizedDescription.lowercased()
+        let isTransportFailure = nsError.domain == NSURLErrorDomain ||
+            message.contains("could not connect to the server") ||
+            message.contains("connection refused")
+
+        if provider == .localOllama, isTransportFailure {
+            return .localOllamaUnavailable
+        }
+
+        return .requestFailed(error.localizedDescription)
     }
 
     struct GeneratedSections: Equatable {
@@ -236,8 +333,34 @@ struct DynamicUIFeature {
             case .binding:
                 return .none
 
+            case .viewAppeared:
+                guard !state.hasLoadedPersistedHistory else {
+                    return .none
+                }
+
+                state.hasLoadedPersistedHistory = true
+
+                return .run { send in
+                    do {
+                        let persistedItems = try await historyClient.loadHistory()
+                        let historyItems = await Self.historyItems(from: persistedItems)
+                        await send(.historyLoaded(historyItems))
+                    } catch {
+                        printHistoryPersistenceFailure(error, operation: "load")
+                    }
+                }
+
+            case let .historyLoaded(items):
+                let existingIDs = Set(state.generationHistory.map(\.id))
+                state.generationHistory.append(contentsOf: items.filter { !existingIDs.contains($0.id) })
+                return .none
+
             case .modelButtonTapped:
                 state.isModelPickerPresented = true
+                return .none
+
+            case .modelPickerDismissed:
+                state.configuredProvider = nil
                 return .none
 
             case let .providerConfigureTapped(provider):
@@ -312,7 +435,10 @@ struct DynamicUIFeature {
                             await send(.screenPlanResponseReceived(.failure(error)))
                         } catch {
                             printGenerationFailure(error, context: "screen planning")
-                            await send(.screenPlanResponseReceived(.failure(.requestFailed(error.localizedDescription))))
+                            await send(.screenPlanResponseReceived(.failure(Self.generationError(
+                                from: error,
+                                provider: provider
+                            ))))
                         }
                     }
                     .cancellable(id: Self.generationCancelID, cancelInFlight: true)
@@ -329,7 +455,10 @@ struct DynamicUIFeature {
                             await send(.schemaResponseReceived(.failure(error)))
                         } catch {
                             printGenerationFailure(error, context: "single schema generation")
-                            await send(.schemaResponseReceived(.failure(.requestFailed(error.localizedDescription))))
+                            await send(.schemaResponseReceived(.failure(Self.generationError(
+                                from: error,
+                                provider: provider
+                            ))))
                         }
                     }
                     .cancellable(id: Self.generationCancelID, cancelInFlight: true)
@@ -367,7 +496,13 @@ struct DynamicUIFeature {
 
             case let .historyDeleteTapped(id):
                 state.generationHistory.removeAll { $0.id == id }
-                return .none
+                return .run { _ in
+                    do {
+                        try await historyClient.deleteHistoryItem(id)
+                    } catch {
+                        printHistoryPersistenceFailure(error, operation: "delete", id: id)
+                    }
+                }
 
             case let .screenPlanResponseReceived(.success(plan)):
                 state.plannedScreen = plan
@@ -428,13 +563,16 @@ struct DynamicUIFeature {
                         await send(.screenSectionsResponseReceived(.failure(error)))
                     } catch {
                         printGenerationFailure(error, context: "section generation")
-                        await send(.screenSectionsResponseReceived(.failure(.requestFailed(error.localizedDescription))))
+                        await send(.screenSectionsResponseReceived(.failure(Self.generationError(
+                            from: error,
+                            provider: provider
+                        ))))
                     }
                 }
                 .cancellable(id: Self.generationCancelID, cancelInFlight: true)
 
             case let .screenPlanResponseReceived(.failure(error)):
-                state.generationPhase = .failed("Screen planning failed: \(error.message)")
+                state.generationPhase = .failed(error.message)
                 state.plannedScreen = nil
                 state.generatedSections = []
                 state.generatedComponent = nil
@@ -478,7 +616,7 @@ struct DynamicUIFeature {
                 .cancellable(id: Self.generationCancelID, cancelInFlight: true)
 
             case let .screenSectionsResponseReceived(.failure(error)):
-                state.generationPhase = .failed("Section generation failed: \(error.message)")
+                state.generationPhase = .failed(error.message)
                 state.generatedSections = []
                 state.generatedComponent = nil
                 state.generatedSchema = nil
@@ -530,7 +668,7 @@ struct DynamicUIFeature {
                 .cancellable(id: Self.generationCancelID, cancelInFlight: true)
 
             case let .mergedSchemaResponseReceived(.failure(error)):
-                state.generationPhase = .failed("Schema merge failed: \(error.message)")
+                state.generationPhase = .failed(error.message)
                 state.generatedSections = []
                 state.generatedComponent = nil
                 state.generatedSchema = nil
@@ -552,28 +690,39 @@ struct DynamicUIFeature {
 
             case let .schemaResponseReceived(.success(component)):
                 let schema = Self.prettyPrintedJSON(for: component)
+                let duration = state.generationStartedAt.map { Date().timeIntervalSince($0) }
+                let historyItem = State.HistoryItem(
+                    id: UUID().uuidString,
+                    prompt: state.prompt.trimmingCharacters(in: .whitespacesAndNewlines),
+                    component: component,
+                    schema: schema,
+                    warning: state.generationWarning,
+                    generationDuration: duration
+                )
 
                 state.generationPhase = .completed
                 state.plannedScreen = nil
                 state.generatedSections = []
                 state.generatedComponent = component
                 state.generatedSchema = schema
-                let duration = state.generationStartedAt.map { Date().timeIntervalSince($0) }
                 state.completedGenerationDuration = duration
                 state.generationStartedAt = nil
-                state.generationHistory.insert(
-                    State.HistoryItem(
-                        id: UUID().uuidString,
-                        prompt: state.prompt.trimmingCharacters(in: .whitespacesAndNewlines),
-                        component: component,
-                        schema: schema,
-                        warning: state.generationWarning,
-                        generationDuration: duration
-                    ),
-                    at: 0
-                )
+                state.generationHistory.insert(historyItem, at: 0)
                 state.isPreviewPresented = true
-                return .none
+                return .run { _ in
+                    do {
+                        try await historyClient.saveHistoryItem(PersistedHistoryItem(
+                            id: historyItem.id,
+                            prompt: historyItem.prompt,
+                            schema: historyItem.schema,
+                            warning: historyItem.warning,
+                            generationDuration: historyItem.generationDuration,
+                            createdAt: Date()
+                        ))
+                    } catch {
+                        printHistoryPersistenceFailure(error, operation: "save", id: historyItem.id)
+                    }
+                }
 
             case let .schemaResponseReceived(.failure(error)):
                 state.generationPhase = .failed(error.message)
@@ -601,6 +750,31 @@ struct DynamicUIFeature {
         }
 
         return json
+    }
+
+    private static func historyItems(from persistedItems: [PersistedHistoryItem]) -> [State.HistoryItem] {
+        let decoder = JSONDecoder()
+
+        return persistedItems.compactMap { item in
+            guard let data = item.schema.data(using: .utf8) else {
+                return nil
+            }
+
+            do {
+                let component = try decoder.decode(UIComponent.self, from: data)
+                return State.HistoryItem(
+                    id: item.id,
+                    prompt: item.prompt,
+                    component: component,
+                    schema: item.schema,
+                    warning: item.warning,
+                    generationDuration: item.generationDuration
+                )
+            } catch {
+                printHistoryPersistenceFailure(error, operation: "decode", id: item.id)
+                return nil
+            }
+        }
     }
 
     private static func mergeSections(_ sections: [UIComponent], using plan: ScreenPlan) -> UIComponent {
@@ -752,6 +926,18 @@ nonisolated private func printGenerationFailure(_ error: Error, context: String)
     #if DEBUG
     print("SwiftGenUI generation failure during \(context): \(error.localizedDescription)")
     print("SwiftGenUI generation failure debug details: \(String(reflecting: error))")
+    #endif
+}
+
+nonisolated private func printHistoryPersistenceFailure(
+    _ error: Error,
+    operation: String,
+    id: String? = nil
+) {
+    #if DEBUG
+    let idText = id.map { " id=\($0)" } ?? ""
+    print("SwiftGenUI history \(operation) failed.\(idText) error=\(error.localizedDescription)")
+    print("SwiftGenUI history \(operation) debug details: \(String(reflecting: error))")
     #endif
 }
 

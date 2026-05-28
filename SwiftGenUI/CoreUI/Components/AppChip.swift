@@ -20,7 +20,24 @@ struct AppChip: View {
                 .foregroundStyle(foregroundColor)
                 .padding(.horizontal, 14)
                 .padding(.vertical, 10)
-                .background(backgroundColor, in: Capsule())
+                .background {
+                    Capsule()
+                        .fill(Color.white.opacity(isDisabled ? 0.05 : 0.08))
+
+                    if isSelected && !isDisabled {
+                        Capsule()
+                            .fill(
+                                LinearGradient(
+                                    colors: [
+                                        Color(hex: "#E9EDF5"),
+                                        Color(hex: "#BFC7D6")
+                                    ],
+                                    startPoint: .topLeading,
+                                    endPoint: .bottomTrailing
+                                )
+                            )
+                    }
+                }
         }
         .buttonStyle(.plain)
         .disabled(isDisabled)
@@ -33,14 +50,6 @@ struct AppChip: View {
             return AppTheme.cream.opacity(0.62)
         }
 
-        return isSelected ? AppTheme.ink : AppTheme.cream
-    }
-
-    private var backgroundColor: Color {
-        if isDisabled {
-            return .white.opacity(0.05)
-        }
-
-        return isSelected ? AppTheme.cream : .white.opacity(0.08)
+        return isSelected ? Color(hex: "#111827") : AppTheme.cream
     }
 }

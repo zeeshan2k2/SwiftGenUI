@@ -19,7 +19,21 @@ struct AppPromptTextEditor: View {
             .foregroundStyle(isDisabled ? .white.opacity(0.52) : .white)
             .frame(minHeight: 118)
             .padding(14)
-            .background(AppTheme.inkSoft.opacity(isDisabled ? 0.58 : 0.9), in: RoundedRectangle(cornerRadius: 20))
+            .background(
+                LinearGradient(
+                    colors: [
+                        AppTheme.inkSoft.opacity(isDisabled ? 0.58 : 0.92),
+                        Color(hex: "#2A211B").opacity(isDisabled ? 0.48 : 0.74)
+                    ],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                ),
+                in: RoundedRectangle(cornerRadius: 20)
+            )
+            .overlay {
+                RoundedRectangle(cornerRadius: 20)
+                    .stroke(AppTheme.amberSoft.opacity(isDisabled ? 0.08 : 0.14), lineWidth: 1)
+            }
             .overlay(alignment: .topLeading) {
                 if text.isEmpty {
                     Text(placeholder)

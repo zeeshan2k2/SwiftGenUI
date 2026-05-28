@@ -53,6 +53,9 @@
 		C3B000042FD0000000AA91C1 /* LLMProviderConfigurationResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B001042FD0000000AA91C1 /* LLMProviderConfigurationResolver.swift */; };
 		C3B000052FD0000000AA91C1 /* GeminiGenerateContentDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B001052FD0000000AA91C1 /* GeminiGenerateContentDTO.swift */; };
 		C3B000062FD0000000AA91C1 /* GeminiLLMRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B001062FD0000000AA91C1 /* GeminiLLMRepository.swift */; };
+		C4D000012FC8000000AA91C1 /* HistoryRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D001012FC8000000AA91C1 /* HistoryRecord.swift */; };
+		C4D000022FC8000000AA91C1 /* SwiftDataHistoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D001022FC8000000AA91C1 /* SwiftDataHistoryRepository.swift */; };
+		C4D000032FC8000000AA91C1 /* HistoryClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D001032FC8000000AA91C1 /* HistoryClient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -106,6 +109,9 @@
 		C3B001042FD0000000AA91C1 /* LLMProviderConfigurationResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLMProviderConfigurationResolver.swift; sourceTree = "<group>"; };
 		C3B001052FD0000000AA91C1 /* GeminiGenerateContentDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeminiGenerateContentDTO.swift; sourceTree = "<group>"; };
 		C3B001062FD0000000AA91C1 /* GeminiLLMRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeminiLLMRepository.swift; sourceTree = "<group>"; };
+		C4D001012FC8000000AA91C1 /* HistoryRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryRecord.swift; sourceTree = "<group>"; };
+		C4D001022FC8000000AA91C1 /* SwiftDataHistoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDataHistoryRepository.swift; sourceTree = "<group>"; };
+		C4D001032FC8000000AA91C1 /* HistoryClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -244,6 +250,7 @@
 			isa = PBXGroup;
 			children = (
 				C2A0020A2FB3D10000EA80B7 /* LLM */,
+				C4D002012FC8000000AA91C1 /* Persistence */,
 			);
 			path = Infrastructure;
 			sourceTree = "<group>";
@@ -340,6 +347,40 @@
 				C3B001062FD0000000AA91C1 /* GeminiLLMRepository.swift */,
 				C2A0011D2FB3E60000EA80B7 /* OllamaLLMRepository.swift */,
 				C3B001032FD0000000AA91C1 /* OpenAICompatibleLLMRepository.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		C4D002012FC8000000AA91C1 /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				C4D002022FC8000000AA91C1 /* Clients */,
+				C4D002032FC8000000AA91C1 /* Models */,
+				C4D002042FC8000000AA91C1 /* Repositories */,
+			);
+			path = Persistence;
+			sourceTree = "<group>";
+		};
+		C4D002022FC8000000AA91C1 /* Clients */ = {
+			isa = PBXGroup;
+			children = (
+				C4D001032FC8000000AA91C1 /* HistoryClient.swift */,
+			);
+			path = Clients;
+			sourceTree = "<group>";
+		};
+		C4D002032FC8000000AA91C1 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C4D001012FC8000000AA91C1 /* HistoryRecord.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		C4D002042FC8000000AA91C1 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				C4D001022FC8000000AA91C1 /* SwiftDataHistoryRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -453,6 +494,9 @@
 				C3B000062FD0000000AA91C1 /* GeminiLLMRepository.swift in Sources */,
 				C2A0001D2FB3E60000EA80B7 /* OllamaLLMRepository.swift in Sources */,
 				C3B000032FD0000000AA91C1 /* OpenAICompatibleLLMRepository.swift in Sources */,
+				C4D000012FC8000000AA91C1 /* HistoryRecord.swift in Sources */,
+				C4D000022FC8000000AA91C1 /* SwiftDataHistoryRepository.swift in Sources */,
+				C4D000032FC8000000AA91C1 /* HistoryClient.swift in Sources */,
 				C2A000112FB3D10000EA80B7 /* AppTheme.swift in Sources */,
 				C2A000122FB3D10000EA80B7 /* Color+Hex.swift in Sources */,
 				C2A000132FB3D10000EA80B7 /* AppCard.swift in Sources */,

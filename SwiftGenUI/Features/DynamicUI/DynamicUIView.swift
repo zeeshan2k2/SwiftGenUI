@@ -29,32 +29,19 @@ struct DynamicUIView: View {
             .navigationDestination(isPresented: $store.isPreviewPresented) {
                 GeneratedPreviewView(store: store)
             }
-            .sheet(isPresented: $store.isModelPickerPresented) {
+            .sheet(
+                isPresented: $store.isModelPickerPresented,
+                onDismiss: {
+                    store.send(.modelPickerDismissed)
+                }
+            ) {
                 ModelProviderSheet(store: store)
                     .presentationDetents([.height(620)])
                     .presentationDragIndicator(.visible)
-                    .sheet(
-                        item: Binding(
-                            get: {
-                                store.configuredProvider.map {
-                                    ProviderConfigurationRoute(provider: $0)
-                                }
-                            },
-                            set: { route in
-                                if route == nil {
-                                    store.send(.providerConfigDismissed)
-                                }
-                            }
-                        )
-                    ) { route in
-                        ProviderConfigurationView(
-                            provider: route.provider,
-                            configuration: $store.customEndpointConfiguration
-                        )
-                        .presentationDetents([.height(440)])
-                        .presentationDragIndicator(.visible)
-                    }
             }
+        }
+        .onAppear {
+            store.send(.viewAppeared)
         }
     }
 
@@ -81,7 +68,10 @@ struct DynamicUIView: View {
 
             Spacer(minLength: 16)
 
-            ModelProviderButton(title: store.providerButtonTitle) {
+            ModelProviderButton(
+                title: store.providerButtonTitle,
+                provider: store.selectedProvider
+            ) {
                 store.send(.modelButtonTapped)
             }
         }
@@ -95,18 +85,24 @@ struct DynamicUIView: View {
                 .fixedSize(horizontal: false, vertical: true)
 
             HStack(spacing: 12) {
-                FeatureStepLabel(title: "Prompt", systemImage: "sparkles")
-                FeatureStepLabel(title: "Validate", systemImage: "checkmark.shield")
-                FeatureStepLabel(title: "Render", systemImage: "iphone")
+                FeatureStepLabel(title: "Prompt", systemImage: "sparkles", accentColor: AppTheme.amberSoft)
+                FeatureStepLabel(title: "Validate", systemImage: "checkmark.shield", accentColor: AppTheme.sage)
+                FeatureStepLabel(title: "Render", systemImage: "iphone", accentColor: Color(hex: "#78D9F6"))
             }
-            .foregroundStyle(AppTheme.cream.opacity(0.82))
         }
     }
 
     private var promptComposer: some View {
-        AppCard {
+        AppCard(opacity: 0.10, strokeOpacity: 0.15) {
             VStack(alignment: .leading, spacing: 14) {
                 AppSectionTitle(title: "What do you want to build?", systemImage: "wand.and.stars")
+                    .foregroundStyle(
+                        LinearGradient(
+                            colors: [AppTheme.cream, AppTheme.amberSoft],
+                            startPoint: .leading,
+                            endPoint: .trailing
+                        )
+                    )
 
                 AppPromptTextEditor(
                     text: $store.prompt,
@@ -125,8 +121,14 @@ struct DynamicUIView: View {
                 ) {
                     store.send(.generateTapped)
                 }
+
+                if let errorMessage = store.generationErrorMessage {
+                    GenerationErrorBanner(message: errorMessage)
+                        .transition(.opacity.combined(with: .move(edge: .top)))
+                }
             }
         }
+        .background(promptAccent)
     }
 
     private var exampleChips: some View {
@@ -147,8 +149,16 @@ struct DynamicUIView: View {
 
     @ViewBuilder
     private var generationHistory: some View {
-        AppSectionTitle(title: "History", systemImage: "clock.arrow.circlepath")
-            .listRowStyle(top: 8, bottom: 2)
+        HStack(spacing: 8) {
+            Image(systemName: "clock.arrow.circlepath")
+                .font(.system(size: 15, weight: .semibold))
+                .foregroundStyle(Color(hex: "#78D9F6"))
+
+            Text("History")
+                .font(.system(size: 15, weight: .semibold, design: .default))
+                .foregroundStyle(.white)
+        }
+        .listRowStyle(top: 8, bottom: 2)
 
         if store.generationHistory.isEmpty {
             EmptyHistoryView()
@@ -169,31 +179,90 @@ struct DynamicUIView: View {
             }
         }
     }
+
+    private var promptAccent: some View {
+        RoundedRectangle(cornerRadius: AppTheme.cornerRadius)
+            .fill(
+                LinearGradient(
+                    colors: [
+                        AppTheme.amber.opacity(0.20),
+                        Color(hex: "#FF5A7A").opacity(0.10),
+                        Color.clear
+                    ],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+            )
+            .blur(radius: 10)
+            .offset(y: 4)
+    }
 }
 
 private struct FeatureStepLabel: View {
     let title: String
     let systemImage: String
+    let accentColor: Color
 
     var body: some View {
         HStack(spacing: 4) {
             Image(systemName: systemImage)
+                .foregroundStyle(accentColor)
             Text(title)
+                .foregroundStyle(AppTheme.cream.opacity(0.82))
         }
         .font(.system(size: 12, weight: .medium, design: .default))
     }
 }
 
+private struct GenerationErrorBanner: View {
+    let message: String
+
+    var body: some View {
+        HStack(alignment: .top, spacing: 10) {
+            Image(systemName: "exclamationmark.triangle.fill")
+                .font(.system(size: 15, weight: .semibold))
+                .foregroundStyle(Color(hex: "#FFD38A"))
+                .padding(.top, 1)
+
+            Text(message)
+                .font(.system(size: 13, weight: .medium, design: .default))
+                .foregroundStyle(AppTheme.cream.opacity(0.90))
+                .fixedSize(horizontal: false, vertical: true)
+
+            Spacer(minLength: 0)
+        }
+        .padding(.horizontal, 13)
+        .padding(.vertical, 12)
+        .background(
+            LinearGradient(
+                colors: [
+                    Color(hex: "#4A3321").opacity(0.72),
+                    Color(hex: "#2A1E1A").opacity(0.72)
+                ],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            ),
+            in: RoundedRectangle(cornerRadius: 16)
+        )
+        .overlay {
+            RoundedRectangle(cornerRadius: 16)
+                .stroke(Color(hex: "#FFD38A").opacity(0.18), lineWidth: 1)
+        }
+    }
+}
+
 private struct ModelProviderButton: View {
     let title: String
+    let provider: LLMProvider
     let action: () -> Void
 
     var body: some View {
         Button(action: action) {
             HStack(spacing: 8) {
                 Circle()
-                    .fill(AppTheme.sage)
+                    .fill(provider.statusAccent)
                     .frame(width: 8, height: 8)
+                    .shadow(color: provider.statusAccent.opacity(0.45), radius: 8, x: 0, y: 0)
 
                 Text(title)
                     .font(.system(size: 12, weight: .semibold, design: .default))
@@ -205,10 +274,10 @@ private struct ModelProviderButton: View {
             }
             .padding(.horizontal, 12)
             .padding(.vertical, 9)
-            .background(.white.opacity(0.08), in: Capsule())
+            .background(provider.pillBackground, in: Capsule())
             .overlay {
                 Capsule()
-                    .stroke(.white.opacity(0.14), lineWidth: 1)
+                    .stroke(provider.statusAccent.opacity(0.24), lineWidth: 1)
             }
         }
         .buttonStyle(.plain)
@@ -220,25 +289,47 @@ private struct ModelProviderSheet: View {
     @Bindable var store: StoreOf<DynamicUIFeature>
 
     var body: some View {
-        ZStack {
-            LinearGradient(
-                colors: [
-                    Color(hex: "#111724"),
-                    Color(hex: "#1D2635"),
-                    Color(hex: "#1A1410")
-                ],
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            )
-            .ignoresSafeArea()
+        NavigationStack(path: configurationPath) {
+            providerList
+                .navigationDestination(for: ProviderConfigurationRoute.self) { route in
+                    ProviderConfigurationView(
+                        provider: route.provider,
+                        configuration: $store.customEndpointConfiguration,
+                        backAction: {
+                            store.send(.providerConfigDismissed)
+                        }
+                    )
+                }
+        }
+        .tint(AppTheme.cream)
+    }
 
+    private var configurationPath: Binding<[ProviderConfigurationRoute]> {
+        Binding(
+            get: {
+                if let configuredProvider = store.configuredProvider {
+                    return [ProviderConfigurationRoute(provider: configuredProvider)]
+                }
+
+                return []
+            },
+            set: { routes in
+                if routes.isEmpty {
+                    store.send(.providerConfigDismissed)
+                }
+            }
+        )
+    }
+
+    private var providerList: some View {
+        ProviderSheetBackground {
             VStack(alignment: .leading, spacing: 18) {
                 VStack(alignment: .leading, spacing: 8) {
                     Text("AI Provider")
                         .font(.system(size: 28, weight: .semibold, design: .default))
                         .foregroundStyle(.white)
 
-                    Text("Configure where generated UI requests will run. Generation still uses Local Ollama until the endpoint adapter is added.")
+                    Text("Choose where generated UI requests will run, or open settings to override a provider.")
                         .font(.system(size: 14, weight: .medium, design: .default))
                         .foregroundStyle(AppTheme.mutedText)
                         .fixedSize(horizontal: false, vertical: true)
@@ -269,8 +360,8 @@ private struct ModelProviderSheet: View {
             .padding(.top, 24)
             .padding(.bottom, 18)
         }
+        .navigationBarHidden(true)
     }
-
 }
 
 private struct ProviderOptionRow: View {
@@ -352,7 +443,7 @@ private struct ProviderOptionRow: View {
     }
 }
 
-private struct ProviderConfigurationRoute: Identifiable, Equatable {
+private struct ProviderConfigurationRoute: Identifiable, Equatable, Hashable {
     let provider: LLMProvider
 
     var id: LLMProvider {
@@ -360,9 +451,12 @@ private struct ProviderConfigurationRoute: Identifiable, Equatable {
     }
 }
 
-private struct ProviderConfigurationView: View {
-    let provider: LLMProvider
-    @Binding var configuration: CustomEndpointConfiguration
+private struct ProviderSheetBackground<Content: View>: View {
+    let content: Content
+
+    init(@ViewBuilder content: () -> Content) {
+        self.content = content()
+    }
 
     var body: some View {
         ZStack {
@@ -377,7 +471,34 @@ private struct ProviderConfigurationView: View {
             )
             .ignoresSafeArea()
 
+            content
+        }
+    }
+}
+
+private struct ProviderConfigurationView: View {
+    let provider: LLMProvider
+    @Binding var configuration: CustomEndpointConfiguration
+    let backAction: () -> Void
+
+    var body: some View {
+        ProviderSheetBackground {
             VStack(alignment: .leading, spacing: 18) {
+                Button(action: backAction) {
+                    Image(systemName: "chevron.left")
+                        .font(.system(size: 18, weight: .semibold))
+                        .frame(width: 46, height: 46)
+                    .foregroundStyle(AppTheme.cream)
+                        .background(.white.opacity(0.09), in: Circle())
+                        .overlay {
+                            Circle()
+                                .stroke(.white.opacity(0.14), lineWidth: 1)
+                        }
+                        .shadow(color: Color.black.opacity(0.22), radius: 16, x: 0, y: 8)
+                }
+                .buttonStyle(.plain)
+                .padding(.bottom, 4)
+
                 VStack(alignment: .leading, spacing: 7) {
                     Text("\(provider.sheetTitle) Config")
                         .font(.system(size: 26, weight: .semibold, design: .default))
@@ -431,6 +552,7 @@ private struct ProviderConfigurationView: View {
             .padding(.top, 26)
             .padding(.bottom, 18)
         }
+        .navigationBarHidden(true)
     }
 }
 
@@ -442,6 +564,32 @@ private extension LLMProvider {
         case .openRouter, .customEndpoint:
             return false
         }
+    }
+
+    var statusAccent: Color {
+        switch self {
+        case .localOllama:
+            return AppTheme.sage
+        case .openRouter:
+            return Color(hex: "#8B5CF6")
+        case .openAI:
+            return Color(hex: "#10A37F")
+        case .gemini:
+            return Color(hex: "#8B5CF6")
+        case .customEndpoint:
+            return AppTheme.amberSoft
+        }
+    }
+
+    var pillBackground: LinearGradient {
+        LinearGradient(
+            colors: [
+                statusAccent.opacity(0.18),
+                Color.white.opacity(0.07)
+            ],
+            startPoint: .topLeading,
+            endPoint: .bottomTrailing
+        )
     }
 
     func iconBackgroundColors(isSelected: Bool) -> [Color] {
