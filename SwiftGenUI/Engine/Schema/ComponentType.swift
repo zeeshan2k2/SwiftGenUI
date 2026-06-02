@@ -1,9 +1,3 @@
-//
-//  ComponentType.swift
-//  SwiftGenUI
-//
-//  Supported native component kinds.
-//
 
 import Foundation
 

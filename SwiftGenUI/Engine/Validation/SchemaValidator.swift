@@ -1,9 +1,3 @@
-//
-//  SchemaValidator.swift
-//  SwiftGenUI
-//
-//  Validates AI-generated schemas before rendering.
-//
 
 import Foundation
 

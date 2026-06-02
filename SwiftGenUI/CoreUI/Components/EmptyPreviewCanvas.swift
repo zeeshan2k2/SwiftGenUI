@@ -1,9 +1,3 @@
-//
-//  EmptyPreviewCanvas.swift
-//  SwiftGenUI
-//
-//  Empty state for the native preview canvas.
-//
 
 import SwiftUI
 

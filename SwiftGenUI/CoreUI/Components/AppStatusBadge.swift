@@ -1,9 +1,3 @@
-//
-//  AppStatusBadge.swift
-//  SwiftGenUI
-//
-//  Compact status badge for workspace metadata.
-//
 
 import SwiftUI
 

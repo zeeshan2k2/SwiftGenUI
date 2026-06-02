@@ -1,9 +1,3 @@
-//
-//  ComponentProps.swift
-//  SwiftGenUI
-//
-//  Serializable component properties controlled by AI output.
-//
 
 import Foundation
 

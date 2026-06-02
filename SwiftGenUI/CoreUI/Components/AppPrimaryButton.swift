@@ -1,9 +1,3 @@
-//
-//  AppPrimaryButton.swift
-//  SwiftGenUI
-//
-//  Primary call-to-action button.
-//
 
 import SwiftUI
 

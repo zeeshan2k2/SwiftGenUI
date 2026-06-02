@@ -1,9 +1,3 @@
-//
-//  GeminiGenerateContentDTO.swift
-//  SwiftGenUI
-//
-//  Request/response payloads for Gemini generateContent.
-//
 
 import Foundation
 

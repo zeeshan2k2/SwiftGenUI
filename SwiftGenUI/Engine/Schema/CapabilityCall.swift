@@ -1,9 +1,3 @@
-//
-//  CapabilityCall.swift
-//  SwiftGenUI
-//
-//  Schema reference to a pre-registered native action.
-//
 
 import Foundation
 

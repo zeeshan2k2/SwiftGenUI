@@ -1,9 +1,3 @@
-//
-//  CapabilityExecutor.swift
-//  SwiftGenUI
-//
-//  Executes registered native actions.
-//
 
 import Foundation
 

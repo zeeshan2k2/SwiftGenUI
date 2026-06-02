@@ -1,9 +1,3 @@
-//
-//  DynamicUIHelpers.swift
-//  SwiftGenUI
-//
-//  Small supporting views and modifiers for the dynamic UI screen.
-//
 
 import SwiftUI
 

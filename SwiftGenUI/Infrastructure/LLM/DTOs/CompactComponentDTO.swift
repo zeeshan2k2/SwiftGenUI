@@ -1,9 +1,3 @@
-//
-//  CompactComponentDTO.swift
-//  SwiftGenUI
-//
-//  Token-efficient schema shape returned by the LLM.
-//
 
 import Foundation
 

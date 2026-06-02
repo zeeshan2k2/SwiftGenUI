@@ -1,9 +1,3 @@
-//
-//  AppChip.swift
-//  SwiftGenUI
-//
-//  Selectable chip component.
-//
 
 import SwiftUI
 

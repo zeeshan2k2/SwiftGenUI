@@ -1,9 +1,3 @@
-//
-//  HistoryClient.swift
-//  SwiftGenUI
-//
-//  TCA dependency for generated UI history persistence.
-//
 
 import ComposableArchitecture
 import Foundation

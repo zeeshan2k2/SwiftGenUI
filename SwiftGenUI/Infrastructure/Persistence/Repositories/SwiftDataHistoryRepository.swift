@@ -1,9 +1,3 @@
-//
-//  SwiftDataHistoryRepository.swift
-//  SwiftGenUI
-//
-//  SwiftData-backed storage for generated UI history.
-//
 
 import Foundation
 import SwiftData

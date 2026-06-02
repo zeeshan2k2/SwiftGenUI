@@ -1,9 +1,3 @@
-//
-//  GeneratingButton.swift
-//  SwiftGenUI
-//
-//  Animated generation button with cancel affordance.
-//
 
 import SwiftUI
 

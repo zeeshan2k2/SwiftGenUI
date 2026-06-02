@@ -1,9 +1,3 @@
-//
-//  LLMClient.swift
-//  SwiftGenUI
-//
-//  TCA dependency for prompt-to-schema generation.
-//
 
 import ComposableArchitecture
 import Foundation

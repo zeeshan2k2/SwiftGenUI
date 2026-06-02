@@ -1,9 +1,3 @@
-//
-//  LLMProviderConfiguration.swift
-//  SwiftGenUI
-//
-//  Runtime configuration for selectable LLM providers.
-//
 
 import Foundation
 

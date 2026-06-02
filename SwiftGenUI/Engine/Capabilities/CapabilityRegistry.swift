@@ -1,9 +1,3 @@
-//
-//  CapabilityRegistry.swift
-//  SwiftGenUI
-//
-//  Stores native actions that generated UI is allowed to request.
-//
 
 import Foundation
 

@@ -1,9 +1,3 @@
-//
-//  OllamaClient.swift
-//  SwiftGenUI
-//
-//  Local Ollama-backed LLM client adapter.
-//
 
 import Foundation
 

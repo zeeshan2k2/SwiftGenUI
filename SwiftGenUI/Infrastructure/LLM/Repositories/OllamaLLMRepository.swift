@@ -1,9 +1,3 @@
-//
-//  OllamaLLMRepository.swift
-//  SwiftGenUI
-//
-//  Ollama implementation of the LLM data boundary.
-//
 
 import Foundation
 

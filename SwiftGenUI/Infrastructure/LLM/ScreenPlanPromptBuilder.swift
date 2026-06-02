@@ -1,9 +1,3 @@
-//
-//  ScreenPlanPromptBuilder.swift
-//  SwiftGenUI
-//
-//  Builds compact planning prompts for complex screen generation.
-//
 
 import Foundation
 

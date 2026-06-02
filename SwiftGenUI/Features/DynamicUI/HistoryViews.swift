@@ -1,9 +1,3 @@
-//
-//  HistoryViews.swift
-//  SwiftGenUI
-//
-//  History empty state and rows for generated UI previews.
-//
 
 import SwiftUI
 

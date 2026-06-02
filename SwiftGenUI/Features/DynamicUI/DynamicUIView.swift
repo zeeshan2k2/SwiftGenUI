@@ -1,9 +1,3 @@
-//
-//  DynamicUIView.swift
-//  SwiftGenUI
-//
-//  SwiftUI screen placeholder for the dynamic UI generator.
-//
 
 import ComposableArchitecture
 import SwiftUI

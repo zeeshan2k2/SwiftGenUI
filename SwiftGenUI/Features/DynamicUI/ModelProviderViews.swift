@@ -1,9 +1,3 @@
-//
-//  ModelProviderViews.swift
-//  SwiftGenUI
-//
-//  Provider selection and configuration views.
-//
 
 import ComposableArchitecture
 import SwiftUI

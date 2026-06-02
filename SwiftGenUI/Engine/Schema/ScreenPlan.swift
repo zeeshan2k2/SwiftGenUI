@@ -1,9 +1,3 @@
-//
-//  ScreenPlan.swift
-//  SwiftGenUI
-//
-//  App-facing plan for multi-stage screen generation.
-//
 
 import Foundation
 

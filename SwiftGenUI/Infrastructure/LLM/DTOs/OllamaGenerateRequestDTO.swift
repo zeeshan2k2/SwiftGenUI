@@ -1,9 +1,3 @@
-//
-//  OllamaGenerateRequestDTO.swift
-//  SwiftGenUI
-//
-//  Request payload for Ollama's generate endpoint.
-//
 
 import Foundation
 

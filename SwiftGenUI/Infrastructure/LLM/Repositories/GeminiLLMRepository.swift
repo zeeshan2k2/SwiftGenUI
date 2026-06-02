@@ -1,9 +1,3 @@
-//
-//  GeminiLLMRepository.swift
-//  SwiftGenUI
-//
-//  Gemini generateContent implementation for prompt-to-schema generation.
-//
 
 import Foundation
 

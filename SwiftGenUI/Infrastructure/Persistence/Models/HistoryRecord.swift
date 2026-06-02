@@ -1,9 +1,3 @@
-//
-//  HistoryRecord.swift
-//  SwiftGenUI
-//
-//  SwiftData model for generated UI history.
-//
 
 import Foundation
 import SwiftData

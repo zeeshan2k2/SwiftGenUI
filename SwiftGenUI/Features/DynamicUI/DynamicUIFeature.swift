@@ -1,9 +1,3 @@
-//
-//  DynamicUIFeature.swift
-//  SwiftGenUI
-//
-//  TCA feature for prompt-driven UI generation.
-//
 
 import ComposableArchitecture
 import Foundation

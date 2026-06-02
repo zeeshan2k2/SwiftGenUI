@@ -1,9 +1,3 @@
-//
-//  ScreenSectionPromptBuilder.swift
-//  SwiftGenUI
-//
-//  Builds compact prompts for one section in a multi-stage screen plan.
-//
 
 import Foundation
 

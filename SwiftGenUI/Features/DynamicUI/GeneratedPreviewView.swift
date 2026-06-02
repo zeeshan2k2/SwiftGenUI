@@ -1,9 +1,3 @@
-//
-//  GeneratedPreviewView.swift
-//  SwiftGenUI
-//
-//  Fullscreen canvas for generated native UI.
-//
 
 import ComposableArchitecture
 import SwiftUI

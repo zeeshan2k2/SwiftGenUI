@@ -1,9 +1,3 @@
-//
-//  AppPromptTextEditor.swift
-//  SwiftGenUI
-//
-//  Prompt editor with placeholder support.
-//
 
 import SwiftUI
 

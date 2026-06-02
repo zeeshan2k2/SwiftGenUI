@@ -1,9 +1,3 @@
-//
-//  LLMRepository.swift
-//  SwiftGenUI
-//
-//  Data boundary for prompt-to-schema generation.
-//
 
 import Foundation
 

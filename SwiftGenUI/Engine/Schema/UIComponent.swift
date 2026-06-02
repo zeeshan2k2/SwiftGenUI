@@ -1,9 +1,3 @@
-//
-//  UIComponent.swift
-//  SwiftGenUI
-//
-//  Recursive schema node for generated native UI.
-//
 
 import Foundation
 

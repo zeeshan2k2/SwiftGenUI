@@ -1,9 +1,3 @@
-//
-//  ScreenPlanDTO.swift
-//  SwiftGenUI
-//
-//  Compact planning response shape for complex LLM screen generation.
-//
 
 import Foundation
 

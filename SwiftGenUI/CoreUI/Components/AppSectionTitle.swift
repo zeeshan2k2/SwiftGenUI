@@ -1,9 +1,3 @@
-//
-//  AppSectionTitle.swift
-//  SwiftGenUI
-//
-//  Shared section heading label.
-//
 
 import SwiftUI
 

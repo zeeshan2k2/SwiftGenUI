@@ -1,9 +1,3 @@
-//
-//  OpenAICompatibleLLMRepository.swift
-//  SwiftGenUI
-//
-//  OpenAI-compatible implementation used by providers like OpenRouter.
-//
 
 import Foundation
 

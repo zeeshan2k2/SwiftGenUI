@@ -1,9 +1,3 @@
-//
-//  AppTheme.swift
-//  SwiftGenUI
-//
-//  Shared app styling placeholder.
-//
 
 import SwiftUI
 

@@ -1,9 +1,3 @@
-//
-//  Color+Hex.swift
-//  SwiftGenUI
-//
-//  Hex color helpers for reusable SwiftUI color creation.
-//
 
 import SwiftUI
 

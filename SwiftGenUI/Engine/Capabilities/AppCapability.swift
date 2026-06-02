@@ -1,9 +1,3 @@
-//
-//  AppCapability.swift
-//  SwiftGenUI
-//
-//  Protocol for trusted native actions.
-//
 
 import Foundation
 

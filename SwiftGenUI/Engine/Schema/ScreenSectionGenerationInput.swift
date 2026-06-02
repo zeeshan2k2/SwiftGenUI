@@ -1,9 +1,3 @@
-//
-//  ScreenSectionGenerationInput.swift
-//  SwiftGenUI
-//
-//  Context required to generate one planned section of a complex screen.
-//
 
 import Foundation
 

@@ -1,9 +1,3 @@
-//
-//  ValidationError.swift
-//  SwiftGenUI
-//
-//  Errors produced while validating generated schemas.
-//
 
 import Foundation
 

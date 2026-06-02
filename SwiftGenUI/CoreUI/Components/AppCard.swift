@@ -1,9 +1,3 @@
-//
-//  AppCard.swift
-//  SwiftGenUI
-//
-//  Shared card surface for CoreUI sections.
-//
 
 import SwiftUI
 

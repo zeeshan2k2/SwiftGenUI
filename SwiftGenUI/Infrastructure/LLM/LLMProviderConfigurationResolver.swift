@@ -1,9 +1,3 @@
-//
-//  LLMProviderConfigurationResolver.swift
-//  SwiftGenUI
-//
-//  Resolves provider defaults and xcconfig-backed values outside feature state.
-//
 
 import Foundation
 

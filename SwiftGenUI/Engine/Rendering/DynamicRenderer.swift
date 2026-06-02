@@ -1,9 +1,3 @@
-//
-//  DynamicRenderer.swift
-//  SwiftGenUI
-//
-//  SwiftUI renderer for validated UI schemas.
-//
 
 import SwiftUI
 

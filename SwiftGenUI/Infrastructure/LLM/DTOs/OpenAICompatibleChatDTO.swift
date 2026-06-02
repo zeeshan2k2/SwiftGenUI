@@ -1,9 +1,3 @@
-//
-//  OpenAICompatibleChatDTO.swift
-//  SwiftGenUI
-//
-//  Request/response payloads for OpenAI-compatible chat completion APIs.
-//
 
 import Foundation
 
