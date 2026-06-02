@@ -122,7 +122,6 @@ struct DynamicUIView: View {
                 }
             }
         }
-        .background(promptAccent)
     }
 
     private var exampleChips: some View {
@@ -174,22 +173,6 @@ struct DynamicUIView: View {
         }
     }
 
-    private var promptAccent: some View {
-        RoundedRectangle(cornerRadius: AppTheme.cornerRadius)
-            .fill(
-                LinearGradient(
-                    colors: [
-                        AppTheme.amber.opacity(0.20),
-                        Color(hex: "#FF5A7A").opacity(0.10),
-                        Color.clear
-                    ],
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing
-                )
-            )
-            .blur(radius: 10)
-            .offset(y: 4)
-    }
 }
 
 struct DynamicUIView_Previews: PreviewProvider {
