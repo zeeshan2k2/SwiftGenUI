@@ -3,36 +3,44 @@ import ComposableArchitecture
 import SwiftUI
 
 struct ModelProviderButton: View {
-    let title: String
     let provider: LLMProvider
     let action: () -> Void
 
     var body: some View {
         Button(action: action) {
-            HStack(spacing: 8) {
-                Circle()
-                    .fill(provider.statusAccent)
-                    .frame(width: 8, height: 8)
-                    .shadow(color: provider.statusAccent.opacity(0.45), radius: 8, x: 0, y: 0)
-
-                Text(title)
-                    .font(.system(size: 12, weight: .semibold, design: .default))
-                    .foregroundStyle(AppTheme.cream)
+            HStack(spacing: 5) {
+                ProviderBrandIcon(provider: provider, fallbackSystemImage: provider.systemImage)
+                    .frame(width: 34, height: 34)
+                    .background(iconBackground, in: RoundedRectangle(cornerRadius: 12))
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 12)
+                            .stroke(.white.opacity(0.12), lineWidth: 1)
+                    }
 
                 Image(systemName: "chevron.down")
                     .font(.system(size: 9, weight: .semibold))
-                    .foregroundStyle(AppTheme.cream.opacity(0.72))
+                    .foregroundStyle(AppTheme.cream.opacity(0.58))
             }
-            .padding(.horizontal, 12)
-            .padding(.vertical, 9)
-            .background(provider.pillBackground, in: Capsule())
+            .padding(.leading, 7)
+            .padding(.trailing, 9)
+            .frame(height: 54)
+            .background(Color(hex: "#121A20"), in: RoundedRectangle(cornerRadius: 18))
             .overlay {
-                Capsule()
-                    .stroke(provider.statusAccent.opacity(0.24), lineWidth: 1)
+                RoundedRectangle(cornerRadius: 18)
+                    .stroke(.white.opacity(0.09), lineWidth: 1)
             }
+            .shadow(color: Color.black.opacity(0.16), radius: 14, x: 0, y: 8)
         }
         .buttonStyle(.plain)
         .accessibilityLabel("Select AI model provider")
+    }
+
+    private var iconBackground: some ShapeStyle {
+        LinearGradient(
+            colors: provider.iconBackgroundColors(isSelected: false),
+            startPoint: .topLeading,
+            endPoint: .bottomTrailing
+        )
     }
 }
 
@@ -320,9 +328,11 @@ private struct ProviderBrandIcon: View {
                 providerImage("OpenAI")
             case .gemini:
                 providerImage("Gemini")
-            case .openRouter, .customEndpoint:
+            case .openRouter:
+                providerImage("OpenRouter")
+            case .customEndpoint:
                 Image(systemName: fallbackSystemImage)
-                    .font(.system(size: 18, weight: .semibold, design: .default))
+                    .font(.system(size: 15, weight: .semibold, design: .default))
                     .foregroundStyle(.white.opacity(0.9))
             }
         }
@@ -332,7 +342,22 @@ private struct ProviderBrandIcon: View {
         Image(name)
             .resizable()
             .scaledToFit()
-            .frame(width: 31, height: 31)
+            .frame(width: imageSize, height: imageSize)
+    }
+
+    private var imageSize: CGFloat {
+        switch provider {
+        case .gemini:
+            return 25
+        case .openRouter:
+            return 24
+        case .openAI:
+            return 29
+        case .localOllama:
+            return 28
+        case .customEndpoint:
+            return 22
+        }
     }
 }
 
@@ -373,9 +398,9 @@ private struct ProviderTextField: View {
 private extension LLMProvider {
     var usesBrandLogoTile: Bool {
         switch self {
-        case .localOllama, .openAI, .gemini:
+        case .localOllama, .openRouter, .openAI, .gemini:
             return true
-        case .openRouter, .customEndpoint:
+        case .customEndpoint:
             return false
         }
     }

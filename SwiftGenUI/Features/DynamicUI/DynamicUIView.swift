@@ -8,8 +8,7 @@ struct DynamicUIView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                AppTheme.workspaceGradient
-                    .ignoresSafeArea()
+                mainBackground
 
                 VStack(alignment: .leading, spacing: AppTheme.cardSpacing) {
                     titleBar
@@ -18,8 +17,13 @@ struct DynamicUIView: View {
 
                     contentList
                 }
+
+                bottomGenerateBar
             }
             .navigationBarHidden(true)
+            .navigationDestination(isPresented: $store.isHistoryPresented) {
+                GenerationHistoryView(store: store)
+            }
             .navigationDestination(isPresented: $store.isPreviewPresented) {
                 GeneratedPreviewView(store: store)
             }
@@ -40,63 +44,94 @@ struct DynamicUIView: View {
     }
 
     private var contentList: some View {
-        List {
-            header
-                .listRowStyle(top: 0, bottom: 8)
+        VStack(alignment: .leading, spacing: AppTheme.cardSpacing) {
+            heroCard
 
             promptComposer
-                .listRowStyle()
-
-            generationHistory
         }
-        .listStyle(.plain)
-        .scrollContentBackground(.hidden)
-        .background(Color.clear)
+        .padding(.horizontal, AppTheme.contentPadding)
+        .padding(.bottom, 112)
     }
 
     private var titleBar: some View {
         HStack(alignment: .center) {
             Text("SwiftGenUI")
-                .font(.system(size: 36, weight: .semibold, design: .default))
+                .font(.system(size: 34, weight: .semibold, design: .default))
                 .foregroundStyle(.white)
 
             Spacer(minLength: 16)
 
-            ModelProviderButton(
-                title: store.providerButtonTitle,
-                provider: store.selectedProvider
-            ) {
-                store.send(.modelButtonTapped)
+            HStack(spacing: 10) {
+                ModelProviderButton(
+                    provider: store.selectedProvider
+                ) {
+                    store.send(.modelButtonTapped)
+                }
+
+                HistoryTopButton(count: store.generationHistory.count) {
+                    store.send(.historyButtonTapped)
+                }
             }
         }
     }
 
-    private var header: some View {
-        VStack(alignment: .leading, spacing: 14) {
-            Text("Turn natural language into safe native SwiftUI screens.")
-                .font(.system(size: 15, weight: .regular, design: .default))
-                .foregroundStyle(AppTheme.mutedText)
-                .fixedSize(horizontal: false, vertical: true)
+    private var heroCard: some View {
+        VStack(alignment: .leading, spacing: 18) {
+            VStack(alignment: .leading, spacing: 7) {
+                Text("Current Pipeline")
+                    .font(.system(size: 12, weight: .semibold, design: .default))
+                    .foregroundStyle(AppTheme.mutedText)
 
-            HStack(spacing: 12) {
-                FeatureStepLabel(title: "Prompt", systemImage: "sparkles", accentColor: AppTheme.amberSoft)
-                FeatureStepLabel(title: "Validate", systemImage: "checkmark.shield", accentColor: AppTheme.sage)
-                FeatureStepLabel(title: "Render", systemImage: "iphone", accentColor: Color(hex: "#78D9F6"))
+                Text("Prompt to Native UI")
+                    .font(.system(size: 28, weight: .semibold, design: .default))
+                    .foregroundStyle(.white)
+
+                Text("Schema validated before render")
+                    .font(.system(size: 12, weight: .semibold, design: .default))
+                    .foregroundStyle(AppTheme.mutedText)
             }
+
+            VStack(spacing: 0) {
+                pipelineRow(title: "Renderer", value: "SwiftUI")
+                Divider()
+                    .overlay(.white.opacity(0.08))
+                pipelineRow(title: "Provider", value: store.selectedProvider.pipelineValue)
+            }
+        }
+        .padding(16)
+        .background(Color(hex: "#121A20"), in: RoundedRectangle(cornerRadius: 14))
+        .overlay {
+            RoundedRectangle(cornerRadius: 14)
+                .stroke(.white.opacity(0.055), lineWidth: 1)
         }
     }
 
     private var promptComposer: some View {
-        AppCard(opacity: 0.10, strokeOpacity: 0.15) {
-            VStack(alignment: .leading, spacing: 14) {
-                AppSectionTitle(title: "What do you want to build?", systemImage: "wand.and.stars")
-                    .foregroundStyle(
-                        LinearGradient(
-                            colors: [AppTheme.cream, AppTheme.amberSoft],
-                            startPoint: .leading,
-                            endPoint: .trailing
+        AppCard(opacity: 0.065, strokeOpacity: 0.075) {
+            VStack(alignment: .leading, spacing: 15) {
+                HStack {
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("Compose")
+                            .font(.system(size: 12, weight: .semibold, design: .default))
+                            .foregroundStyle(AppTheme.mutedText)
+
+                        Text("What do you want to build?")
+                            .font(.system(size: 18, weight: .semibold, design: .default))
+                            .foregroundStyle(.white)
+                    }
+
+                    Spacer()
+
+                    Image(systemName: "wand.and.stars")
+                        .font(.system(size: 15, weight: .semibold, design: .default))
+                        .foregroundStyle(.white.opacity(0.92))
+                        .frame(width: 34, height: 34)
+                        .background(
+                            Color(hex: "#303840"),
+                            in: RoundedRectangle(cornerRadius: 11)
                         )
-                    )
+                        .shadow(color: Color.black.opacity(0.22), radius: 10, x: 0, y: 5)
+                }
 
                 AppPromptTextEditor(
                     text: $store.prompt,
@@ -106,22 +141,44 @@ struct DynamicUIView: View {
 
                 exampleChips
 
-                GeneratingButton(
-                    title: store.generationPhase.buttonTitle,
-                    isGenerating: store.isGenerating,
-                    cancelAction: {
-                        store.send(.cancelGenerationTapped)
-                    }
-                ) {
-                    store.send(.generateTapped)
-                }
-
                 if let errorMessage = store.generationErrorMessage {
                     GenerationErrorBanner(message: errorMessage)
                         .transition(.opacity.combined(with: .move(edge: .top)))
                 }
             }
         }
+    }
+
+    private var bottomGenerateBar: some View {
+        VStack {
+            Spacer()
+
+            GeneratingButton(
+                title: store.generationPhase.buttonTitle,
+                isGenerating: store.isGenerating,
+                cancelAction: {
+                    store.send(.cancelGenerationTapped)
+                }
+            ) {
+                store.send(.generateTapped)
+            }
+            .padding(.horizontal, AppTheme.contentPadding)
+            .padding(.top, 18)
+            .padding(.bottom, 12)
+            .background {
+                LinearGradient(
+                    colors: [
+                        Color(hex: "#080B10").opacity(0.0),
+                        Color(hex: "#080B10").opacity(0.82),
+                        Color(hex: "#080B10")
+                    ],
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+                .ignoresSafeArea(edges: .bottom)
+            }
+        }
+        .ignoresSafeArea(.keyboard, edges: .bottom)
     }
 
     private var exampleChips: some View {
@@ -140,39 +197,55 @@ struct DynamicUIView: View {
         }
     }
 
-    @ViewBuilder
-    private var generationHistory: some View {
-        HStack(spacing: 8) {
-            Image(systemName: "clock.arrow.circlepath")
-                .font(.system(size: 15, weight: .semibold))
-                .foregroundStyle(Color(hex: "#78D9F6"))
+    private var mainBackground: some View {
+        ZStack {
+            Color(hex: "#080B10")
 
-            Text("History")
-                .font(.system(size: 15, weight: .semibold, design: .default))
-                .foregroundStyle(.white)
+            LinearGradient(
+                colors: [
+                    Color.white.opacity(0.035),
+                    Color.clear,
+                    Color.black.opacity(0.28)
+                ],
+                startPoint: .top,
+                endPoint: .bottom
+            )
         }
-        .listRowStyle(top: 8, bottom: 2)
-
-        if store.generationHistory.isEmpty {
-            EmptyHistoryView()
-                .listRowStyle(top: 5, bottom: 5)
-        } else {
-            ForEach(store.generationHistory) { item in
-                HistoryRow(item: item) {
-                    store.send(.historySelected(item.id))
-                }
-                .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-                    Button(role: .destructive) {
-                        store.send(.historyDeleteTapped(item.id))
-                    } label: {
-                        Label("Delete", systemImage: "trash")
-                    }
-                }
-                .listRowStyle(top: 5, bottom: 5)
-            }
-        }
+        .ignoresSafeArea()
     }
 
+    private func pipelineRow(title: String, value: String) -> some View {
+        HStack {
+            Text(title)
+                .font(.system(size: 14, weight: .semibold, design: .default))
+                .foregroundStyle(AppTheme.mutedText)
+
+            Spacer()
+
+            Text(value)
+                .font(.system(size: 14, weight: .semibold, design: .default))
+                .foregroundStyle(.white.opacity(0.90))
+                .lineLimit(1)
+        }
+        .padding(.vertical, 11)
+    }
+}
+
+private extension LLMProvider {
+    var pipelineValue: String {
+        switch self {
+        case .localOllama:
+            return "Local"
+        case .openRouter:
+            return "OpenRouter"
+        case .openAI:
+            return "OpenAI"
+        case .gemini:
+            return "Gemini"
+        case .customEndpoint:
+            return "Custom"
+        }
+    }
 }
 
 struct DynamicUIView_Previews: PreviewProvider {

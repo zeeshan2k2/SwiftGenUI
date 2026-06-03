@@ -26,17 +26,17 @@ struct GeneratingButton: View {
                         .frame(width: 56, height: 56)
                         .background(
                             LinearGradient(
-                                colors: [Color(hex: "#FF5A66"), Color(hex: "#B42335")],
+                                colors: [Color(hex: "#B86161"), Color(hex: "#7A3038")],
                                 startPoint: .topLeading,
                                 endPoint: .bottomTrailing
                             ),
-                            in: RoundedRectangle(cornerRadius: 18)
+                            in: RoundedRectangle(cornerRadius: 12)
                         )
                         .overlay {
-                            RoundedRectangle(cornerRadius: 18)
+                            RoundedRectangle(cornerRadius: 12)
                                 .stroke(.white.opacity(0.20), lineWidth: 1)
                         }
-                        .shadow(color: Color(hex: "#B42335").opacity(0.32), radius: 16, x: 0, y: 10)
+                        .shadow(color: Color(hex: "#7A3038").opacity(0.26), radius: 14, x: 0, y: 8)
                 }
                 .buttonStyle(.plain)
                 .transition(.asymmetric(

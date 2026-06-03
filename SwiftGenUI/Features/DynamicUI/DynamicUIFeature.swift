@@ -23,6 +23,7 @@ struct DynamicUIFeature {
         var generationHistory: [HistoryItem] = []
         var hasLoadedPersistedHistory = false
         var isPreviewPresented = false
+        var isHistoryPresented = false
         var isSchemaInspectorPresented = false
         var isModelPickerPresented = false
         var configuredProvider: LLMProvider?
@@ -103,6 +104,7 @@ struct DynamicUIFeature {
         case generateTapped
         case cancelGenerationTapped
         case modelButtonTapped
+        case historyButtonTapped
         case modelPickerDismissed
         case providerSelected(LLMProvider)
         case providerConfigureTapped(LLMProvider)
@@ -351,6 +353,10 @@ struct DynamicUIFeature {
 
             case .modelButtonTapped:
                 state.isModelPickerPresented = true
+                return .none
+
+            case .historyButtonTapped:
+                state.isHistoryPresented = true
                 return .none
 
             case .modelPickerDismissed:

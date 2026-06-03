@@ -19,9 +19,9 @@ struct AppCard<Content: View>: View {
     var body: some View {
         content
             .padding(18)
-            .background(.white.opacity(opacity), in: RoundedRectangle(cornerRadius: AppTheme.cornerRadius))
+            .background(Color(hex: "#111820").opacity(0.96), in: RoundedRectangle(cornerRadius: 14))
             .overlay {
-                RoundedRectangle(cornerRadius: AppTheme.cornerRadius)
+                RoundedRectangle(cornerRadius: 14)
                     .stroke(.white.opacity(strokeOpacity), lineWidth: 1)
             }
     }

@@ -6,22 +6,16 @@ struct EmptyHistoryView: View {
         VStack(spacing: 16) {
             ZStack {
                 Circle()
-                    .fill(Color(hex: "#1B6B8F").opacity(0.28))
-                    .frame(width: 78, height: 78)
+                    .fill(Color(hex: "#151D24"))
+                    .frame(width: 70, height: 70)
 
                 Circle()
-                    .stroke(Color(hex: "#9DE8FF").opacity(0.24), lineWidth: 1)
-                    .frame(width: 78, height: 78)
+                    .stroke(.white.opacity(0.08), lineWidth: 1)
+                    .frame(width: 70, height: 70)
 
                 Image(systemName: "rectangle.stack.badge.plus")
                     .font(.system(size: 28, weight: .semibold, design: .default))
-                    .foregroundStyle(
-                        LinearGradient(
-                            colors: [Color(hex: "#D7F7FF"), Color(hex: "#78D9F6")],
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        )
-                    )
+                    .foregroundStyle(Color(hex: "#DCE4EA"))
             }
 
             VStack(spacing: 7) {
@@ -42,8 +36,8 @@ struct EmptyHistoryView: View {
         .background(
             LinearGradient(
                 colors: [
-                    Color(hex: "#9DE8FF").opacity(0.12),
-                    Color(hex: "#1B6B8F").opacity(0.18),
+                    Color(hex: "#27323D").opacity(0.62),
+                    Color(hex: "#121A20").opacity(0.96),
                     Color.white.opacity(0.05)
                 ],
                 startPoint: .topLeading,
@@ -53,7 +47,7 @@ struct EmptyHistoryView: View {
         )
         .overlay {
             RoundedRectangle(cornerRadius: 24)
-                .stroke(Color(hex: "#9DE8FF").opacity(0.16), lineWidth: 1)
+                .stroke(.white.opacity(0.08), lineWidth: 1)
         }
     }
 }
@@ -75,12 +69,12 @@ struct HistoryRow: View {
         HStack(spacing: 12) {
             Image(systemName: iconName)
                 .font(.system(size: 15, weight: .semibold, design: .default))
-                .foregroundStyle(Color(hex: "#9DE8FF"))
-                .frame(width: 38, height: 38)
-                .background(Color(hex: "#1B6B8F").opacity(0.24), in: RoundedRectangle(cornerRadius: 14))
+                .foregroundStyle(Color(hex: "#DCE4EA"))
+                .frame(width: 36, height: 36)
+                .background(Color(hex: "#202A33"), in: Circle())
                 .overlay {
-                    RoundedRectangle(cornerRadius: 14)
-                        .stroke(Color(hex: "#9DE8FF").opacity(0.16), lineWidth: 1)
+                    Circle()
+                        .stroke(.white.opacity(0.08), lineWidth: 1)
                 }
 
             VStack(alignment: .leading, spacing: 4) {
@@ -101,11 +95,12 @@ struct HistoryRow: View {
                 .font(.system(size: 12, weight: .semibold, design: .default))
                 .foregroundStyle(.white.opacity(0.32))
         }
-        .padding(14)
-        .background(.white.opacity(0.08), in: RoundedRectangle(cornerRadius: rowCornerRadius))
+        .padding(.horizontal, 14)
+        .padding(.vertical, 12)
+        .background(Color(hex: "#10161C"), in: RoundedRectangle(cornerRadius: rowCornerRadius))
         .overlay {
             RoundedRectangle(cornerRadius: rowCornerRadius)
-                .stroke(.white.opacity(0.10), lineWidth: 1)
+                .stroke(.white.opacity(0.06), lineWidth: 1)
         }
     }
 
