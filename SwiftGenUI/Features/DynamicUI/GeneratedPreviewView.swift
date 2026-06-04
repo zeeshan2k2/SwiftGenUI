@@ -7,20 +7,19 @@ struct GeneratedPreviewView: View {
 
     var body: some View {
         ZStack(alignment: .bottomLeading) {
-            AppTheme.workspaceGradient
-                .ignoresSafeArea()
+            previewBackground
 
             VStack(alignment: .leading, spacing: 18) {
-                topBar
+                headerCard
 
-                AppCard(opacity: 0.10, strokeOpacity: 0.14) {
+                AppCard(opacity: 0.065, strokeOpacity: 0.075) {
                     VStack(alignment: .leading, spacing: 14) {
                         HStack {
                             AppSectionTitle(title: "Live native preview", systemImage: "rectangle.on.rectangle")
                             Spacer()
                             Text(store.generationStatus)
                                 .font(.system(size: 12, weight: .semibold, design: .default))
-                                .foregroundStyle(AppTheme.sage)
+                                .foregroundStyle(AppTheme.mutedText)
                         }
 
                         if let warning = store.generationWarning {
@@ -48,7 +47,7 @@ struct GeneratedPreviewView: View {
                 }
             }
             .padding(.horizontal, AppTheme.contentPadding)
-            .padding(.top, 18)
+            .padding(.top, 8)
             .padding(.bottom, 18)
 
             schemaButton
@@ -61,30 +60,107 @@ struct GeneratedPreviewView: View {
                 .presentationDragIndicator(.visible)
                 .presentationCornerRadius(28)
         }
+        .navigationTitle("")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbarBackground(.hidden, for: .navigationBar)
+        .toolbarColorScheme(.dark, for: .navigationBar)
+        .tint(.white)
     }
 
-    private var topBar: some View {
-        HStack(spacing: 14) {
-            VStack(alignment: .leading, spacing: 3) {
-                Text("Generated Canvas")
-                    .font(.system(size: 24, weight: .semibold, design: .default))
-                    .foregroundStyle(.white)
+    private var headerCard: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            HStack(alignment: .top, spacing: 12) {
+                VStack(alignment: .leading, spacing: 5) {
+                    Text("Native Preview")
+                        .font(.system(size: 11, weight: .semibold, design: .default))
+                        .foregroundStyle(AppTheme.mutedText)
 
-                Text("Native SwiftUI rendered from validated schema")
-                    .font(.system(size: 12, weight: .medium, design: .default))
-                    .foregroundStyle(AppTheme.mutedText)
-            }
+                    Text("Generated Canvas")
+                        .font(.system(size: 22, weight: .semibold, design: .default))
+                        .foregroundStyle(.white)
 
-            Spacer()
-
-            VStack {
-                AppStatusBadge(title: "Validated")
-                if let durationText = store.completedGenerationDurationText {
-                    Label(durationText, systemImage: "clock")
+                    Text("Native SwiftUI rendered from validated schema")
                         .font(.system(size: 11, weight: .medium, design: .default))
-                        .foregroundStyle(AppTheme.sage.opacity(0.92))
-                        .padding(.top, 3)
+                        .foregroundStyle(AppTheme.mutedText)
+                        .lineLimit(1)
                 }
+                .layoutPriority(1)
+
+                Spacer(minLength: 8)
+
+                validationStatusStack
+            }
+        }
+        .padding(12)
+        .background(Color(hex: "#121A20"), in: RoundedRectangle(cornerRadius: 14))
+        .overlay {
+            RoundedRectangle(cornerRadius: 14)
+                .stroke(.white.opacity(0.055), lineWidth: 1)
+        }
+    }
+
+    private var previewBackground: some View {
+        ZStack {
+            Color(hex: "#080B10")
+
+            LinearGradient(
+                colors: [
+                    Color.white.opacity(0.035),
+                    Color.clear,
+                    Color.black.opacity(0.28)
+                ],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+        }
+        .ignoresSafeArea()
+    }
+
+    private func compactPreviewBadge(systemImage: String, title: String? = nil) -> some View {
+        HStack(spacing: 4) {
+            Image(systemName: systemImage)
+                .font(.system(size: 11, weight: .semibold, design: .default))
+
+            if let title {
+                Text(title)
+                    .font(.system(size: 11, weight: .semibold, design: .default))
+                    .lineLimit(1)
+            }
+        }
+        .foregroundStyle(.white.opacity(0.88))
+        .padding(.horizontal, title == nil ? 8 : 9)
+        .padding(.vertical, 6)
+        .background(Color(hex: "#1A232B"), in: Capsule())
+    }
+
+    private var validationBadge: some View {
+        Image(systemName: "checkmark")
+            .font(.system(size: 12, weight: .bold, design: .default))
+            .foregroundStyle(Color(hex: "#0B1015"))
+            .frame(width: 28, height: 28)
+            .background(
+                LinearGradient(
+                    colors: [
+                        Color(hex: "#B9E6BE"),
+                        Color(hex: "#7FCA8B")
+                    ],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                ),
+                in: Circle()
+            )
+            .shadow(color: Color(hex: "#7FCA8B").opacity(0.24), radius: 10, x: 0, y: 5)
+    }
+
+    private var validationStatusStack: some View {
+        VStack(spacing: 8) {
+            validationBadge
+
+            if let durationText = store.completedGenerationDurationText {
+                Text(durationText.compactDurationText)
+                    .font(.system(size: 10, weight: .semibold, design: .default))
+                    .foregroundStyle(AppTheme.mutedText)
+                    .lineLimit(1)
             }
         }
     }
@@ -138,30 +214,88 @@ private struct SchemaInspectorSheet: View {
 
     var body: some View {
         ZStack {
-            AppTheme.ink
-                .ignoresSafeArea()
+            inspectorBackground
 
             VStack(alignment: .leading, spacing: 16) {
-                HStack {
-                    AppSectionTitle(title: "Schema inspector", systemImage: "curlybraces")
-                    Spacer()
-                    Text(schema == nil ? "Empty" : "Ready")
-                        .font(.system(size: 12, weight: .medium, design: .monospaced))
-                        .foregroundStyle(.white.opacity(0.46))
-                }
+                inspectorHeader
 
                 ScrollView(showsIndicators: false) {
                     Text(schema ?? "Generated JSON will be shown here after validation.")
                         .font(.system(size: 13, weight: .medium, design: .monospaced))
-                        .foregroundStyle(AppTheme.mutedText)
+                        .foregroundStyle(Color(hex: "#D7DEE5").opacity(0.86))
                         .textSelection(.enabled)
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(14)
-                        .background(Color.black.opacity(0.24), in: RoundedRectangle(cornerRadius: 16))
+                        .padding(16)
+                }
+                .background(Color(hex: "#0B1015"), in: RoundedRectangle(cornerRadius: 18))
+                .overlay {
+                    RoundedRectangle(cornerRadius: 18)
+                        .stroke(.white.opacity(0.07), lineWidth: 1)
                 }
             }
             .padding(20)
         }
+    }
+
+    private var inspectorHeader: some View {
+        HStack(alignment: .top, spacing: 12) {
+            VStack(alignment: .leading, spacing: 5) {
+                Text("Developer View")
+                    .font(.system(size: 11, weight: .semibold, design: .default))
+                    .foregroundStyle(AppTheme.mutedText)
+
+                Text("Schema Inspector")
+                    .font(.system(size: 22, weight: .semibold, design: .default))
+                    .foregroundStyle(.white)
+
+                Text("Copyable compact JSON used by the native renderer")
+                    .font(.system(size: 12, weight: .medium, design: .default))
+                    .foregroundStyle(AppTheme.mutedText)
+                    .lineLimit(2)
+            }
+            .layoutPriority(1)
+
+            Spacer(minLength: 8)
+
+            inspectorStatus
+        }
+        .padding(14)
+        .background(Color(hex: "#121A20"), in: RoundedRectangle(cornerRadius: 18))
+        .overlay {
+            RoundedRectangle(cornerRadius: 18)
+                .stroke(.white.opacity(0.055), lineWidth: 1)
+        }
+    }
+
+    private var inspectorStatus: some View {
+        Image(systemName: schema == nil ? "exclamationmark" : "curlybraces")
+            .font(.system(size: 12, weight: .bold, design: .default))
+            .foregroundStyle(Color(hex: "#0B1015"))
+            .frame(width: 30, height: 30)
+            .background(Color(hex: schema == nil ? "#DCE4EA" : "#F4F6F8"), in: Circle())
+    }
+
+    private var inspectorBackground: some View {
+        ZStack {
+            Color(hex: "#080B10")
+
+            LinearGradient(
+                colors: [
+                    Color.white.opacity(0.035),
+                    Color.clear,
+                    Color.black.opacity(0.28)
+                ],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+        }
+        .ignoresSafeArea()
+    }
+}
+
+private extension String {
+    var compactDurationText: String {
+        replacingOccurrences(of: "Rendered in ", with: "")
     }
 }
 

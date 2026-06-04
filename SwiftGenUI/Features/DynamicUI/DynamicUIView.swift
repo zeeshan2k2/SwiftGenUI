@@ -24,7 +24,7 @@ struct DynamicUIView: View {
             .navigationDestination(isPresented: $store.isHistoryPresented) {
                 GenerationHistoryView(store: store)
             }
-            .navigationDestination(isPresented: $store.isPreviewPresented) {
+            .navigationDestination(isPresented: previewFromDashboardBinding) {
                 GeneratedPreviewView(store: store)
             }
             .sheet(
@@ -41,6 +41,19 @@ struct DynamicUIView: View {
         .onAppear {
             store.send(.viewAppeared)
         }
+    }
+
+    private var previewFromDashboardBinding: Binding<Bool> {
+        Binding(
+            get: {
+                store.isPreviewPresented && !store.isHistoryPresented
+            },
+            set: { isPresented in
+                if !isPresented {
+                    store.isPreviewPresented = false
+                }
+            }
+        )
     }
 
     private var contentList: some View {
@@ -76,29 +89,28 @@ struct DynamicUIView: View {
     }
 
     private var heroCard: some View {
-        VStack(alignment: .leading, spacing: 18) {
-            VStack(alignment: .leading, spacing: 7) {
+        HStack(alignment: .top, spacing: 12) {
+            VStack(alignment: .leading, spacing: 5) {
                 Text("Current Pipeline")
                     .font(.system(size: 12, weight: .semibold, design: .default))
                     .foregroundStyle(AppTheme.mutedText)
 
                 Text("Prompt to Native UI")
-                    .font(.system(size: 28, weight: .semibold, design: .default))
+                    .font(.system(size: 24, weight: .semibold, design: .default))
                     .foregroundStyle(.white)
 
                 Text("Schema validated before render")
                     .font(.system(size: 12, weight: .semibold, design: .default))
                     .foregroundStyle(AppTheme.mutedText)
             }
+            .layoutPriority(1)
 
-            VStack(spacing: 0) {
-                pipelineRow(title: "Renderer", value: "SwiftUI")
-                Divider()
-                    .overlay(.white.opacity(0.08))
-                pipelineRow(title: "Provider", value: store.selectedProvider.pipelineValue)
-            }
+            Spacer(minLength: 8)
+
+            pipelineStatusStack
         }
-        .padding(16)
+        .padding(14)
+        .frame(maxWidth: .infinity, alignment: .leading)
         .background(Color(hex: "#121A20"), in: RoundedRectangle(cornerRadius: 14))
         .overlay {
             RoundedRectangle(cornerRadius: 14)
@@ -214,20 +226,16 @@ struct DynamicUIView: View {
         .ignoresSafeArea()
     }
 
-    private func pipelineRow(title: String, value: String) -> some View {
-        HStack {
-            Text(title)
-                .font(.system(size: 14, weight: .semibold, design: .default))
-                .foregroundStyle(AppTheme.mutedText)
-
-            Spacer()
-
-            Text(value)
-                .font(.system(size: 14, weight: .semibold, design: .default))
+    private var pipelineStatusStack: some View {
+        VStack(alignment: .trailing, spacing: 5) {
+            Text("SwiftUI")
+                .font(.system(size: 12, weight: .semibold, design: .default))
                 .foregroundStyle(.white.opacity(0.90))
-                .lineLimit(1)
+
+            Text(store.selectedProvider.pipelineValue)
+                .font(.system(size: 11, weight: .semibold, design: .default))
+                .foregroundStyle(AppTheme.mutedText)
         }
-        .padding(.vertical, 11)
     }
 }
 

@@ -87,6 +87,8 @@ struct ScreenSectionPromptBuilder {
         - If the section needs a button, use t "btn" with p.txt.
         - If the section needs an input, use t "tf" with p.ph.
         - Always set r on text components: title, subtitle, body, or caption.
+        - Use minimal modern iOS typography by default. Prefer fw "medium" or "semibold"; use fw "bold" sparingly for hierarchy. Avoid fw "black" unless the user explicitly asks for a playful, chunky, bubble, cartoon, or poster style.
+        - Avoid playful, bubble, cartoon, or overly rounded typography unless explicitly requested.
         - Apply an explicitly requested component color to that component. A blue button uses p.bg "#2563EB" and p.fg "#FFFFFF".
         """
     }

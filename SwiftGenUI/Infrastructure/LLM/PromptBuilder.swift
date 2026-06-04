@@ -73,7 +73,9 @@ struct PromptBuilder {
         - If the user asks for a button, use t "btn" with p.txt.
         - If the user asks for an input, use t "tf" with p.ph.
         - Always set r on text components: r "title" for the main heading, r "subtitle" for supporting text, r "caption" for helper/footer text, and r "body" for normal content.
-        - Use typography hierarchy: main titles usually use r "title", fs 24-28, fw "black" or "bold", and ll 1 or 2; subtitles use r "subtitle", fs 15-17 and fw "semibold" or "medium"; buttons use fs 16-18 and fw "bold".
+        - Use minimal modern iOS typography by default. Prefer fw "medium" or "semibold" for most text. Use fw "bold" only for strong hierarchy. Avoid fw "black" unless the user explicitly asks for a playful, chunky, bubble, cartoon, or poster style.
+        - Avoid playful, bubble, cartoon, or overly rounded typography unless explicitly requested.
+        - Use typography hierarchy: main titles usually use r "title", fs 24-28, fw "semibold" or "bold", and ll 1 or 2; subtitles use r "subtitle", fs 15-17 and fw "medium"; buttons use fs 16-18 and fw "semibold".
         - Avoid billboard titles. If the title has more than 14 characters, use fs 24-26 and ll 2.
         - Use layout control for polish: text fields usually use minH 52-58; primary buttons usually use h 52-58; cards can use maxW 320-340 and al "center".
         - Use al "center" when the user asks for centered content or a centered button/card.
@@ -106,7 +108,7 @@ struct PromptBuilder {
                 "txt": "Create Account",
                 "fg": "#0D111A",
                 "fs": 28,
-                "fw": "black",
+                "fw": "semibold",
                 "ta": "leading",
                 "ll": 2,
                 "r": "title"
