@@ -27,7 +27,6 @@ struct GenerationHistoryView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbarBackground(.hidden, for: .navigationBar)
         .toolbarColorScheme(.dark, for: .navigationBar)
-        .tint(.white)
         .navigationDestination(isPresented: $store.isPreviewPresented) {
             GeneratedPreviewView(store: store)
         }
@@ -84,6 +83,7 @@ struct GenerationHistoryView: View {
                         } label: {
                             Label("Delete", systemImage: "trash")
                         }
+                        .tint(.red)
                     }
                     .listRowStyle(top: 5, bottom: 5)
                 }

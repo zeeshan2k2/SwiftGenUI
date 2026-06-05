@@ -83,16 +83,7 @@ struct ModelProviderSheet: View {
     private var providerList: some View {
         ProviderSheetBackground {
             VStack(alignment: .leading, spacing: 18) {
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("AI Provider")
-                        .font(.system(size: 28, weight: .semibold, design: .default))
-                        .foregroundStyle(.white)
-
-                    Text("Choose where generated UI requests will run, or open settings to override a provider.")
-                        .font(.system(size: 14, weight: .medium, design: .default))
-                        .foregroundStyle(AppTheme.mutedText)
-                        .fixedSize(horizontal: false, vertical: true)
-                }
+                providerHeader
 
                 ScrollView(showsIndicators: false) {
                     VStack(spacing: 12) {
@@ -120,6 +111,45 @@ struct ModelProviderSheet: View {
             .padding(.bottom, 18)
         }
         .navigationBarHidden(true)
+    }
+
+    private var providerHeader: some View {
+        HStack(alignment: .top, spacing: 12) {
+            VStack(alignment: .leading, spacing: 5) {
+                Text("Model Routing")
+                    .font(.system(size: 12, weight: .semibold, design: .default))
+                    .foregroundStyle(AppTheme.mutedText)
+
+                Text("AI Provider")
+                    .font(.system(size: 24, weight: .semibold, design: .default))
+                    .foregroundStyle(.white)
+
+                Text("Choose where generated UI requests will run.")
+                    .font(.system(size: 12, weight: .medium, design: .default))
+                    .foregroundStyle(AppTheme.mutedText)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+            .layoutPriority(1)
+
+            Spacer(minLength: 8)
+
+            VStack(alignment: .trailing, spacing: 5) {
+                Text(store.selectedProvider.pipelineValue)
+                    .font(.system(size: 12, weight: .semibold, design: .default))
+                    .foregroundStyle(.white.opacity(0.90))
+
+                Text("Active")
+                    .font(.system(size: 11, weight: .semibold, design: .default))
+                    .foregroundStyle(AppTheme.mutedText)
+            }
+        }
+        .padding(14)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(Color(hex: "#121A20"), in: RoundedRectangle(cornerRadius: 14))
+        .overlay {
+            RoundedRectangle(cornerRadius: 14)
+                .stroke(.white.opacity(0.055), lineWidth: 1)
+        }
     }
 }
 
@@ -159,18 +189,30 @@ private struct ProviderOptionRow: View {
                 configureButton
 
                 if isSelected {
-                    Image(systemName: "checkmark.circle.fill")
-                        .font(.system(size: 21, weight: .semibold))
-                        .foregroundStyle(AppTheme.sage)
+                    Image(systemName: "checkmark")
+                        .font(.system(size: 11, weight: .bold, design: .default))
+                        .foregroundStyle(Color(hex: "#0B1015"))
+                        .frame(width: 26, height: 26)
+                        .background(
+                            LinearGradient(
+                                colors: [
+                                    Color(hex: "#B9E6BE"),
+                                    Color(hex: "#7FCA8B")
+                                ],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            ),
+                            in: Circle()
+                        )
                 }
             }
         }
         .buttonStyle(.plain)
-        .padding(14)
-        .background(.white.opacity(isSelected ? 0.11 : 0.06), in: RoundedRectangle(cornerRadius: 22))
+        .padding(12)
+        .background(Color(hex: isSelected ? "#151F27" : "#10161C"), in: RoundedRectangle(cornerRadius: 18))
         .overlay {
-            RoundedRectangle(cornerRadius: 22)
-                .stroke(.white.opacity(isSelected ? 0.18 : 0.09), lineWidth: 1)
+            RoundedRectangle(cornerRadius: 18)
+                .stroke(.white.opacity(isSelected ? 0.13 : 0.07), lineWidth: 1)
         }
     }
 
@@ -188,12 +230,12 @@ private struct ProviderOptionRow: View {
             Button(action: configureAction) {
                 Image(systemName: "slider.horizontal.3")
                     .font(.system(size: 14, weight: .semibold))
-                    .foregroundStyle(AppTheme.cream.opacity(0.72))
+                    .foregroundStyle(.white.opacity(0.72))
                     .frame(width: 34, height: 34)
-                    .background(.white.opacity(0.08), in: Circle())
+                    .background(Color(hex: "#1A232B"), in: Circle())
                     .overlay {
                         Circle()
-                            .stroke(.white.opacity(0.10), lineWidth: 1)
+                            .stroke(.white.opacity(0.08), lineWidth: 1)
                     }
             }
             .buttonStyle(.plain)
@@ -219,19 +261,21 @@ private struct ProviderSheetBackground<Content: View>: View {
 
     var body: some View {
         ZStack {
+            Color(hex: "#080B10")
+
             LinearGradient(
                 colors: [
-                    Color(hex: "#111724"),
-                    Color(hex: "#1D2635"),
-                    Color(hex: "#1A1410")
+                    Color.white.opacity(0.035),
+                    Color.clear,
+                    Color.black.opacity(0.28)
                 ],
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
+                startPoint: .top,
+                endPoint: .bottom
             )
-            .ignoresSafeArea()
 
             content
         }
+        .ignoresSafeArea()
     }
 }
 
@@ -258,15 +302,7 @@ private struct ProviderConfigurationView: View {
                 .buttonStyle(.plain)
                 .padding(.bottom, 4)
 
-                VStack(alignment: .leading, spacing: 7) {
-                    Text("\(provider.sheetTitle) Config")
-                        .font(.system(size: 26, weight: .semibold, design: .default))
-                        .foregroundStyle(.white)
-
-                    Text("Override the endpoint, model, or key used for this provider.")
-                        .font(.system(size: 13, weight: .medium, design: .default))
-                        .foregroundStyle(AppTheme.mutedText)
-                }
+                configurationHeader
 
                 VStack(alignment: .leading, spacing: 12) {
                     ProviderTextField(
@@ -299,10 +335,10 @@ private struct ProviderConfigurationView: View {
                     }
                 }
                 .padding(14)
-                .background(.white.opacity(0.07), in: RoundedRectangle(cornerRadius: 22))
+                .background(Color(hex: "#10161C"), in: RoundedRectangle(cornerRadius: 18))
                 .overlay {
-                    RoundedRectangle(cornerRadius: 22)
-                        .stroke(.white.opacity(0.10), lineWidth: 1)
+                    RoundedRectangle(cornerRadius: 18)
+                        .stroke(.white.opacity(0.07), lineWidth: 1)
                 }
 
                 Spacer(minLength: 0)
@@ -312,6 +348,50 @@ private struct ProviderConfigurationView: View {
             .padding(.bottom, 18)
         }
         .navigationBarHidden(true)
+    }
+
+    private var configurationHeader: some View {
+        HStack(alignment: .top, spacing: 12) {
+            VStack(alignment: .leading, spacing: 5) {
+                Text("Endpoint Settings")
+                    .font(.system(size: 12, weight: .semibold, design: .default))
+                    .foregroundStyle(AppTheme.mutedText)
+
+                Text("\(provider.sheetTitle) Config")
+                    .font(.system(size: 24, weight: .semibold, design: .default))
+                    .foregroundStyle(.white)
+
+                Text("Override the endpoint, model, or key used for this provider.")
+                    .font(.system(size: 12, weight: .medium, design: .default))
+                    .foregroundStyle(AppTheme.mutedText)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+            .layoutPriority(1)
+
+            Spacer(minLength: 8)
+
+            ProviderBrandIcon(provider: provider, fallbackSystemImage: provider.systemImage)
+                .frame(width: 34, height: 34)
+                .background(
+                    LinearGradient(
+                        colors: provider.iconBackgroundColors(isSelected: true),
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    ),
+                    in: RoundedRectangle(cornerRadius: 12)
+                )
+                .overlay {
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(.white.opacity(0.12), lineWidth: 1)
+                }
+        }
+        .padding(14)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(Color(hex: "#121A20"), in: RoundedRectangle(cornerRadius: 14))
+        .overlay {
+            RoundedRectangle(cornerRadius: 14)
+                .stroke(.white.opacity(0.055), lineWidth: 1)
+        }
     }
 }
 
@@ -386,10 +466,10 @@ private struct ProviderTextField: View {
             .foregroundStyle(.white)
             .padding(.horizontal, 12)
             .padding(.vertical, 11)
-            .background(AppTheme.inkSoft.opacity(0.72), in: RoundedRectangle(cornerRadius: 14))
+            .background(Color(hex: "#121A20"), in: RoundedRectangle(cornerRadius: 14))
             .overlay {
                 RoundedRectangle(cornerRadius: 14)
-                    .stroke(.white.opacity(0.10), lineWidth: 1)
+                    .stroke(.white.opacity(0.07), lineWidth: 1)
             }
         }
     }

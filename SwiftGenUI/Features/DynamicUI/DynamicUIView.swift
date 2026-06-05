@@ -239,7 +239,7 @@ struct DynamicUIView: View {
     }
 }
 
-private extension LLMProvider {
+extension LLMProvider {
     var pipelineValue: String {
         switch self {
         case .localOllama:
