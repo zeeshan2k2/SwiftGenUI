@@ -1,8 +1,8 @@
 # SwiftGenUI
 
-SwiftGenUI is a SwiftUI + TCA experiment for generating native iOS screens from LLM JSON schemas by routing prompts through local or online AI providers, validating the generated schema, and rendering the result as native SwiftUI.
+SwiftGenUI is a SwiftUI + TCA experiment for generating native iOS screens from LLM JSON schemas by routing prompts through selected LLM providers, validating the generated schema, and rendering the result as native SwiftUI.
 
-The idea started while working with local SLMs, where the model should not be allowed to generate and execute arbitrary app code. SwiftGenUI asks the model for a constrained JSON schema, validates that schema, converts it into recursive `UIComponent` nodes, and renders the result through a native SwiftUI renderer.
+The idea started while working with LLMs, where the model should not be allowed to generate and execute arbitrary app code. SwiftGenUI asks the model for a constrained JSON schema, validates that schema, converts it into recursive `UIComponent` nodes, and renders the result through a native SwiftUI renderer.
 
 This is not a production app builder yet. It is a research/prototype project for testing whether LLMs can generate useful mobile UI when forced through a safe schema-first rendering pipeline.
 
@@ -20,7 +20,7 @@ This is not a production app builder yet. It is a research/prototype project for
 ## What It Does
 
 - Takes a natural language prompt for a native iOS screen or component.
-- Routes generation through a selected AI provider.
+- Routes generation through a selected LLM provider.
 - Supports local Ollama/Qwen by default.
 - Supports OpenRouter, OpenAI, Gemini, and custom endpoints.
 - Forces model output into JSON instead of Swift code.
@@ -40,42 +40,38 @@ Example idea:
 Prompt:
 Create a signup form with an email field, password field, and orange continue button.
 
-Generated schema:
+Generated compact schema:
 {
   "id": "root",
-  "type": "vStack",
-  "props": {
-    "spacing": 18,
-    "padding": 28,
-    "backgroundColor": "#10161C",
-    "cornerRadius": 18
+  "t": "card",
+  "p": {
+    "sp": 18,
+    "pad": 28,
+    "bg": "#10161C",
+    "cr": 18
   },
-  "children": [
+  "c": [
     {
       "id": "email",
-      "type": "textField",
-      "props": {
-        "placeholder": "Email address"
-      },
-      "children": null,
-      "capability": null
+      "t": "tf",
+      "p": {
+        "ph": "Email address"
+      }
     },
     {
       "id": "continue",
-      "type": "button",
-      "props": {
-        "text": "Continue",
-        "backgroundColor": "#D9F99D"
-      },
-      "children": null,
-      "capability": null
+      "t": "btn",
+      "p": {
+        "txt": "Continue",
+        "bg": "#D9F99D",
+        "fg": "#0B1015"
+      }
     }
-  ],
-  "capability": null
+  ]
 }
 ```
 
-The model does not directly control the app runtime. It only describes UI through a limited schema that SwiftGenUI knows how to validate and render.
+The model does not directly control the app runtime. It only describes UI through a limited compact schema that SwiftGenUI decodes into internal `UIComponent` nodes before validation and rendering.
 
 ## Supported Components
 
@@ -98,27 +94,27 @@ section
 Generated components can include props such as:
 
 ```text
-text
-placeholder
-spacing
-padding
-foregroundColor
-backgroundColor
-cornerRadius
-fontSize
-fontWeight
-textAlignment
-lineLimit
-textRole
-alignment
-width
-height
-maxWidth
-minHeight
+txt
+ph
+sp
+pad
+fg
+bg
+cr
+fs
+fw
+ta
+ll
+r
+al
+w
+h
+maxW
+minH
 shadow
-borderColor
-borderWidth
-opacity
+bd
+bw
+op
 ```
 
 Only container components can contain children. Leaf components such as `text`, `button`, `textField`, `spacer`, and `divider` are validated so they cannot contain nested children.
@@ -203,48 +199,62 @@ Ollama-compatible
 
 ## Schema Format
 
-Each generated UI node is represented as a `UIComponent`:
+The LLM is asked to return a compact SwiftGenUI schema. Each compact node is decoded into an internal `UIComponent` before validation and rendering.
 
 ```text
-id          stable unique string
-type        supported component type
-props       optional visual/text/layout properties
-children    optional child components
-capability  optional native capability call
+id    stable unique string
+t     supported component type code
+p     optional visual/text/layout props
+c     optional child components
 ```
 
-Current schema shape:
+Current compact schema shape:
 
 ```text
 {
   "id": "stable unique string",
-  "type": "vStack|hStack|zStack|text|button|textField|spacer|divider|card|scrollView|section",
-  "props": {
-    "text": "optional text",
-    "placeholder": "optional placeholder",
-    "spacing": 0-32,
-    "padding": 0-32,
-    "foregroundColor": "#RRGGBB",
-    "backgroundColor": "#RRGGBB",
-    "cornerRadius": 0-32,
-    "fontSize": 12-34,
-    "fontWeight": "regular|medium|semibold|bold",
-    "textAlignment": "leading|center|trailing",
-    "lineLimit": 1-6,
-    "textRole": "title|subtitle|body|caption|metric",
-    "alignment": "leading|center|trailing",
-    "width": 0,
-    "height": 0,
-    "maxWidth": 0,
-    "minHeight": 0,
-    "shadow": "none|soft|medium",
-    "borderColor": "#RRGGBB",
-    "borderWidth": 0-4,
-    "opacity": 0-1
+  "t": "vS|hS|zS|txt|btn|tf|spacer|div|card|scr|sec",
+  "p": {
+    "txt": "optional text",
+    "ph": "optional placeholder",
+    "sp": 0-32,
+    "pad": 0-32,
+    "fg": "#RRGGBB",
+    "bg": "#RRGGBB",
+    "cr": 0-32,
+    "fs": 11-32,
+    "fw": "regular|medium|semibold|bold|black",
+    "ta": "leading|center|trailing",
+    "ll": 1-3,
+    "r": "title|subtitle|body|caption",
+    "al": "leading|center|trailing",
+    "w": 1-360,
+    "h": 1-220,
+    "maxW": 1-360,
+    "minH": 1-220,
+    "shadow": "soft|medium|strong|glow",
+    "bd": "#RRGGBB",
+    "bw": 0-4,
+    "op": 0-1
   },
-  "children": [],
-  "capability": null
+  "c": []
 }
+```
+
+Compact type codes map to internal component types:
+
+```text
+vS     vStack
+hS     hStack
+zS     zStack
+txt    text
+btn    button
+tf     textField
+spacer spacer
+div    divider
+card   card
+scr    scrollView
+sec    section
 ```
 
 The prompt rules prefer structured vertical layouts for screens, cards, forms, and grouped content. `zStack` is only intended for explicit overlapping layouts.
